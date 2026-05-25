@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>WaterKing QR System</title>
+    <title>WaterKing Mu-bakid</title>
 
     <!-- CDN Dependencies -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -1851,6 +1851,25 @@
                 const sessionStr = localStorage.getItem('wk_session');
                 if (!sessionStr) return null;
                 const session = JSON.parse(sessionStr);
+                
+                if (isSupabaseAvailable()) {
+                    const cachedUserStr = localStorage.getItem('wk_active_user');
+                    if (cachedUserStr) {
+                        const cached = JSON.parse(cachedUserStr);
+                        if (cached && cached.username === session.username) {
+                            return cached;
+                        }
+                    }
+                    // Fallback to basic details from session if cache is not yet populated
+                    return {
+                        username: session.username,
+                        role: session.role,
+                        fullname: session.username === 'admin' ? 'Administrator' : session.username,
+                        status: 'active'
+                    };
+                }
+                
+                // Local fallback
                 const users = JSON.parse(localStorage.getItem(STORE_USERS) || '[]');
                 return users.find(u => u.username === session.username) || null;
             } catch (e) {
@@ -2091,6 +2110,18 @@
                     };
 
                     localStorage.setItem('wk_session', JSON.stringify(session));
+                    
+                    // Cache active user details
+                    localStorage.setItem('wk_active_user', JSON.stringify({
+                        username: user.username,
+                        fullname: user.fullname,
+                        dormitory: user.dormitory,
+                        role: user.role,
+                        status: user.status,
+                        salt: user.salt,
+                        pinHash: user.pin_hash
+                    }));
+
                     await logSecurityEvent(username, 'SUCCESS_LOGIN', `Login sukses sebagai ${user.role}.`);
 
                     // Update user metadata in Supabase
@@ -2201,6 +2232,18 @@
             };
 
             localStorage.setItem('wk_session', JSON.stringify(session));
+            
+            // Cache active user details
+            localStorage.setItem('wk_active_user', JSON.stringify({
+                username: user.username,
+                fullname: user.fullname,
+                dormitory: user.dormitory,
+                role: user.role,
+                status: user.status,
+                salt: user.salt,
+                pinHash: user.pinHash
+            }));
+
             await logSecurityEvent(username, 'SUCCESS_LOGIN', `Login sukses sebagai ${user.role}.`);
 
             // Update user metadata
@@ -2367,6 +2410,7 @@
 
                 if (!dbUser || dbUser.status !== 'active') {
                     localStorage.removeItem('wk_session');
+                    localStorage.removeItem('wk_active_user');
                     showLoginForm();
                     loginContainer.classList.remove('hidden');
                     appLayout.classList.add('hidden');
@@ -2376,6 +2420,28 @@
                 }
 
                 // Session remains active
+                if (isSupabaseAvailable() && dbUser) {
+                    localStorage.setItem('wk_active_user', JSON.stringify({
+                        username: dbUser.username,
+                        fullname: dbUser.fullname,
+                        dormitory: dbUser.dormitory,
+                        role: dbUser.role,
+                        status: dbUser.status,
+                        salt: dbUser.salt,
+                        pinHash: dbUser.pin_hash
+                    }));
+                } else if (dbUser) {
+                    localStorage.setItem('wk_active_user', JSON.stringify({
+                        username: dbUser.username,
+                        fullname: dbUser.fullname,
+                        dormitory: dbUser.dormitory,
+                        role: dbUser.role,
+                        status: dbUser.status,
+                        salt: dbUser.salt,
+                        pinHash: dbUser.pinHash
+                    }));
+                }
+
                 loginContainer.classList.add('hidden');
                 appLayout.classList.remove('hidden');
                 appLayout.style.opacity = '1';
@@ -2526,6 +2592,7 @@
 
             await logSecurityEvent(username, 'SUCCESS_LOGOUT', 'User logout manual.');
             localStorage.removeItem('wk_session');
+            localStorage.removeItem('wk_active_user');
 
             if (isSupabaseAvailable()) {
                 if (txChannel) { supabaseClient.removeChannel(txChannel); txChannel = null; }
