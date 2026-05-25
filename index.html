@@ -491,29 +491,22 @@
                 </div>
 
                 <!-- Scanner Viewport -->
-                <div class="relative flex-1 bg-black flex items-center justify-center overflow-hidden">
-                    <div id="reader" class="w-full h-full min-h-[400px]"></div>
+                <div class="relative flex-1 bg-black overflow-hidden">
+                    <div id="reader"></div>
 
-                    <!-- Targeting Frame SVG Overlay (Pointer Events None) -->
-                    <div class="absolute inset-0 pointer-events-none flex items-center justify-center z-10">
-                        <div class="w-64 h-64 border-2 border-white/30 rounded-3xl relative">
-                            <!-- Corners -->
-                            <div
-                                class="absolute -top-1 -left-1 w-8 h-8 border-t-4 border-l-4 border-apple-blue rounded-tl-3xl">
-                            </div>
-                            <div
-                                class="absolute -top-1 -right-1 w-8 h-8 border-t-4 border-r-4 border-apple-blue rounded-tr-3xl">
-                            </div>
-                            <div
-                                class="absolute -bottom-1 -left-1 w-8 h-8 border-b-4 border-l-4 border-apple-blue rounded-bl-3xl">
-                            </div>
-                            <div
-                                class="absolute -bottom-1 -right-1 w-8 h-8 border-b-4 border-r-4 border-apple-blue rounded-br-3xl">
-                            </div>
+                    <!-- Centered frame visual matching target scan area -->
+                    <div class="scan-frame-wrapper">
+                        <div class="scan-frame border-2 border-white/30 rounded-3xl">
+                            <!-- Outer Corners -->
+                            <div class="absolute -top-1 -left-1 w-8 h-8 border-t-4 border-l-4 border-apple-blue rounded-tl-3xl z-20"></div>
+                            <div class="absolute -top-1 -right-1 w-8 h-8 border-t-4 border-r-4 border-apple-blue rounded-tr-3xl z-20"></div>
+                            <div class="absolute -bottom-1 -left-1 w-8 h-8 border-b-4 border-l-4 border-apple-blue rounded-bl-3xl z-20"></div>
+                            <div class="absolute -bottom-1 -right-1 w-8 h-8 border-b-4 border-r-4 border-apple-blue rounded-br-3xl z-20"></div>
 
-                            <!-- Scanning line animation -->
-                            <div
-                                class="w-full h-0.5 bg-apple-blue absolute top-0 left-0 shadow-[0_0_15px_#0a84ff] animate-[scan_2s_ease-in-out_infinite]">
+                            <!-- Inner scanner box for animation clipping -->
+                            <div class="absolute inset-0 overflow-hidden rounded-[22px]">
+                                <!-- Scanning line animation -->
+                                <div class="w-full h-0.5 bg-apple-blue absolute top-0 left-0 shadow-[0_0_15px_#0a84ff] animate-[scan_2s_ease-in-out_infinite] z-10"></div>
                             </div>
                         </div>
                     </div>
@@ -537,47 +530,71 @@
             <style>
                 @keyframes scan {
                     0% {
-                        top: 0;
+                        top: 0%;
                         opacity: 0;
                     }
-
                     10% {
                         opacity: 1;
                     }
-
                     90% {
                         opacity: 1;
                     }
-
                     100% {
                         top: 100%;
                         opacity: 0;
                     }
                 }
 
-                /* Hide default html5-qrcode UI elements to look custom */
-                #reader__dashboard_section_csr span,
-                #reader__dashboard_section_swaplink {
-                    color: white !important;
-                    font-family: inherit;
+                #scan {
+                    padding-top: env(safe-area-inset-top);
+                    padding-bottom: calc(90px + env(safe-area-inset-bottom));
                 }
 
-                #reader__dashboard_section_csr button {
-                    background: #0a84ff !important;
-                    color: white !important;
-                    border: none;
-                    padding: 8px 16px;
-                    border-radius: 8px;
-                    margin-top: 10px;
+                /* Camera Full Container */
+                #reader {
+                    position: absolute !important;
+                    inset: 0 !important;
+                    width: 100% !important;
+                    height: 100% !important;
+                    overflow: hidden !important;
+                    border: none !important;
+                    background: #000000 !important;
                 }
 
                 #reader video {
-                    object-fit: cover;
-                    border-radius: 0;
+                    width: 100% !important;
+                    height: 100% !important;
+                    object-fit: cover !important;
+                    position: absolute !important;
+                    inset: 0 !important;
                 }
 
-                #reader {
-                    border: none !important;
+                /* Hide default overlay & library scan regions to avoid double frames */
+                #reader__scan_region,
+                #reader canvas {
+                    display: none !important;
+                }
+
+                /* Centered responsive frame */
+                .scan-frame-wrapper {
+                    position: absolute;
+                    inset: 0;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    pointer-events: none;
+                    z-index: 10;
+                }
+
+                .scan-frame {
+                    width: min(72vw, 320px);
+                    height: min(72vw, 320px);
+                    position: relative;
+                    touch-action: manipulation;
+                    -webkit-tap-highlight-color: transparent;
+                    transform: translate3d(0, 0, 0);
+                    will-change: transform;
+                    backface-visibility: hidden;
                 }
             </style>
         </section>
@@ -1148,7 +1165,12 @@
             document.getElementById('scanner-indicator').classList.add('animate-pulse', 'bg-red-500');
 
             html5QrcodeScanner = new Html5Qrcode("reader");
-            const config = { fps: 10, qrbox: { width: 250, height: 250 }, aspectRatio: 1.0 };
+            const qrSize = Math.min(window.innerWidth * 0.72, 320);
+            const config = { 
+                fps: 10, 
+                qrbox: { width: qrSize, height: qrSize }, 
+                aspectRatio: 1.0 
+            };
 
             html5QrcodeScanner.start({ facingMode: "environment" }, config, onScanSuccess)
                 .then(() => {
