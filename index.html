@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>WaterKing Mu-bakid</title>
+    <title>WaterKing QR System</title>
 
     <!-- CDN Dependencies -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -2681,6 +2681,7 @@
                 } else if (u.status === 'active') {
                     actionButtons += `
                         <button onclick="handleUserAction('${u.username}', 'block')" class="px-2 py-1 bg-yellow-600 hover:bg-yellow-700 text-white rounded font-bold cursor-pointer">Blokir</button>
+                        <button onclick="handleUserAction('${u.username}', 'reset_pin')" class="px-2 py-1 bg-blue-600 hover:bg-blue-700 text-white rounded font-bold cursor-pointer">Reset PIN</button>
                     `;
                 } else if (u.status === 'blocked') {
                     actionButtons += `
@@ -2733,6 +2734,15 @@
                     } else if (action === 'archive') {
                         updates.status = 'archived';
                         updates.archived_at = new Date().toISOString();
+                    } else if (action === 'reset_pin') {
+                        const targetUser = localUsers.find(u => u.username === username);
+                        if (!targetUser) {
+                            showToast('Gagal', 'User tidak ditemukan.', 'error');
+                            return;
+                        }
+                        const salt = targetUser.salt;
+                        const defaultHash = await hashSHA256("000000" + salt);
+                        updates.pin_hash = defaultHash;
                     }
 
                     const { error } = await supabaseClient
@@ -2754,13 +2764,16 @@
                     } else if (action === 'archive') {
                         await logSecurityEvent(username, 'ARCHIVED_USER', `Akun diarsip oleh admin ${adminSession.username}`);
                         showToast('Pengguna Diarsip', `Karyawan ${username} telah diarsipkan (soft delete).`, 'success');
+                    } else if (action === 'reset_pin') {
+                        await logSecurityEvent(username, 'RESET_PIN', `PIN direset oleh admin ${adminSession.username}. PIN baru: 000000`);
+                        showToast('PIN Direset', `PIN karyawan ${username} direset ke default 000000.`, 'success');
                     }
 
                     // Reload user data
                     await loadAppData();
                 } catch (err) {
                     console.error('Failed to execute user action in Supabase:', err);
-                    showToast('Gagal', 'Gagal memperbarui status user di database.', 'error');
+                    showToast('Gagal', 'Gagal memperbarui data user di database.', 'error');
                 }
                 return;
             }
@@ -2790,6 +2803,12 @@
                 users[userIndex].archivedAt = Date.now();
                 await logSecurityEvent(username, 'ARCHIVED_USER', `Akun diarsip oleh admin ${adminSession.username}`);
                 showToast('Pengguna Diarsip', `Karyawan ${username} telah diarsipkan (soft delete).`, 'success');
+            } else if (action === 'reset_pin') {
+                const salt = users[userIndex].salt;
+                const defaultHash = await hashSHA256("000000" + salt);
+                users[userIndex].pinHash = defaultHash;
+                await logSecurityEvent(username, 'RESET_PIN', `PIN direset oleh admin ${adminSession.username}. PIN baru: 000000`);
+                showToast('PIN Direset', `PIN karyawan ${username} direset ke default 000000.`, 'success');
             }
 
             localStorage.setItem(STORE_USERS, JSON.stringify(users));
