@@ -11,6 +11,7 @@
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
     <script src="https://unpkg.com/html5-qrcode"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
     <!-- Tailwind Config for Custom Theme -->
     <script>
@@ -180,7 +181,8 @@
             justify-content: center;
         }
 
-        .nav-item svg, .nav-item i {
+        .nav-item svg,
+        .nav-item i {
             color: #8e8e93;
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
@@ -195,7 +197,8 @@
             transform: translateY(-8px) scale(1.1);
         }
 
-        .nav-item.active svg, .nav-item.active i {
+        .nav-item.active svg,
+        .nav-item.active i {
             color: white !important;
         }
 
@@ -205,6 +208,7 @@
                 opacity: 0;
                 transform: translateY(12px);
             }
+
             100% {
                 opacity: 1;
                 transform: translateY(0);
@@ -217,7 +221,23 @@
         }
 
         /* Smooth Transition for Theme Switches */
-        body, .glass-card, input, textarea, button, svg, i, span, h1, h2, h3, h4, th, td, aside, nav, div {
+        body,
+        .glass-card,
+        input,
+        textarea,
+        button,
+        svg,
+        i,
+        span,
+        h1,
+        h2,
+        h3,
+        h4,
+        th,
+        td,
+        aside,
+        nav,
+        div {
             transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
         }
 
@@ -245,7 +265,7 @@
             color: #555558 !important;
         }
 
-        html.light input, 
+        html.light input,
         html.light textarea,
         html.light select {
             background-color: rgba(0, 0, 0, 0.04) !important;
@@ -253,22 +273,22 @@
             color: #1c1c1e !important;
         }
 
-        html.light input:focus, 
+        html.light input:focus,
         html.light textarea:focus {
             border-color: #0a84ff !important;
             background-color: rgba(255, 255, 255, 0.9) !important;
         }
 
-        html.light input::placeholder, 
+        html.light input::placeholder,
         html.light textarea::placeholder {
             color: #8e8e93 !important;
         }
 
-        html.light .divide-white\/5 > * + *,
+        html.light .divide-white\/5>*+*,
         html.light .border-white\/5,
         html.light .border-white\/10,
         html.light .border-white\/20,
-        html.light .divide-y.divide-white\/5 > * + * {
+        html.light .divide-y.divide-white\/5>*+* {
             border-color: rgba(0, 0, 0, 0.08) !important;
         }
 
@@ -308,7 +328,7 @@
         html.light .nav-btn-desktop.text-white span {
             color: #ffffff !important;
         }
-        
+
         html.light .nav-item.active span {
             color: #0a84ff !important;
         }
@@ -317,7 +337,7 @@
             color: #6e6e73;
         }
 
-        html.light .nav-item svg, 
+        html.light .nav-item svg,
         html.light .nav-item i {
             color: #6e6e73;
         }
@@ -378,7 +398,7 @@
             position: absolute;
             inset: 0;
             background: radial-gradient(circle at 30% 20%, #051329 0%, #000000 70%),
-                        radial-gradient(circle at 80% 80%, #001f3f 0%, #000000 80%);
+                radial-gradient(circle at 80% 80%, #001f3f 0%, #000000 80%);
             z-index: 1;
         }
 
@@ -423,10 +443,12 @@
                 transform: translate(0, 0) scale(1);
                 opacity: 0.15;
             }
+
             50% {
                 transform: translate(45px, -45px) scale(1.1);
                 opacity: 0.22;
             }
+
             100% {
                 transform: translate(-30px, 45px) scale(0.9);
                 opacity: 0.15;
@@ -438,9 +460,21 @@
         }
 
         @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            20%, 60% { transform: translateX(-8px); }
-            40%, 80% { transform: translateX(8px); }
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            20%,
+            60% {
+                transform: translateX(-8px);
+            }
+
+            40%,
+            80% {
+                transform: translateX(8px);
+            }
         }
     </style>
 </head>
@@ -452,7 +486,8 @@
         class="fixed top-4 left-0 right-0 z-50 flex flex-col items-center gap-2 pointer-events-none px-4"></div>
 
     <!-- ================= LOGIN CONTAINER ================= -->
-    <div id="login-container" class="fixed inset-0 w-full h-full z-50 flex items-center justify-center overflow-hidden bg-black select-none transition-all duration-500">
+    <div id="login-container"
+        class="fixed inset-0 w-full h-full z-50 flex items-center justify-center overflow-hidden bg-black select-none transition-all duration-500">
         <!-- Abstract Liquid Background -->
         <div class="water-bg"></div>
         <div class="water-orb water-orb-1"></div>
@@ -461,24 +496,27 @@
 
         <!-- Login Card -->
         <div class="relative z-10 w-full max-w-md px-6">
-            <div id="login-card" class="glass-card rounded-[32px] p-8 md:p-10 flex flex-col items-center shadow-2xl relative border border-white/10 overflow-hidden">
-                
+            <div id="login-card"
+                class="glass-card rounded-[32px] p-8 md:p-10 flex flex-col items-center shadow-2xl relative border border-white/10 overflow-hidden">
+
                 <!-- Water Droplet Logo -->
-                <div class="w-16 h-16 bg-gradient-to-br from-blue-400 to-apple-blue rounded-2xl flex items-center justify-center mb-6 shadow-lg shadow-blue-500/30">
+                <div
+                    class="w-16 h-16 bg-gradient-to-br from-blue-400 to-apple-blue rounded-2xl flex items-center justify-center mb-6 shadow-lg shadow-blue-500/30">
                     <i data-lucide="droplet" class="text-white w-8 h-8 animate-pulse"></i>
                 </div>
-                
+
                 <!-- Title & Subtitle -->
                 <h1 class="text-2xl font-extrabold text-white tracking-wide text-center">WaterKing Access</h1>
                 <p class="text-apple-gray text-xs mt-1.5 text-center">Sistem Distribusi Air Pesantren</p>
-                
+
                 <!-- Login Form -->
                 <form id="form-login" onsubmit="handleLogin(event)" class="w-full mt-8 space-y-4">
                     <!-- Username Input -->
                     <div>
                         <label class="block text-xs font-semibold text-apple-gray mb-2">Username</label>
                         <div class="relative">
-                            <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-apple-gray">
+                            <div
+                                class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-apple-gray">
                                 <i data-lucide="user" class="w-5 h-5"></i>
                             </div>
                             <input type="text" id="login-username" required placeholder="Masukkan username"
@@ -490,20 +528,23 @@
                     <div>
                         <label class="block text-xs font-semibold text-apple-gray mb-2">Password / PIN</label>
                         <div class="relative">
-                            <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-apple-gray">
+                            <div
+                                class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-apple-gray">
                                 <i data-lucide="lock" class="w-5 h-5"></i>
                             </div>
-                            <input type="password" id="login-password" required placeholder="••••••" maxlength="6" inputmode="numeric" pattern="[0-9]*"
+                            <input type="password" id="login-pin" required placeholder="••••••" maxlength="6"
+                                inputmode="numeric" pattern="[0-9]*"
                                 class="w-full pl-11 pr-12 py-3 bg-black/40 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-apple-blue focus:ring-1 focus:ring-apple-blue transition-all text-sm tracking-[0.2em]"
                                 oninput="validatePasswordInput(this)">
-                            
+
                             <!-- Show/Hide Password Toggle -->
-                            <button type="button" onclick="toggleLoginPasswordVisible()"
+                            <button type="button" onclick="toggleLoginPasswordVisible('login-pin', this)"
                                 class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-apple-gray hover:text-white transition-colors cursor-pointer select-none">
                                 <i id="eye-icon" data-lucide="eye" class="w-5 h-5"></i>
                             </button>
                         </div>
-                        <p id="password-warning" class="text-apple-red text-[11px] mt-1.5 hidden">Password maksimal 6 karakter (angka saja).</p>
+                        <p id="password-warning" class="text-apple-red text-[11px] mt-1.5 hidden">Password maksimal 6
+                            karakter (angka saja).</p>
                     </div>
 
                     <!-- Login CTA Button -->
@@ -514,54 +555,61 @@
 
                     <!-- Links to switch form -->
                     <div class="flex justify-between items-center text-xs mt-6 px-1">
-                        <button type="button" onclick="showRegisterForm()" class="text-apple-gray hover:text-white transition-colors cursor-pointer select-none bg-transparent border-none">Buat Akun</button>
-                        <button type="button" onclick="showForgotPIN()" class="text-apple-gray hover:text-white transition-colors cursor-pointer select-none bg-transparent border-none">Lupa PIN?</button>
+                        <button type="button" onclick="showRegisterForm()"
+                            class="text-apple-gray hover:text-white transition-colors cursor-pointer select-none bg-transparent border-none">Buat
+                            Akun</button>
+                        <button type="button" onclick="showForgotPIN()"
+                            class="text-apple-gray hover:text-white transition-colors cursor-pointer select-none bg-transparent border-none">Lupa
+                            PIN?</button>
                     </div>
                 </form>
 
                 <!-- Register Form -->
                 <form id="form-register" onsubmit="handleRegister(event)" class="w-full mt-6 space-y-4 hidden">
                     <h3 class="text-sm font-bold text-white text-center mb-1">Pendaftaran Akun Baru</h3>
-                    <p class="text-center text-[10px] text-apple-gray leading-tight">Pengajuan akun operator baru dengan status peninjauan.</p>
-                    
+                    <p class="text-center text-[10px] text-apple-gray leading-tight">Pengajuan akun operator baru dengan
+                        status peninjauan.</p>
+
                     <div>
                         <label class="block text-[11px] font-semibold text-apple-gray mb-1">Nama Lengkap</label>
                         <input type="text" id="reg-fullname" required placeholder="Masukkan nama lengkap"
                             class="w-full px-3 py-2 bg-black/40 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-apple-blue focus:ring-1 focus:ring-apple-blue transition-all text-xs">
                     </div>
-                    
+
                     <div>
                         <label class="block text-[11px] font-semibold text-apple-gray mb-1">Username</label>
                         <input type="text" id="reg-username" required placeholder="Masukkan username"
                             class="w-full px-3 py-2 bg-black/40 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-apple-blue focus:ring-1 focus:ring-apple-blue transition-all text-xs">
                     </div>
-                    
+
                     <div>
                         <label class="block text-[11px] font-semibold text-apple-gray mb-1">Asrama</label>
                         <input type="text" id="reg-dormitory" required placeholder="Contoh: A03 atau A3"
                             class="w-full px-3 py-2 bg-black/40 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-apple-blue focus:ring-1 focus:ring-apple-blue transition-all text-xs uppercase">
                     </div>
-                    
+
                     <div class="grid grid-cols-2 gap-3">
                         <div>
                             <label class="block text-[11px] font-semibold text-apple-gray mb-1">PIN (6 Angka)</label>
-                            <input type="password" id="reg-pin" required placeholder="••••••" maxlength="6" inputmode="numeric" pattern="[0-9]*"
+                            <input type="password" id="reg-pin" required placeholder="••••••" maxlength="6"
+                                inputmode="numeric" pattern="[0-9]*"
                                 class="w-full px-3 py-2 bg-black/40 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-apple-blue focus:ring-1 focus:ring-apple-blue transition-all text-xs tracking-[0.2em]"
                                 oninput="validatePinInput(this)">
                         </div>
                         <div>
                             <label class="block text-[11px] font-semibold text-apple-gray mb-1">Ulangi PIN</label>
-                            <input type="password" id="reg-pin-confirm" required placeholder="••••••" maxlength="6" inputmode="numeric" pattern="[0-9]*"
+                            <input type="password" id="reg-pin-confirm" required placeholder="••••••" maxlength="6"
+                                inputmode="numeric" pattern="[0-9]*"
                                 class="w-full px-3 py-2 bg-black/40 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-apple-blue focus:ring-1 focus:ring-apple-blue transition-all text-xs tracking-[0.2em]"
                                 oninput="validatePinInput(this)">
                         </div>
                     </div>
-                    
+
                     <button type="submit"
                         class="w-full mt-4 bg-gradient-to-r from-blue-500 to-apple-blue hover:from-blue-600 hover:to-blue-600 active:scale-[0.98] text-white font-bold py-2.5 rounded-xl transition-all flex justify-center items-center gap-2 shadow-lg shadow-blue-500/25 select-none cursor-pointer text-xs">
                         Kirim Pengajuan
                     </button>
-                    
+
                     <button type="button" onclick="showLoginForm()"
                         class="w-full text-center text-xs text-apple-gray hover:text-white transition-colors cursor-pointer select-none py-1 mt-1 bg-transparent border-none">
                         Kembali ke Login
@@ -571,8 +619,10 @@
                 <!-- Forgot PIN dialog -->
                 <div id="forgot-container" class="w-full mt-6 space-y-4 hidden flex flex-col items-center">
                     <h3 class="text-sm font-bold text-white text-center mb-1">Lupa PIN Akses</h3>
-                    <div class="bg-red-500/10 border border-red-500/20 rounded-2xl p-4 text-xs text-center text-apple-red leading-relaxed border-dashed">
-                        Reset PIN hanya dapat dilakukan oleh pengurus atau administrator resmi WaterKing melalui proses verifikasi pengguna.
+                    <div
+                        class="bg-red-500/10 border border-red-500/20 rounded-2xl p-4 text-xs text-center text-apple-red leading-relaxed border-dashed">
+                        Reset PIN hanya dapat dilakukan oleh pengurus atau administrator resmi WaterKing melalui proses
+                        verifikasi pengguna.
                     </div>
                     <button type="button" onclick="showLoginForm()"
                         class="w-full text-center text-xs text-apple-gray hover:text-white transition-colors cursor-pointer select-none py-2 mt-2 bg-transparent border-none">
@@ -588,647 +638,722 @@
 
         <!-- Mobile Bottom Navigation (Hidden on Desktop) -->
         <nav
-        class="md:hidden fixed bottom-6 left-4 right-4 glass-card rounded-3xl border border-white/10 z-40 shadow-2xl backdrop-blur-2xl bg-black/40 pb-0">
-        <div class="flex justify-around items-center h-[70px] px-2 relative">
-            <button onclick="switchTab('dashboard')"
-                class="nav-btn nav-item flex flex-col items-center p-2 text-apple-gray active transition-colors"
-                data-target="dashboard">
-                <div class="icon-wrapper p-2.5 rounded-full transition-all duration-300">
-                    <i data-lucide="home" class="w-6 h-6"></i>
-                </div>
-                <span class="text-[10px] font-medium mt-1">Beranda</span>
-            </button>
-            <button onclick="switchTab('generate')"
-                class="nav-btn nav-item flex flex-col items-center p-2 text-apple-gray transition-colors"
-                data-target="generate">
-                <div class="icon-wrapper p-2.5 rounded-full transition-all duration-300">
-                    <i data-lucide="qr-code" class="w-6 h-6"></i>
-                </div>
-                <span class="text-[10px] font-medium mt-1">Buat QR</span>
-            </button>
-            <button onclick="switchTab('scan')"
-                class="nav-btn nav-item flex flex-col items-center p-2 text-apple-gray transition-colors"
-                data-target="scan">
-                <div class="icon-wrapper p-2.5 rounded-full transition-all duration-300">
-                    <i data-lucide="scan" class="w-6 h-6"></i>
-                </div>
-                <span class="text-[10px] font-medium mt-1">Scan</span>
-            </button>
-            <button onclick="switchTab('history')"
-                class="nav-btn nav-item flex flex-col items-center p-2 text-apple-gray transition-colors"
-                data-target="history">
-                <div class="icon-wrapper p-2.5 rounded-full transition-all duration-300">
-                    <i data-lucide="clock" class="w-6 h-6"></i>
-                </div>
-                <span class="text-[10px] font-medium mt-1">Histori</span>
-            </button>
-        </div>
-    </nav>
-
-    <!-- Desktop Sidebar (Hidden on Mobile) -->
-    <aside class="hidden md:flex flex-col w-64 glass-card border-r border-white/10 h-full z-40 relative">
-        <div class="p-6 flex items-center gap-3">
-            <div class="bg-gradient-to-br from-blue-400 to-apple-blue p-2 rounded-xl shadow-lg">
-                <i data-lucide="droplets" class="text-white w-6 h-6"></i>
+            class="md:hidden fixed bottom-6 left-4 right-4 glass-card rounded-3xl border border-white/10 z-40 shadow-2xl backdrop-blur-2xl bg-black/40 pb-0">
+            <div class="flex justify-around items-center h-[70px] px-2 relative">
+                <button onclick="switchTab('dashboard')"
+                    class="nav-btn nav-item flex flex-col items-center p-2 text-apple-gray active transition-colors"
+                    data-target="dashboard">
+                    <div class="icon-wrapper p-2.5 rounded-full transition-all duration-300">
+                        <i data-lucide="home" class="w-6 h-6"></i>
+                    </div>
+                    <span class="text-[10px] font-medium mt-1">Beranda</span>
+                </button>
+                <button onclick="switchTab('generate')"
+                    class="nav-btn nav-item flex flex-col items-center p-2 text-apple-gray transition-colors"
+                    data-target="generate">
+                    <div class="icon-wrapper p-2.5 rounded-full transition-all duration-300">
+                        <i data-lucide="qr-code" class="w-6 h-6"></i>
+                    </div>
+                    <span class="text-[10px] font-medium mt-1">Buat QR</span>
+                </button>
+                <button onclick="switchTab('scan')"
+                    class="nav-btn nav-item flex flex-col items-center p-2 text-apple-gray transition-colors"
+                    data-target="scan">
+                    <div class="icon-wrapper p-2.5 rounded-full transition-all duration-300">
+                        <i data-lucide="scan" class="w-6 h-6"></i>
+                    </div>
+                    <span class="text-[10px] font-medium mt-1">Scan</span>
+                </button>
+                <button onclick="switchTab('history')"
+                    class="nav-btn nav-item flex flex-col items-center p-2 text-apple-gray transition-colors"
+                    data-target="history">
+                    <div class="icon-wrapper p-2.5 rounded-full transition-all duration-300">
+                        <i data-lucide="clock" class="w-6 h-6"></i>
+                    </div>
+                    <span class="text-[10px] font-medium mt-1">Histori</span>
+                </button>
             </div>
-            <div>
-                <h1 class="font-bold text-lg tracking-wide text-white">WaterKing</h1>
-                <p class="text-xs text-apple-gray">QR System Pesantren</p>
-            </div>
-        </div>
-
-        <nav class="flex-1 px-4 mt-6 space-y-2">
-            <button onclick="switchTab('dashboard')"
-                class="nav-btn-desktop w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left text-white bg-white/10 shadow-sm transition-all"
-                data-target="dashboard">
-                <i data-lucide="home" class="w-5 h-5"></i>
-                <span class="font-medium">Beranda</span>
-            </button>
-            <button onclick="switchTab('generate')"
-                class="nav-btn-desktop w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left text-apple-gray hover:bg-white/5 transition-all"
-                data-target="generate">
-                <i data-lucide="qr-code" class="w-5 h-5"></i>
-                <span class="font-medium">Generate QR</span>
-            </button>
-            <button onclick="switchTab('scan')"
-                class="nav-btn-desktop w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left text-apple-gray hover:bg-white/5 transition-all"
-                data-target="scan">
-                <i data-lucide="scan" class="w-5 h-5"></i>
-                <span class="font-medium">QR Scanner</span>
-            </button>
-            <button onclick="switchTab('history')"
-                class="nav-btn-desktop w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left text-apple-gray hover:bg-white/5 transition-all"
-                data-target="history">
-                <i data-lucide="clock" class="w-5 h-5"></i>
-                <span class="font-medium">Histori</span>
-            </button>
-            <button onclick="openSettingsPanel()"
-                class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left text-apple-gray hover:bg-white/5 transition-all">
-                <i data-lucide="settings" class="w-5 h-5"></i>
-                <span class="font-medium">Pengaturan</span>
-            </button>
         </nav>
 
-        <div class="p-4 border-t border-white/10">
-            <p class="text-xs text-center text-apple-gray">© 2026 WaterKing</p>
-        </div>
-    </aside>
-
-    <!-- Main Content Area -->
-    <main class="flex-1 h-full overflow-hidden relative w-full">
-
-        <!-- ================= DASHBOARD TAB ================= -->
-        <section id="dashboard" class="tab-content active p-4 pb-32 md:p-8 max-w-6xl mx-auto w-full">
-            <header class="mb-8 animate-card" style="animation-delay: 0ms;">
-                <h2 class="text-2xl md:text-3xl font-bold text-white mb-2">Ringkasan Hari Ini</h2>
-                <p class="text-apple-gray">Pantau aktivitas pengambilan air galon asrama.</p>
-            </header>
-
-            <!-- Stats Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-8">
-                <!-- Card 1 -->
-                <div class="glass-card rounded-2xl p-5 relative overflow-hidden group animate-card" style="animation-delay: 0ms;">
-                    <div
-                        class="absolute -right-4 -top-4 w-24 h-24 bg-blue-500/20 rounded-full blur-2xl group-hover:bg-blue-500/30 transition-all">
-                    </div>
-                    <div class="flex items-center gap-4 relative z-10">
-                        <div class="p-3 bg-blue-500/20 text-apple-blue rounded-xl">
-                            <i data-lucide="home" class="w-6 h-6"></i>
-                        </div>
-                        <div>
-                            <p class="text-apple-gray text-sm font-medium mb-1">Total Asrama</p>
-                            <h3 id="stat-total-dorms" class="text-3xl font-bold text-white">0</h3>
-                        </div>
-                    </div>
+        <!-- Desktop Sidebar (Hidden on Mobile) -->
+        <aside class="hidden md:flex flex-col w-64 glass-card border-r border-white/10 h-full z-40 relative">
+            <div class="p-6 flex items-center gap-3">
+                <div class="bg-gradient-to-br from-blue-400 to-apple-blue p-2 rounded-xl shadow-lg">
+                    <i data-lucide="droplets" class="text-white w-6 h-6"></i>
                 </div>
-
-                <!-- Card 2 -->
-                <div class="glass-card rounded-2xl p-5 relative overflow-hidden group animate-card" style="animation-delay: 80ms;">
-                    <div
-                        class="absolute -right-4 -top-4 w-24 h-24 bg-green-500/20 rounded-full blur-2xl group-hover:bg-green-500/30 transition-all">
-                    </div>
-                    <div class="flex items-center gap-4 relative z-10">
-                        <div class="p-3 bg-green-500/20 text-apple-green rounded-xl">
-                            <i data-lucide="activity" class="w-6 h-6"></i>
-                        </div>
-                        <div>
-                            <p class="text-apple-gray text-sm font-medium mb-1">Total Scan Hari Ini</p>
-                            <h3 id="stat-today-scans" class="text-3xl font-bold text-white">0</h3>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Card 3 -->
-                <div class="glass-card rounded-2xl p-5 relative overflow-hidden group animate-card" style="animation-delay: 160ms;">
-                    <div
-                        class="absolute -right-4 -top-4 w-24 h-24 bg-red-500/20 rounded-full blur-2xl group-hover:bg-red-500/30 transition-all">
-                    </div>
-                    <div class="flex items-center gap-4 relative z-10">
-                        <div class="p-3 bg-red-500/20 text-apple-red rounded-xl">
-                            <i data-lucide="alert-triangle" class="w-6 h-6"></i>
-                        </div>
-                        <div>
-                            <p class="text-apple-gray text-sm font-medium mb-1">Limit Tercapai</p>
-                            <h3 id="stat-limit-reached" class="text-3xl font-bold text-white">0</h3>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Recent Activity / Card 4 -->
-            <div class="glass-card rounded-2xl p-5 animate-card" style="animation-delay: 240ms;">
-                <div class="flex justify-between items-center mb-6">
-                    <h3 class="text-lg font-bold text-white">Aktivitas Terbaru</h3>
-                    <button onclick="switchTab('history')"
-                        class="text-sm text-apple-blue hover:text-blue-400 font-medium">Lihat Semua</button>
-                </div>
-                <div id="recent-activity-list" class="space-y-3">
-                    <!-- Dynamic list here -->
-                    <div class="text-center py-8 text-apple-gray text-sm">Belum ada aktivitas.</div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ================= GENERATE QR TAB ================= -->
-        <section id="generate" class="tab-content p-4 pb-32 md:p-8 max-w-5xl mx-auto w-full">
-            <header class="mb-8">
-                <h2 class="text-2xl md:text-3xl font-bold text-white mb-2">Buat QR Asrama</h2>
-                <p class="text-apple-gray">Generate kartu QR unik secara single maupun bulk (massal).</p>
-            </header>
-
-            <!-- Mode Toggle -->
-            <div class="flex p-1 bg-white/5 rounded-xl border border-white/10 w-fit mb-8 relative z-10 mx-auto md:mx-0">
-                <button onclick="setGenMode('single')" id="btn-mode-single"
-                    class="px-6 py-2 rounded-lg text-sm font-bold bg-apple-blue text-white shadow-md transition-all">Single</button>
-                <button onclick="setGenMode('bulk')" id="btn-mode-bulk"
-                    class="px-6 py-2 rounded-lg text-sm font-medium text-apple-gray hover:text-white transition-all">Bulk
-                    (Massal)</button>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
-                <!-- Input Form Panel -->
-                <div class="md:col-span-4 glass-card rounded-2xl p-6 h-fit md:sticky md:top-4">
-
-                    <!-- Single Form -->
-                    <form id="generate-form" onsubmit="handleGenerateQR(event)">
-                        <div class="mb-5">
-                            <label class="block text-sm font-medium text-apple-gray mb-2">Kode Asrama</label>
-                            <div class="relative">
-                                <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                                    <i data-lucide="building" class="text-apple-gray w-5 h-5"></i>
-                                </div>
-                                <input type="text" id="dorm-code-input" required placeholder="Contoh: A03"
-                                    class="w-full pl-10 pr-4 py-3 bg-black/50 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-apple-blue focus:ring-1 focus:ring-apple-blue transition-all uppercase">
-                            </div>
-                        </div>
-                        <button type="submit"
-                            class="w-full bg-apple-blue hover:bg-blue-600 text-white font-medium py-3 rounded-xl transition-colors flex justify-center items-center gap-2 shadow-lg shadow-blue-500/25">
-                            <i data-lucide="qr-code" class="w-5 h-5"></i>
-                            Generate QR
-                        </button>
-                    </form>
-
-                    <!-- Bulk Form -->
-                    <form id="generate-bulk-form" onsubmit="handleGenerateBulkQR(event)" class="hidden">
-                        <div class="mb-5">
-                            <label class="block text-sm font-medium text-apple-gray mb-2">Daftar Kode (Satu per
-                                baris)</label>
-                            <textarea id="bulk-code-input" required placeholder="A01&#10;A02&#10;A03" rows="6"
-                                class="w-full p-4 bg-black/50 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-apple-blue focus:ring-1 focus:ring-apple-blue transition-all uppercase resize-none"></textarea>
-                        </div>
-                        <button type="submit"
-                            class="w-full bg-apple-blue hover:bg-blue-600 text-white font-medium py-3 rounded-xl transition-colors flex justify-center items-center gap-2 shadow-lg shadow-blue-500/25">
-                            <i data-lucide="layers" class="w-5 h-5"></i>
-                            Generate Bulk
-                        </button>
-                    </form>
-                </div>
-
-                <!-- Preview & Actions Panel -->
-                <div class="md:col-span-8 flex flex-col items-center justify-center w-full">
-
-                    <!-- Preview Container -->
-                    <div id="qr-preview-container" class="hidden flex-col items-center w-full animate-fade-in">
-
-                        <!-- Global Actions -->
-                        <div class="flex flex-wrap gap-3 w-full justify-end mb-6 no-print">
-                            <button onclick="printAllQR()"
-                                class="flex-1 md:flex-none bg-white/10 hover:bg-white/20 border border-white/20 text-white font-medium py-2.5 px-6 rounded-xl transition-colors flex justify-center items-center gap-2">
-                                <i data-lucide="printer" class="w-5 h-5"></i>
-                                Print
-                            </button>
-                            <button onclick="downloadAllQR()"
-                                class="flex-1 md:flex-none bg-white/10 hover:bg-white/20 border border-white/20 text-white font-medium py-2.5 px-6 rounded-xl transition-colors flex justify-center items-center gap-2">
-                                <i data-lucide="download" class="w-5 h-5"></i>
-                                PNG
-                            </button>
-                        </div>
-
-                        <!-- The Printable Grid Structure -->
-                        <div id="printable-qr-area"
-                            class="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 pb-6">
-                            <!-- Cards will be injected here via JS -->
-                        </div>
-                    </div>
-
-                    <!-- Empty State -->
-                    <div id="qr-empty-state"
-                        class="glass-card w-full aspect-video md:aspect-[2/1] rounded-2xl flex flex-col items-center justify-center text-apple-gray border border-dashed border-white/20">
-                        <i data-lucide="layout-grid" class="w-12 h-12 mb-3 opacity-50"></i>
-                        <p class="text-sm">Preview QR akan muncul di sini</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ================= SCANNER TAB ================= -->
-        <section id="scan" class="tab-content p-0 pb-[90px] md:p-8 w-full">
-            <div
-                class="flex-1 flex flex-col max-w-2xl mx-auto w-full h-full md:glass-card md:rounded-3xl md:overflow-hidden relative">
-
-                <!-- Overlay Header -->
-                <div
-                    class="absolute top-0 left-0 right-0 z-20 p-4 bg-gradient-to-b from-black/80 to-transparent flex justify-between items-center">
-                    <div>
-                        <h2 class="text-xl font-bold text-white">Scanner WaterKing</h2>
-                        <p class="text-xs text-gray-300">Arahkan ke QR Asrama</p>
-                    </div>
-                    <div class="animate-pulse bg-red-500 w-3 h-3 rounded-full shadow-[0_0_10px_rgba(239,68,68,0.8)]"
-                        id="scanner-indicator"></div>
-                </div>
-
-                <!-- Scanner Viewport -->
-                <div class="relative flex-1 bg-black overflow-hidden">
-                    <div id="reader"></div>
-
-                    <!-- Centered frame visual matching target scan area -->
-                    <div class="scan-frame-wrapper">
-                        <div class="scan-frame border-2 border-white/30 rounded-3xl">
-                            <!-- Outer Corners -->
-                            <div class="absolute -top-1 -left-1 w-8 h-8 border-t-4 border-l-4 border-apple-blue rounded-tl-3xl z-20"></div>
-                            <div class="absolute -top-1 -right-1 w-8 h-8 border-t-4 border-r-4 border-apple-blue rounded-tr-3xl z-20"></div>
-                            <div class="absolute -bottom-1 -left-1 w-8 h-8 border-b-4 border-l-4 border-apple-blue rounded-bl-3xl z-20"></div>
-                            <div class="absolute -bottom-1 -right-1 w-8 h-8 border-b-4 border-r-4 border-apple-blue rounded-br-3xl z-20"></div>
-
-                            <!-- Inner scanner box for animation clipping -->
-                            <div class="absolute inset-0 overflow-hidden rounded-[22px]">
-                                <!-- Scanning line animation -->
-                                <div class="w-full h-0.5 bg-apple-blue absolute top-0 left-0 shadow-[0_0_15px_#0a84ff] animate-[scan_2s_ease-in-out_infinite] z-10"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Scanner Controls / Info -->
-                <div class="p-6 glass-card border-t border-white/10 rounded-t-3xl -mt-6 z-20 md:mt-0 md:rounded-t-none">
-                    <div class="flex justify-between items-center">
-                        <div>
-                            <p class="text-sm text-apple-gray font-medium">Status Kamera</p>
-                            <p id="cam-status" class="text-white font-bold">Menunggu Izin...</p>
-                        </div>
-                        <button id="btn-toggle-cam" onclick="toggleCamera()"
-                            class="bg-white/10 hover:bg-white/20 p-3 rounded-full transition-colors border border-white/10">
-                            <i data-lucide="camera-off" class="w-5 h-5" id="icon-cam"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <style>
-                @keyframes scan {
-                    0% {
-                        top: 0%;
-                        opacity: 0;
-                    }
-                    10% {
-                        opacity: 1;
-                    }
-                    90% {
-                        opacity: 1;
-                    }
-                    100% {
-                        top: 100%;
-                        opacity: 0;
-                    }
-                }
-
-                #scan {
-                    padding-top: env(safe-area-inset-top);
-                    padding-bottom: calc(90px + env(safe-area-inset-bottom));
-                }
-
-                /* Camera Full Container */
-                #reader {
-                    position: absolute !important;
-                    inset: 0 !important;
-                    width: 100% !important;
-                    height: 100% !important;
-                    overflow: hidden !important;
-                    border: none !important;
-                    background: #000000 !important;
-                }
-
-                #reader video {
-                    width: 100% !important;
-                    height: 100% !important;
-                    object-fit: cover !important;
-                    position: absolute !important;
-                    inset: 0 !important;
-                }
-
-                /* Hide default overlay & library scan regions to avoid double frames */
-                #reader__scan_region,
-                #reader canvas {
-                    display: none !important;
-                }
-
-                /* Centered responsive frame */
-                .scan-frame-wrapper {
-                    position: absolute;
-                    inset: 0;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    pointer-events: none;
-                    z-index: 10;
-                }
-
-                .scan-frame {
-                    width: min(72vw, 320px);
-                    height: min(72vw, 320px);
-                    position: relative;
-                    touch-action: manipulation;
-                    -webkit-tap-highlight-color: transparent;
-                    transform: translate3d(0, 0, 0);
-                    will-change: transform;
-                    backface-visibility: hidden;
-                }
-            </style>
-        </section>
-
-        <!-- ================= HISTORY TAB ================= -->
-        <section id="history" class="tab-content p-4 pb-32 md:p-8 max-w-6xl mx-auto w-full">
-            <header class="mb-8 flex flex-col md:flex-row md:justify-between md:items-end gap-4">
-                <div class="flex justify-between items-start w-full md:w-auto">
-                    <div>
-                        <h2 class="text-2xl md:text-3xl font-bold text-white mb-2">Histori Transaksi</h2>
-                        <p class="text-apple-gray">Catatan seluruh aktivitas scan galon.</p>
-                    </div>
-                    <!-- Mini settings button -->
-                    <button onclick="openSettingsPanel()" 
-                        class="glass-card p-2.5 rounded-full hover:bg-white/10 text-apple-gray hover:text-apple-blue hover:shadow-[0_0_15px_rgba(59,130,246,0.3)] transition-all flex items-center justify-center border border-white/10 select-none cursor-pointer self-start"
-                        title="Pengaturan">
-                        <i data-lucide="settings" class="w-5 h-5"></i>
-                    </button>
-                </div>
-                <div class="flex gap-2 w-full md:w-auto justify-end">
-                    <button onclick="clearHistory()"
-                        class="w-full md:w-auto bg-red-500/10 hover:bg-red-500/20 text-apple-red px-4 py-2 rounded-xl text-sm font-medium border border-red-500/20 transition-colors">
-                        Bersihkan Data
-                    </button>
-                </div>
-            </header>
-
-            <!-- Dorm Filter Chips -->
-            <div class="mb-6">
-                <p class="text-xs text-apple-gray font-medium mb-3">Filter Asrama:</p>
-                <div id="dorm-filter-container" class="flex gap-2 overflow-x-auto pb-2 scrollbar-none -mx-4 px-4 md:mx-0 md:px-0 scroll-smooth">
-                    <!-- Dynamic chips will be injected here via JS -->
-                </div>
-            </div>
-
-            <div class="glass-card rounded-2xl overflow-hidden shadow-2xl">
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left border-collapse">
-                        <thead>
-                            <tr class="bg-white/5 border-b border-white/10">
-                                <th class="py-4 px-6 font-medium text-apple-gray text-sm">Asrama</th>
-                                <th class="py-4 px-6 font-medium text-apple-gray text-sm">Waktu & Tanggal</th>
-                                <th class="py-4 px-6 font-medium text-apple-gray text-sm">Status</th>
-                            </tr>
-                        </thead>
-                        <tbody id="history-table-body" class="divide-y divide-white/5">
-                            <!-- Dynamic rows -->
-                        </tbody>
-                    </table>
-                </div>
-
-                <!-- Pagination / Empty State -->
-                <div id="history-empty" class="hidden p-12 text-center flex flex-col items-center justify-center">
-                    <i data-lucide="database" class="w-12 h-12 text-apple-gray opacity-30 mb-4"></i>
-                    <p id="history-empty-text" class="text-apple-gray">Belum ada data transaksi.</p>
-                </div>
-        </section>
-
-    </main>
-
-    <!-- Settings Panel Backdrop Overlay -->
-    <div id="settings-panel-overlay" class="settings-panel-overlay" onclick="closeSettingsPanel()"></div>
-
-    <!-- Settings Panel Container -->
-    <div id="settings-panel" class="settings-panel glass-card flex flex-col h-full bg-black/85 backdrop-blur-3xl border-l border-white/10">
-        <!-- Panel Header -->
-        <header class="p-6 border-b border-white/10 flex items-center justify-between">
-            <div class="flex items-center gap-3">
-                <button onclick="closeSettingsPanel()" 
-                    class="p-2 -ml-2 rounded-xl text-apple-gray hover:text-white hover:bg-white/5 transition-colors"
-                    title="Kembali">
-                    <i data-lucide="arrow-left" class="w-6 h-6"></i>
-                </button>
-                <h2 class="text-xl font-bold text-white">Pengaturan</h2>
-            </div>
-            <button onclick="closeSettingsPanel()" 
-                class="p-2 rounded-xl text-apple-gray hover:text-white hover:bg-white/5 transition-colors"
-                title="Tutup">
-                <i data-lucide="x" class="w-5 h-5"></i>
-            </button>
-        </header>
-
-        <!-- Panel Scrollable Body -->
-        <div class="flex-1 overflow-y-auto p-6 space-y-6">
-            <!-- Group 1: Operational Limits -->
-            <div id="group-settings-limit" class="bg-white/2 border border-white/5 rounded-2xl p-5 space-y-4">
-                <div class="flex items-center gap-3">
-                    <div class="p-2 bg-blue-500/20 text-apple-blue rounded-xl">
-                        <i data-lucide="shield-alert" class="w-5 h-5"></i>
-                    </div>
-                    <div>
-                        <h3 class="text-sm font-bold text-white">Batas & Limit Harian</h3>
-                        <p class="text-[11px] text-apple-gray">Batasi transaksi harian untuk setiap asrama.</p>
-                    </div>
-                </div>
-                <div class="pt-2">
-                    <label class="block text-xs font-medium text-apple-gray mb-2">Maksimal Scan per Hari</label>
-                    <input type="number" id="setting-daily-limit" min="1" max="20" required
-                        class="w-full px-4 py-2.5 bg-black/50 border border-white/10 rounded-xl text-white focus:outline-none focus:border-apple-blue focus:ring-1 focus:ring-apple-blue transition-all"
-                        onchange="saveSettingField('dailyLimit', parseInt(this.value))">
-                </div>
-            </div>
-
-            <!-- Group 2: Operational Hours -->
-            <div id="group-settings-hours" class="bg-white/2 border border-white/5 rounded-2xl p-5 space-y-4">
-                <div class="flex items-center gap-3">
-                    <div class="p-2 bg-green-500/20 text-apple-green rounded-xl">
-                        <i data-lucide="clock" class="w-5 h-5"></i>
-                    </div>
-                    <div>
-                        <h3 class="text-sm font-bold text-white">Jam Operasional</h3>
-                        <p class="text-[11px] text-apple-gray">Tentukan rentang waktu aktif untuk melakukan scan QR.</p>
-                    </div>
-                </div>
-                <div class="grid grid-cols-2 gap-4 pt-2">
-                    <div>
-                        <label class="block text-xs font-medium text-apple-gray mb-2">Jam Mulai</label>
-                        <input type="time" id="setting-start-hour" required
-                            class="w-full px-4 py-2 bg-black/50 border border-white/10 rounded-xl text-white focus:outline-none focus:border-apple-blue focus:ring-1 focus:ring-apple-blue transition-all text-sm"
-                            onchange="validateAndSaveTime('startHour', this.value)">
-                    </div>
-                    <div>
-                        <label class="block text-xs font-medium text-apple-gray mb-2">Jam Selesai</label>
-                        <input type="time" id="setting-end-hour" required
-                            class="w-full px-4 py-2 bg-black/50 border border-white/10 rounded-xl text-white focus:outline-none focus:border-apple-blue focus:ring-1 focus:ring-apple-blue transition-all text-sm"
-                            onchange="validateAndSaveTime('endHour', this.value)">
-                    </div>
-                </div>
-            </div>
-
-            <!-- Group 3: Interface Theme -->
-            <div class="bg-white/2 border border-white/5 rounded-2xl p-5 flex items-center justify-between">
-                <div class="flex items-center gap-3">
-                    <div class="p-2 bg-yellow-500/20 text-yellow-400 rounded-xl">
-                        <i data-lucide="sun-moon" class="w-5 h-5" id="theme-setting-icon"></i>
-                    </div>
-                    <div>
-                        <h3 class="text-sm font-bold text-white">Tema Aplikasi</h3>
-                        <p class="text-[11px] text-apple-gray">Pilih antara mode gelap dan terang.</p>
-                    </div>
-                </div>
-                <label class="relative inline-flex items-center cursor-pointer select-none">
-                    <input type="checkbox" id="setting-theme-toggle" class="sr-only peer" onchange="toggleAppTheme(this.checked)">
-                    <div class="w-12 h-7 bg-white/10 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[4px] after:left-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-apple-blue"></div>
-                </label>
-            </div>
-
-            <!-- Group: Ganti PIN -->
-            <div class="bg-white/2 border border-white/5 rounded-2xl p-5 space-y-4">
-                <div class="flex items-center gap-3">
-                    <div class="p-2 bg-blue-500/20 text-apple-blue rounded-xl">
-                        <i data-lucide="key-round" class="w-5 h-5"></i>
-                    </div>
-                    <div>
-                        <h3 class="text-sm font-bold text-white">Ganti PIN Akses</h3>
-                        <p class="text-[11px] text-apple-gray">Ubah PIN masuk Anda (tepat 6 angka).</p>
-                    </div>
-                </div>
-                <div class="space-y-3 pt-2">
-                    <div>
-                        <label class="block text-[11px] font-medium text-apple-gray mb-1">PIN Lama</label>
-                        <input type="password" id="change-pin-old" maxlength="6" inputmode="numeric" pattern="[0-9]*" placeholder="•••••" required
-                            class="w-full px-3 py-2 bg-black/50 border border-white/10 rounded-xl text-white focus:outline-none focus:border-apple-blue focus:ring-1 focus:ring-apple-blue transition-all text-xs tracking-[0.2em]">
-                    </div>
-                    <div>
-                        <label class="block text-[11px] font-medium text-apple-gray mb-1">PIN Baru</label>
-                        <input type="password" id="change-pin-new" maxlength="6" inputmode="numeric" pattern="[0-9]*" placeholder="•••••" required
-                            class="w-full px-3 py-2 bg-black/50 border border-white/10 rounded-xl text-white focus:outline-none focus:border-apple-blue focus:ring-1 focus:ring-apple-blue transition-all text-xs tracking-[0.2em]"
-                            oninput="validatePinInput(this)">
-                    </div>
-                    <div>
-                        <label class="block text-[11px] font-medium text-apple-gray mb-1">Konfirmasi PIN Baru</label>
-                        <input type="password" id="change-pin-confirm" maxlength="6" inputmode="numeric" pattern="[0-9]*" placeholder="•••••" required
-                            class="w-full px-3 py-2 bg-black/50 border border-white/10 rounded-xl text-white focus:outline-none focus:border-apple-blue focus:ring-1 focus:ring-apple-blue transition-all text-xs tracking-[0.2em]"
-                            oninput="validatePinInput(this)">
-                    </div>
-                    <button onclick="handleChangePin()"
-                        class="w-full bg-apple-blue hover:bg-blue-600 text-white font-medium py-2 rounded-xl transition-colors text-xs font-bold shadow-lg shadow-blue-500/25">
-                        Simpan PIN Baru
-                    </button>
-                </div>
-            </div>
-
-            <!-- Group: Manajemen Pengguna (Admin Only) -->
-            <div id="group-settings-users" class="bg-white/2 border border-white/5 rounded-2xl p-5 space-y-4">
-                <div class="flex items-center gap-3">
-                    <div class="p-2 bg-purple-500/20 text-purple-400 rounded-xl">
-                        <i data-lucide="users" class="w-5 h-5"></i>
-                    </div>
-                    <div>
-                        <h3 class="text-sm font-bold text-white">Manajemen Pengguna</h3>
-                        <p class="text-[11px] text-apple-gray">Kelola pendaftaran dan status operator.</p>
-                    </div>
-                </div>
-                
-                <!-- User list container -->
-                <div class="mt-4 border border-white/5 rounded-xl overflow-hidden bg-black/30 divide-y divide-white/5 text-xs" id="user-mgmt-list">
-                    <!-- Dynamic rendering of users here -->
-                </div>
-            </div>
-
-            <!-- Group 4: Reset Sistem -->
-            <div id="group-settings-reset" class="bg-white/2 border border-white/5 rounded-2xl p-5 flex items-center justify-between">
-                <div class="flex items-center gap-3">
-                    <div class="p-2 bg-red-500/20 text-apple-red rounded-xl">
-                        <i data-lucide="refresh-cw" class="w-5 h-5"></i>
-                    </div>
-                    <div>
-                        <h3 class="text-sm font-bold text-white">Reset Sistem</h3>
-                        <p class="text-[11px] text-apple-gray">Atur ulang semua konfigurasi.</p>
-                    </div>
-                </div>
-                <button onclick="resetSettings()"
-                    class="bg-red-500/10 hover:bg-red-500/20 text-apple-red px-4 py-2 rounded-xl text-xs font-bold border border-red-500/20 transition-all">
-                    Reset
-                </button>
-            </div>
-
-            <!-- Group: Logout Session -->
-            <div class="bg-white/2 border border-white/5 rounded-2xl p-5 flex items-center justify-between">
-                <div class="flex items-center gap-3">
-                    <div class="p-2 bg-red-500/20 text-apple-red rounded-xl">
-                        <i data-lucide="log-out" class="w-5 h-5"></i>
-                    </div>
-                    <div>
-                        <h3 class="text-sm font-bold text-white">Keluar Akun</h3>
-                        <p class="text-[11px] text-apple-gray">Logout dan amankan akses aplikasi.</p>
-                    </div>
-                </div>
-                <button onclick="handleLogout()"
-                    class="bg-red-500/10 hover:bg-red-500/20 text-apple-red px-4 py-2 rounded-xl text-xs font-bold border border-red-500/20 transition-all">
-                    Logout
-                </button>
-            </div>
-
-            <!-- Group 5: System Info Card -->
-            <div class="bg-white/2 border border-white/5 rounded-2xl p-4 flex flex-col gap-3 text-xs text-apple-gray">
                 <div>
-                    <p class="font-semibold text-white">WaterKing QR System</p>
-                    <p class="text-[11px]">Versi: 1.1.0 • Platform: Mobile Web App</p>
+                    <h1 class="font-bold text-lg tracking-wide text-white">WaterKing</h1>
+                    <p class="text-xs text-apple-gray">QR System Pesantren</p>
                 </div>
-                <div class="grid grid-cols-3 gap-2 border-t border-white/5 pt-3">
-                    <div>
-                        <span class="block text-white font-bold text-sm" id="info-total-dorms">0</span>
-                        Total Asrama
+            </div>
+
+            <nav class="flex-1 px-4 mt-6 space-y-2">
+                <button onclick="switchTab('dashboard')"
+                    class="nav-btn-desktop w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left text-white bg-white/10 shadow-sm transition-all"
+                    data-target="dashboard">
+                    <i data-lucide="home" class="w-5 h-5"></i>
+                    <span class="font-medium">Beranda</span>
+                </button>
+                <button onclick="switchTab('generate')"
+                    class="nav-btn-desktop w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left text-apple-gray hover:bg-white/5 transition-all"
+                    data-target="generate">
+                    <i data-lucide="qr-code" class="w-5 h-5"></i>
+                    <span class="font-medium">Generate QR</span>
+                </button>
+                <button onclick="switchTab('scan')"
+                    class="nav-btn-desktop w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left text-apple-gray hover:bg-white/5 transition-all"
+                    data-target="scan">
+                    <i data-lucide="scan" class="w-5 h-5"></i>
+                    <span class="font-medium">QR Scanner</span>
+                </button>
+                <button onclick="switchTab('history')"
+                    class="nav-btn-desktop w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left text-apple-gray hover:bg-white/5 transition-all"
+                    data-target="history">
+                    <i data-lucide="clock" class="w-5 h-5"></i>
+                    <span class="font-medium">Histori</span>
+                </button>
+                <button id="sidebar-settings-btn" onclick="openSettingsPanel()"
+                    class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left text-apple-gray hover:bg-white/5 transition-all">
+                    <i data-lucide="settings" class="w-5 h-5"></i>
+                    <span class="font-medium">Pengaturan</span>
+                </button>
+            </nav>
+
+            <div class="p-4 border-t border-white/10">
+                <p class="text-xs text-center text-apple-gray">© 2026 WaterKing</p>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="flex-1 h-full overflow-hidden relative w-full">
+
+            <!-- ================= DASHBOARD TAB ================= -->
+            <section id="dashboard" class="tab-content active p-4 pb-32 md:p-8 max-w-6xl mx-auto w-full">
+                <header class="mb-8 animate-card" style="animation-delay: 0ms;">
+                    <h2 class="text-2xl md:text-3xl font-bold text-white mb-2">Ringkasan Hari Ini</h2>
+                    <p class="text-apple-gray">Pantau aktivitas pengambilan air galon asrama.</p>
+                </header>
+
+                <!-- Stats Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-8">
+                    <!-- Card 1 -->
+                    <div class="glass-card rounded-2xl p-5 relative overflow-hidden group animate-card"
+                        style="animation-delay: 0ms;">
+                        <div
+                            class="absolute -right-4 -top-4 w-24 h-24 bg-blue-500/20 rounded-full blur-2xl group-hover:bg-blue-500/30 transition-all">
+                        </div>
+                        <div class="flex items-center gap-4 relative z-10">
+                            <div class="p-3 bg-blue-500/20 text-apple-blue rounded-xl">
+                                <i data-lucide="home" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <p class="text-apple-gray text-sm font-medium mb-1">Total Asrama</p>
+                                <h3 id="stat-total-dorms" class="text-3xl font-bold text-white">0</h3>
+                            </div>
+                        </div>
                     </div>
-                    <div>
-                        <span class="block text-white font-bold text-sm" id="info-total-txs">0</span>
-                        Transaksi
+
+                    <!-- Card 2 -->
+                    <div class="glass-card rounded-2xl p-5 relative overflow-hidden group animate-card"
+                        style="animation-delay: 80ms;">
+                        <div
+                            class="absolute -right-4 -top-4 w-24 h-24 bg-green-500/20 rounded-full blur-2xl group-hover:bg-green-500/30 transition-all">
+                        </div>
+                        <div class="flex items-center gap-4 relative z-10">
+                            <div class="p-3 bg-green-500/20 text-apple-green rounded-xl">
+                                <i data-lucide="activity" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <p class="text-apple-gray text-sm font-medium mb-1">Total Scan Hari Ini</p>
+                                <h3 id="stat-today-scans" class="text-3xl font-bold text-white">0</h3>
+                            </div>
+                        </div>
                     </div>
+
+                    <!-- Card 3 -->
+                    <div class="glass-card rounded-2xl p-5 relative overflow-hidden group animate-card"
+                        style="animation-delay: 160ms;">
+                        <div
+                            class="absolute -right-4 -top-4 w-24 h-24 bg-red-500/20 rounded-full blur-2xl group-hover:bg-red-500/30 transition-all">
+                        </div>
+                        <div class="flex items-center gap-4 relative z-10">
+                            <div class="p-3 bg-red-500/20 text-apple-red rounded-xl">
+                                <i data-lucide="alert-triangle" class="w-6 h-6"></i>
+                            </div>
+                            <div>
+                                <p class="text-apple-gray text-sm font-medium mb-1">Limit Tercapai</p>
+                                <h3 id="stat-limit-reached" class="text-3xl font-bold text-white">0</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity / Card 4 -->
+                <div class="glass-card rounded-2xl p-5 animate-card" style="animation-delay: 240ms;">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-lg font-bold text-white">Aktivitas Terbaru</h3>
+                        <button onclick="switchTab('history')"
+                            class="text-sm text-apple-blue hover:text-blue-400 font-medium">Lihat Semua</button>
+                    </div>
+                    <div id="recent-activity-list" class="space-y-3">
+                        <!-- Dynamic list here -->
+                        <div class="text-center py-8 text-apple-gray text-sm">Belum ada aktivitas.</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= GENERATE QR TAB ================= -->
+            <section id="generate" class="tab-content p-4 pb-32 md:p-8 max-w-5xl mx-auto w-full">
+                <header class="mb-8">
+                    <h2 class="text-2xl md:text-3xl font-bold text-white mb-2">Buat QR Asrama</h2>
+                    <p class="text-apple-gray">Generate kartu QR unik secara single maupun bulk (massal).</p>
+                </header>
+
+                <!-- Mode Toggle -->
+                <div
+                    class="flex p-1 bg-white/5 rounded-xl border border-white/10 w-fit mb-8 relative z-10 mx-auto md:mx-0">
+                    <button onclick="setGenMode('single')" id="btn-mode-single"
+                        class="px-6 py-2 rounded-lg text-sm font-bold bg-apple-blue text-white shadow-md transition-all">Single</button>
+                    <button onclick="setGenMode('bulk')" id="btn-mode-bulk"
+                        class="px-6 py-2 rounded-lg text-sm font-medium text-apple-gray hover:text-white transition-all">Bulk
+                        (Massal)</button>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-8 items-start">
+                    <!-- Input Form Panel -->
+                    <div class="md:col-span-4 glass-card rounded-2xl p-6 h-fit md:sticky md:top-4">
+
+                        <!-- Single Form -->
+                        <form id="generate-form" onsubmit="handleGenerateQR(event)">
+                            <div class="mb-5">
+                                <label class="block text-sm font-medium text-apple-gray mb-2">Kode Asrama</label>
+                                <div class="relative">
+                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                                        <i data-lucide="building" class="text-apple-gray w-5 h-5"></i>
+                                    </div>
+                                    <input type="text" id="dorm-code-input" required placeholder="Contoh: A03"
+                                        class="w-full pl-10 pr-4 py-3 bg-black/50 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-apple-blue focus:ring-1 focus:ring-apple-blue transition-all uppercase">
+                                </div>
+                            </div>
+                            <button type="submit"
+                                class="w-full bg-apple-blue hover:bg-blue-600 text-white font-medium py-3 rounded-xl transition-colors flex justify-center items-center gap-2 shadow-lg shadow-blue-500/25">
+                                <i data-lucide="qr-code" class="w-5 h-5"></i>
+                                Generate QR
+                            </button>
+                        </form>
+
+                        <!-- Bulk Form -->
+                        <form id="generate-bulk-form" onsubmit="handleGenerateBulkQR(event)" class="hidden">
+                            <div class="mb-5">
+                                <label class="block text-sm font-medium text-apple-gray mb-2">Daftar Kode (Satu per
+                                    baris)</label>
+                                <textarea id="bulk-code-input" required placeholder="A01&#10;A02&#10;A03" rows="6"
+                                    class="w-full p-4 bg-black/50 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-apple-blue focus:ring-1 focus:ring-apple-blue transition-all uppercase resize-none"></textarea>
+                            </div>
+                            <button type="submit"
+                                class="w-full bg-apple-blue hover:bg-blue-600 text-white font-medium py-3 rounded-xl transition-colors flex justify-center items-center gap-2 shadow-lg shadow-blue-500/25">
+                                <i data-lucide="layers" class="w-5 h-5"></i>
+                                Generate Bulk
+                            </button>
+                        </form>
+                    </div>
+
+                    <!-- Preview & Actions Panel -->
+                    <div class="md:col-span-8 flex flex-col items-center justify-center w-full">
+
+                        <!-- Preview Container -->
+                        <div id="qr-preview-container" class="hidden flex-col items-center w-full animate-fade-in">
+
+                            <!-- Global Actions -->
+                            <div class="flex flex-wrap gap-3 w-full justify-end mb-6 no-print">
+                                <button onclick="printAllQR()"
+                                    class="flex-1 md:flex-none bg-white/10 hover:bg-white/20 border border-white/20 text-white font-medium py-2.5 px-6 rounded-xl transition-colors flex justify-center items-center gap-2">
+                                    <i data-lucide="printer" class="w-5 h-5"></i>
+                                    Print
+                                </button>
+                                <button onclick="downloadAllQR()"
+                                    class="flex-1 md:flex-none bg-white/10 hover:bg-white/20 border border-white/20 text-white font-medium py-2.5 px-6 rounded-xl transition-colors flex justify-center items-center gap-2">
+                                    <i data-lucide="download" class="w-5 h-5"></i>
+                                    PNG
+                                </button>
+                            </div>
+
+                            <!-- The Printable Grid Structure -->
+                            <div id="printable-qr-area"
+                                class="w-full grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 pb-6">
+                                <!-- Cards will be injected here via JS -->
+                            </div>
+                        </div>
+
+                        <!-- Empty State -->
+                        <div id="qr-empty-state"
+                            class="glass-card w-full aspect-video md:aspect-[2/1] rounded-2xl flex flex-col items-center justify-center text-apple-gray border border-dashed border-white/20">
+                            <i data-lucide="layout-grid" class="w-12 h-12 mb-3 opacity-50"></i>
+                            <p class="text-sm">Preview QR akan muncul di sini</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ================= SCANNER TAB ================= -->
+            <section id="scan" class="tab-content p-0 pb-[90px] md:p-8 w-full">
+                <div
+                    class="flex-1 flex flex-col max-w-2xl mx-auto w-full h-full md:glass-card md:rounded-3xl md:overflow-hidden relative">
+
+                    <!-- Overlay Header -->
+                    <div
+                        class="absolute top-0 left-0 right-0 z-20 p-4 bg-gradient-to-b from-black/80 to-transparent flex justify-between items-center">
+                        <div>
+                            <h2 class="text-xl font-bold text-white">Scanner WaterKing</h2>
+                            <p class="text-xs text-gray-300">Arahkan ke QR Asrama</p>
+                        </div>
+                        <div class="animate-pulse bg-red-500 w-3 h-3 rounded-full shadow-[0_0_10px_rgba(239,68,68,0.8)]"
+                            id="scanner-indicator"></div>
+                    </div>
+
+                    <!-- Scanner Viewport -->
+                    <div class="relative flex-1 bg-black overflow-hidden">
+                        <div id="reader"></div>
+
+                        <!-- Centered frame visual matching target scan area -->
+                        <div class="scan-frame-wrapper">
+                            <div class="scan-frame border-2 border-white/30 rounded-3xl">
+                                <!-- Outer Corners -->
+                                <div
+                                    class="absolute -top-1 -left-1 w-8 h-8 border-t-4 border-l-4 border-apple-blue rounded-tl-3xl z-20">
+                                </div>
+                                <div
+                                    class="absolute -top-1 -right-1 w-8 h-8 border-t-4 border-r-4 border-apple-blue rounded-tr-3xl z-20">
+                                </div>
+                                <div
+                                    class="absolute -bottom-1 -left-1 w-8 h-8 border-b-4 border-l-4 border-apple-blue rounded-bl-3xl z-20">
+                                </div>
+                                <div
+                                    class="absolute -bottom-1 -right-1 w-8 h-8 border-b-4 border-r-4 border-apple-blue rounded-br-3xl z-20">
+                                </div>
+
+                                <!-- Inner scanner box for animation clipping -->
+                                <div class="absolute inset-0 overflow-hidden rounded-[22px]">
+                                    <!-- Scanning line animation -->
+                                    <div
+                                        class="w-full h-0.5 bg-apple-blue absolute top-0 left-0 shadow-[0_0_15px_#0a84ff] animate-[scan_2s_ease-in-out_infinite] z-10">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Scanner Controls / Info -->
+                    <div
+                        class="p-6 glass-card border-t border-white/10 rounded-t-3xl -mt-6 z-20 md:mt-0 md:rounded-t-none">
+                        <div class="flex justify-between items-center">
+                            <div>
+                                <p class="text-sm text-apple-gray font-medium">Status Kamera</p>
+                                <p id="cam-status" class="text-white font-bold">Menunggu Izin...</p>
+                            </div>
+                            <button id="btn-toggle-cam" onclick="toggleCamera()"
+                                class="bg-white/10 hover:bg-white/20 p-3 rounded-full transition-colors border border-white/10">
+                                <i data-lucide="camera-off" class="w-5 h-5" id="icon-cam"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <style>
+                    @keyframes scan {
+                        0% {
+                            top: 0%;
+                            opacity: 0;
+                        }
+
+                        10% {
+                            opacity: 1;
+                        }
+
+                        90% {
+                            opacity: 1;
+                        }
+
+                        100% {
+                            top: 100%;
+                            opacity: 0;
+                        }
+                    }
+
+                    #scan {
+                        padding-top: env(safe-area-inset-top);
+                        padding-bottom: calc(90px + env(safe-area-inset-bottom));
+                    }
+
+                    /* Camera Full Container */
+                    #reader {
+                        position: absolute !important;
+                        inset: 0 !important;
+                        width: 100% !important;
+                        height: 100% !important;
+                        overflow: hidden !important;
+                        border: none !important;
+                        background: #000000 !important;
+                    }
+
+                    #reader video {
+                        width: 100% !important;
+                        height: 100% !important;
+                        object-fit: cover !important;
+                        position: absolute !important;
+                        inset: 0 !important;
+                    }
+
+                    /* Hide default overlay & library scan regions to avoid double frames */
+                    #reader__scan_region,
+                    #reader canvas {
+                        display: none !important;
+                    }
+
+                    /* Centered responsive frame */
+                    .scan-frame-wrapper {
+                        position: absolute;
+                        inset: 0;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        pointer-events: none;
+                        z-index: 10;
+                    }
+
+                    .scan-frame {
+                        width: min(72vw, 320px);
+                        height: min(72vw, 320px);
+                        position: relative;
+                        touch-action: manipulation;
+                        -webkit-tap-highlight-color: transparent;
+                        transform: translate3d(0, 0, 0);
+                        will-change: transform;
+                        backface-visibility: hidden;
+                    }
+                </style>
+            </section>
+
+            <!-- ================= HISTORY TAB ================= -->
+            <section id="history" class="tab-content p-4 pb-32 md:p-8 max-w-6xl mx-auto w-full">
+                <header class="mb-8 flex flex-col md:flex-row md:justify-between md:items-end gap-4">
+                    <div class="flex justify-between items-start w-full md:w-auto">
+                        <div>
+                            <h2 class="text-2xl md:text-3xl font-bold text-white mb-2">Histori Transaksi</h2>
+                            <p class="text-apple-gray">Catatan seluruh aktivitas scan galon.</p>
+                        </div>
+                        <!-- Mini settings button -->
+                        <button id="history-settings-btn" onclick="openSettingsPanel()"
+                            class="glass-card p-2.5 rounded-full hover:bg-white/10 text-apple-gray hover:text-apple-blue hover:shadow-[0_0_15px_rgba(59,130,246,0.3)] transition-all flex items-center justify-center border border-white/10 select-none cursor-pointer self-start"
+                            title="Pengaturan">
+                            <i data-lucide="settings" class="w-5 h-5"></i>
+                        </button>
+                        <!-- Mini logout button for karyawan -->
+                        <button id="history-logout-btn" onclick="confirmKaryawanLogout()"
+                            class="glass-card p-2.5 rounded-full hover:bg-red-500/10 text-red-400 hover:text-red-500 hover:shadow-[0_0_15px_rgba(239,68,68,0.2)] transition-all flex items-center justify-center border border-red-500/20 select-none cursor-pointer self-start hidden"
+                            title="Keluar Akun">
+                            <i data-lucide="log-out" class="w-5 h-5"></i>
+                        </button>
+                    </div>
+                    <div class="flex gap-2 w-full md:w-auto justify-end">
+                        <button onclick="clearHistory()"
+                            class="w-full md:w-auto bg-red-500/10 hover:bg-red-500/20 text-apple-red px-4 py-2 rounded-xl text-sm font-medium border border-red-500/20 transition-colors">
+                            Bersihkan Data
+                        </button>
+                    </div>
+                </header>
+
+                <!-- Dorm Filter Chips -->
+                <div class="mb-6">
+                    <p class="text-xs text-apple-gray font-medium mb-3">Filter Asrama:</p>
+                    <div id="dorm-filter-container"
+                        class="flex gap-2 overflow-x-auto pb-2 scrollbar-none -mx-4 px-4 md:mx-0 md:px-0 scroll-smooth">
+                        <!-- Dynamic chips will be injected here via JS -->
+                    </div>
+                </div>
+
+                <div class="glass-card rounded-2xl overflow-hidden shadow-2xl">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-white/5 border-b border-white/10">
+                                    <th class="py-4 px-6 font-medium text-apple-gray text-sm">Asrama</th>
+                                    <th class="py-4 px-6 font-medium text-apple-gray text-sm">Waktu & Tanggal</th>
+                                    <th class="py-4 px-6 font-medium text-apple-gray text-sm">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="history-table-body" class="divide-y divide-white/5">
+                                <!-- Dynamic rows -->
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- Pagination / Empty State -->
+                    <div id="history-empty" class="hidden p-12 text-center flex flex-col items-center justify-center">
+                        <i data-lucide="database" class="w-12 h-12 text-apple-gray opacity-30 mb-4"></i>
+                        <p id="history-empty-text" class="text-apple-gray">Belum ada data transaksi.</p>
+                    </div>
+            </section>
+
+        </main>
+
+        <!-- Settings Panel Backdrop Overlay -->
+        <div id="settings-panel-overlay" class="settings-panel-overlay" onclick="closeSettingsPanel()"></div>
+
+        <!-- Settings Panel Container -->
+        <div id="settings-panel"
+            class="settings-panel glass-card flex flex-col h-full bg-black/85 backdrop-blur-3xl border-l border-white/10">
+            <!-- Panel Header -->
+            <header class="p-6 border-b border-white/10 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <button onclick="closeSettingsPanel()"
+                        class="p-2 -ml-2 rounded-xl text-apple-gray hover:text-white hover:bg-white/5 transition-colors"
+                        title="Kembali">
+                        <i data-lucide="arrow-left" class="w-6 h-6"></i>
+                    </button>
+                    <h2 class="text-xl font-bold text-white">Pengaturan</h2>
+                </div>
+                <button onclick="closeSettingsPanel()"
+                    class="p-2 rounded-xl text-apple-gray hover:text-white hover:bg-white/5 transition-colors"
+                    title="Tutup">
+                    <i data-lucide="x" class="w-5 h-5"></i>
+                </button>
+            </header>
+
+            <!-- Panel Scrollable Body -->
+            <div class="flex-1 overflow-y-auto p-6 space-y-6">
+                <!-- Group 1: Operational Limits -->
+                <div id="group-settings-limit" class="bg-white/2 border border-white/5 rounded-2xl p-5 space-y-4">
+                    <div class="flex items-center gap-3">
+                        <div class="p-2 bg-blue-500/20 text-apple-blue rounded-xl">
+                            <i data-lucide="shield-alert" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-bold text-white">Batas & Limit Harian</h3>
+                            <p class="text-[11px] text-apple-gray">Batasi transaksi harian untuk setiap asrama.</p>
+                        </div>
+                    </div>
+                    <div class="pt-2">
+                        <label class="block text-xs font-medium text-apple-gray mb-2">Maksimal Scan per Hari</label>
+                        <input type="number" id="setting-daily-limit" min="1" max="20" required
+                            class="w-full px-4 py-2.5 bg-black/50 border border-white/10 rounded-xl text-white focus:outline-none focus:border-apple-blue focus:ring-1 focus:ring-apple-blue transition-all"
+                            onchange="saveSettingField('dailyLimit', parseInt(this.value))">
+                    </div>
+                </div>
+
+                <!-- Group 2: Operational Hours -->
+                <div id="group-settings-hours" class="bg-white/2 border border-white/5 rounded-2xl p-5 space-y-4">
+                    <div class="flex items-center gap-3">
+                        <div class="p-2 bg-green-500/20 text-apple-green rounded-xl">
+                            <i data-lucide="clock" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-bold text-white">Jam Operasional</h3>
+                            <p class="text-[11px] text-apple-gray">Tentukan rentang waktu aktif untuk melakukan scan QR.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 pt-2">
+                        <div>
+                            <label class="block text-xs font-medium text-apple-gray mb-2">Jam Mulai</label>
+                            <input type="time" id="setting-start-hour" required
+                                class="w-full px-4 py-2 bg-black/50 border border-white/10 rounded-xl text-white focus:outline-none focus:border-apple-blue focus:ring-1 focus:ring-apple-blue transition-all text-sm"
+                                onchange="validateAndSaveTime('startHour', this.value)">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-medium text-apple-gray mb-2">Jam Selesai</label>
+                            <input type="time" id="setting-end-hour" required
+                                class="w-full px-4 py-2 bg-black/50 border border-white/10 rounded-xl text-white focus:outline-none focus:border-apple-blue focus:ring-1 focus:ring-apple-blue transition-all text-sm"
+                                onchange="validateAndSaveTime('endHour', this.value)">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Group 3: Interface Theme -->
+                <div class="bg-white/2 border border-white/5 rounded-2xl p-5 flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <div class="p-2 bg-yellow-500/20 text-yellow-400 rounded-xl">
+                            <i data-lucide="sun-moon" class="w-5 h-5" id="theme-setting-icon"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-bold text-white">Tema Aplikasi</h3>
+                            <p class="text-[11px] text-apple-gray">Pilih antara mode gelap dan terang.</p>
+                        </div>
+                    </div>
+                    <label class="relative inline-flex items-center cursor-pointer select-none">
+                        <input type="checkbox" id="setting-theme-toggle" class="sr-only peer"
+                            onchange="toggleAppTheme(this.checked)">
+                        <div
+                            class="w-12 h-7 bg-white/10 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[4px] after:left-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-apple-blue">
+                        </div>
+                    </label>
+                </div>
+
+                <!-- Group: Ganti PIN -->
+                <div class="bg-white/2 border border-white/5 rounded-2xl p-5 space-y-4">
+                    <div class="flex items-center gap-3">
+                        <div class="p-2 bg-blue-500/20 text-apple-blue rounded-xl">
+                            <i data-lucide="key-round" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-bold text-white">Ganti PIN Akses</h3>
+                            <p class="text-[11px] text-apple-gray">Ubah PIN masuk Anda (tepat 6 angka).</p>
+                        </div>
+                    </div>
+                    <div class="space-y-3 pt-2">
+                        <div>
+                            <label class="block text-[11px] font-medium text-apple-gray mb-1">PIN Lama</label>
+                            <input type="password" id="change-pin-old" maxlength="6" inputmode="numeric"
+                                pattern="[0-9]*" placeholder="•••••" required
+                                class="w-full px-3 py-2 bg-black/50 border border-white/10 rounded-xl text-white focus:outline-none focus:border-apple-blue focus:ring-1 focus:ring-apple-blue transition-all text-xs tracking-[0.2em]">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-medium text-apple-gray mb-1">PIN Baru</label>
+                            <input type="password" id="change-pin-new" maxlength="6" inputmode="numeric"
+                                pattern="[0-9]*" placeholder="•••••" required
+                                class="w-full px-3 py-2 bg-black/50 border border-white/10 rounded-xl text-white focus:outline-none focus:border-apple-blue focus:ring-1 focus:ring-apple-blue transition-all text-xs tracking-[0.2em]"
+                                oninput="validatePinInput(this)">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-medium text-apple-gray mb-1">Konfirmasi PIN
+                                Baru</label>
+                            <input type="password" id="change-pin-confirm" maxlength="6" inputmode="numeric"
+                                pattern="[0-9]*" placeholder="•••••" required
+                                class="w-full px-3 py-2 bg-black/50 border border-white/10 rounded-xl text-white focus:outline-none focus:border-apple-blue focus:ring-1 focus:ring-apple-blue transition-all text-xs tracking-[0.2em]"
+                                oninput="validatePinInput(this)">
+                        </div>
+                        <button onclick="handleChangePin()"
+                            class="w-full bg-apple-blue hover:bg-blue-600 text-white font-medium py-2 rounded-xl transition-colors text-xs font-bold shadow-lg shadow-blue-500/25">
+                            Simpan PIN Baru
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Group: Manajemen Pengguna (Admin Only) -->
+                <div id="group-settings-users" class="bg-white/2 border border-white/5 rounded-2xl p-5 space-y-4">
+                    <div class="flex items-center gap-3">
+                        <div class="p-2 bg-purple-500/20 text-purple-400 rounded-xl">
+                            <i data-lucide="users" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-bold text-white">Manajemen Pengguna</h3>
+                            <p class="text-[11px] text-apple-gray">Kelola pendaftaran dan status operator.</p>
+                        </div>
+                    </div>
+
+                    <!-- User list container -->
+                    <div class="mt-4 border border-white/5 rounded-xl overflow-hidden bg-black/30 divide-y divide-white/5 text-xs"
+                        id="user-mgmt-list">
+                        <!-- Dynamic rendering of users here -->
+                    </div>
+                </div>
+
+                <!-- Group 4: Reset Sistem -->
+                <div id="group-settings-reset"
+                    class="bg-white/2 border border-white/5 rounded-2xl p-5 flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <div class="p-2 bg-red-500/20 text-apple-red rounded-xl">
+                            <i data-lucide="refresh-cw" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-bold text-white">Reset Sistem</h3>
+                            <p class="text-[11px] text-apple-gray">Atur ulang semua konfigurasi.</p>
+                        </div>
+                    </div>
+                    <button onclick="resetSettings()"
+                        class="bg-red-500/10 hover:bg-red-500/20 text-apple-red px-4 py-2 rounded-xl text-xs font-bold border border-red-500/20 transition-all">
+                        Reset
+                    </button>
+                </div>
+
+                <!-- Group: Logout Session -->
+                <div class="bg-white/2 border border-white/5 rounded-2xl p-5 flex items-center justify-between">
+                    <div class="flex items-center gap-3">
+                        <div class="p-2 bg-red-500/20 text-apple-red rounded-xl">
+                            <i data-lucide="log-out" class="w-5 h-5"></i>
+                        </div>
+                        <div>
+                            <h3 class="text-sm font-bold text-white">Keluar Akun</h3>
+                            <p class="text-[11px] text-apple-gray">Logout dan amankan akses aplikasi.</p>
+                        </div>
+                    </div>
+                    <button onclick="handleLogout()"
+                        class="bg-red-500/10 hover:bg-red-500/20 text-apple-red px-4 py-2 rounded-xl text-xs font-bold border border-red-500/20 transition-all">
+                        Logout
+                    </button>
+                </div>
+
+                <!-- Group 5: System Info Card -->
+                <div
+                    class="bg-white/2 border border-white/5 rounded-2xl p-4 flex flex-col gap-3 text-xs text-apple-gray">
                     <div>
-                        <span class="block text-white font-bold text-sm" id="info-storage-usage">0 KB</span>
-                        Storage
+                        <p class="font-semibold text-white">WaterKing QR System</p>
+                        <p class="text-[11px]">Versi: 1.1.0 • Platform: Mobile Web App</p>
+                    </div>
+                    <div class="grid grid-cols-3 gap-2 border-t border-white/5 pt-3">
+                        <div>
+                            <span class="block text-white font-bold text-sm" id="info-total-dorms">0</span>
+                            Total Asrama
+                        </div>
+                        <div>
+                            <span class="block text-white font-bold text-sm" id="info-total-txs">0</span>
+                            Transaksi
+                        </div>
+                        <div>
+                            <span class="block text-white font-bold text-sm" id="info-storage-usage">0 KB</span>
+                            Storage
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
     </div>
 
     <!-- Modal Detail Pembelian / Notifikasi Tengah (Opsional) -->
+
+    <!-- Custom Logout Confirmation Modal -->
+    <div id="logout-confirm-modal" class="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300">
+        <div class="glass-card rounded-[24px] p-6 max-w-sm w-[90%] mx-auto flex flex-col items-center text-center border border-white/10 shadow-2xl transform scale-95 transition-all duration-300">
+            <div class="w-12 h-12 bg-red-500/15 text-red-500 rounded-full flex items-center justify-center mb-4 border border-red-500/20 shadow-[0_0_15px_rgba(239,68,68,0.15)]">
+                <i data-lucide="log-out" class="w-6 h-6"></i>
+            </div>
+            <h3 class="text-base font-bold text-white mb-2">Keluar dari akun?</h3>
+            <p class="text-xs text-apple-gray mb-6 leading-relaxed">Anda harus memasukkan PIN kembali untuk masuk ke sistem.</p>
+            <div class="flex gap-3 w-full">
+                <button onclick="closeLogoutConfirm()" class="flex-1 bg-white/5 hover:bg-white/10 text-white font-semibold py-2.5 rounded-xl transition-all border border-white/10 text-xs cursor-pointer select-none">
+                    Batal
+                </button>
+                <button onclick="executeLogout()" class="flex-1 bg-red-500 hover:bg-red-600 text-white font-semibold py-2.5 rounded-xl transition-all shadow-lg shadow-red-500/20 text-xs cursor-pointer select-none">
+                    Keluar
+                </button>
+            </div>
+        </div>
+    </div>
 
     <script>
         // Preload Official QR Template Image
         const qrTemplateImage = new Image();
         qrTemplateImage.crossOrigin = "anonymous";
         qrTemplateImage.src = "https://hyuqcncezuflsoiqrsvf.supabase.co/storage/v1/object/public/waterkings/Tampalte%20Qr.jpg";
+
+        // ==========================================
+        // SUPABASE CLIENT CONFIGURATION
+        // ==========================================
+        const SUPABASE_URL = 'https://hyuqcncezuflsoiqrsvf.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imh5dXFjbmNlenVmbHNvaXFyc3ZmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzk3MjU3MjUsImV4cCI6MjA5NTMwMTcyNX0.H8dXxNb3uisccNzFtjV5WSUZbkPhZirtxJQwAG9ASb4';
+
+        let supabaseClient = null;
+        if (SUPABASE_URL && SUPABASE_URL !== 'YOUR_SUPABASE_URL' && SUPABASE_ANON_KEY && SUPABASE_ANON_KEY !== 'YOUR_SUPABASE_ANON_KEY') {
+            try {
+                supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+            } catch (err) {
+                console.error("Supabase Client Init Error:", err);
+            }
+        }
+
+        function isSupabaseAvailable() {
+            return typeof supabase !== 'undefined' && supabaseClient !== null;
+        }
 
         // ==========================================
         // 0. AUTHENTICATION, ROLES & AUDITING SYSTEM
@@ -1238,13 +1363,85 @@
         const STORE_USERS = 'wk_users';
         const STORE_SECURITY_LOGS = 'wk_security_logs';
 
+        const eyeIcon = '<i data-lucide="eye" class="w-5 h-5"></i>';
+        const eyeOffIcon = '<i data-lucide="eye-off" class="w-5 h-5"></i>';
+
+        function toggleLoginPasswordVisible(inputId, buttonEl) {
+            const input = document.getElementById(inputId);
+            if (!input) return;
+            const isPassword = input.type === 'password';
+            input.type = isPassword ? 'text' : 'password';
+            if (buttonEl) {
+                buttonEl.innerHTML = isPassword ? eyeOffIcon : eyeIcon;
+            }
+            if (window.lucide) {
+                window.lucide.createIcons();
+            }
+        }
+        window.toggleLoginPasswordVisible = toggleLoginPasswordVisible;
+
+        function checkSecureContext() {
+            const warningMessage = "Browser atau koneksi tidak mendukung sistem keamanan WaterKing. Gunakan HTTPS atau browser modern.";
+
+            if (!window.isSecureContext || !window.crypto || !window.crypto.subtle) {
+                // Disable login button
+                const btn = document.querySelector('#form-login button[type="submit"]');
+                if (btn) {
+                    btn.disabled = true;
+                    btn.classList.add('opacity-50', 'cursor-not-allowed');
+                }
+                // Disable inputs
+                const userEl = document.getElementById('login-username');
+                const passEl = document.getElementById('login-pin');
+                if (userEl) userEl.disabled = true;
+                if (passEl) passEl.disabled = true;
+
+                // Show Toast
+                showToast(
+                    'Error Keamanan',
+                    'Aplikasi harus dijalankan melalui localhost atau HTTPS.',
+                    'error'
+                );
+
+                // Tampilkan overlay warning modern
+                const card = document.getElementById('login-card');
+                if (card && !document.getElementById('secure-context-overlay')) {
+                    const overlay = document.createElement('div');
+                    overlay.id = 'secure-context-overlay';
+                    overlay.className = 'absolute inset-0 bg-black/85 backdrop-blur-md z-50 flex flex-col items-center justify-center p-6 text-center rounded-[32px]';
+                    overlay.innerHTML = `
+                        <div class="w-12 h-12 bg-red-500/20 text-apple-red rounded-full flex items-center justify-center mb-4">
+                            <i data-lucide="shield-alert" class="w-6 h-6"></i>
+                        </div>
+                        <h3 class="text-sm font-bold text-white mb-2">Secure Context Required</h3>
+                        <p class="text-xs text-apple-gray leading-relaxed mb-4">${warningMessage}</p>
+                        <div class="text-[10px] text-apple-red bg-red-500/10 border border-red-500/20 rounded-lg p-2.5 w-full">
+                            Layanan enkripsi offline (SubtleCrypto) memerlukan koneksi terenkripsi (HTTPS) atau localhost.
+                        </div>
+                    `;
+                    card.appendChild(overlay);
+                    if (window.lucide) {
+                        window.lucide.createIcons();
+                    }
+                }
+                return false;
+            }
+            return true;
+        }
+        window.checkSecureContext = checkSecureContext;
+
         // Helper: Hash SHA-256
         async function hashSHA256(message) {
-            const msgBuffer = new TextEncoder().encode(message);
-            const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+            if (!window.crypto || !window.crypto.subtle) {
+                throw new Error('SubtleCrypto unsupported');
+            }
+            const encoder = new TextEncoder();
+            const data = encoder.encode(message);
+            const hashBuffer = await window.crypto.subtle.digest('SHA-256', data);
             const hashArray = Array.from(new Uint8Array(hashBuffer));
             return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
         }
+        window.hashSHA256 = hashSHA256;
 
         // Generate Random Salt (16+ chars)
         function generateRandomSalt() {
@@ -1267,7 +1464,300 @@
         }
 
         // Initialize Users list with seed admin
-        function initUserDatabase() {
+        // ==========================================
+        // SUPABASE GLOBAL CACHE & SUBSCRIPTIONS
+        // ==========================================
+        let localTransactions = [];
+        let localUsers = [];
+        let activeUserCache = null;
+        let txChannel = null;
+        let settingsChannel = null;
+        let usersChannel = null;
+
+        // One-time LocalStorage to Supabase Migration
+        async function migrateLocalStorageToSupabase() {
+            if (!isSupabaseAvailable()) return;
+
+            if (localStorage.getItem('wk_migrated_to_supabase') === 'true') {
+                return;
+            }
+
+            try {
+                console.log('Starting Supabase migration...');
+
+                // 1. Migrate Settings
+                const localSettings = localStorage.getItem('wk_settings');
+                if (localSettings) {
+                    try {
+                        const parsed = JSON.parse(localSettings);
+                        await supabaseClient.from('wk_settings').upsert({
+                            id: 1,
+                            daily_limit: parsed.dailyLimit || 2,
+                            start_hour: parsed.startHour || '00:00',
+                            end_hour: parsed.endHour || '23:59',
+                            dark_mode: parsed.theme === 'dark',
+                            updated_at: new Date().toISOString()
+                        });
+                    } catch (e) {
+                        console.error('Settings migration error:', e);
+                    }
+                }
+
+                // 2. Migrate Users
+                const localUsersData = localStorage.getItem('wk_users');
+                if (localUsersData) {
+                    try {
+                        const users = JSON.parse(localUsersData);
+                        const nonAdminUsers = users.filter(u => u.username !== 'admin');
+                        for (const u of nonAdminUsers) {
+                            const { data: existing } = await supabaseClient
+                                .from('wk_users')
+                                .select('id')
+                                .eq('username', u.username)
+                                .maybeSingle();
+
+                            if (!existing) {
+                                await supabaseClient.from('wk_users').insert([{
+                                    username: u.username,
+                                    fullname: u.fullname,
+                                    dormitory: u.dormitory || null,
+                                    role: u.role,
+                                    status: u.status,
+                                    salt: u.salt,
+                                    pin_hash: u.pinHash,
+                                    created_at: u.createdAt ? new Date(u.createdAt).toISOString() : new Date().toISOString(),
+                                    approved_at: u.approvedAt ? new Date(u.approvedAt).toISOString() : null,
+                                    approved_by: u.approvedBy || null,
+                                    blocked_at: u.blockedAt ? new Date(u.blockedAt).toISOString() : null,
+                                    archived_at: u.archivedAt ? new Date(u.archivedAt).toISOString() : null,
+                                    last_login: u.lastLogin ? new Date(u.lastLogin).toISOString() : null
+                                }]);
+                            }
+                        }
+                    } catch (e) {
+                        console.error('Users migration error:', e);
+                    }
+                }
+
+                // 3. Migrate Transactions
+                const localTxs = localStorage.getItem('wk_tx');
+                if (localTxs) {
+                    try {
+                        const txs = JSON.parse(localTxs);
+                        for (const t of txs) {
+                            const date = new Date(t.timestamp);
+                            const dateStr = date.toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' });
+                            const timeStr = date.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+
+                            await supabaseClient.from('wk_transactions').insert([{
+                                dormitory: t.code,
+                                operator: t.operator || 'system',
+                                operator_dorm: t.operatorDorm || null,
+                                status: t.status,
+                                created_at: new Date(t.timestamp).toISOString(),
+                                scan_date: dateStr,
+                                scan_time: timeStr
+                            }]);
+                        }
+                    } catch (e) {
+                        console.error('Transactions migration error:', e);
+                    }
+                }
+
+                // 4. Migrate Security Logs
+                const localLogs = localStorage.getItem('wk_security_logs');
+                if (localLogs) {
+                    try {
+                        const logs = JSON.parse(localLogs);
+                        for (const l of logs) {
+                            await supabaseClient.from('wk_security_logs').insert([{
+                                username: l.username,
+                                event: l.event,
+                                details: l.details || '',
+                                created_at: l.timestamp ? new Date(l.timestamp).toISOString() : new Date().toISOString()
+                            }]);
+                        }
+                    } catch (e) {
+                        console.error('Security logs migration error:', e);
+                    }
+                }
+
+                localStorage.setItem('wk_migrated_to_supabase', 'true');
+                console.log('Supabase migration completed successfully!');
+            } catch (err) {
+                console.error('Migration to Supabase failed:', err);
+            }
+        }
+
+        // Fetch all database state asynchronously
+        async function loadAppData() {
+            if (!isSupabaseAvailable()) return;
+            try {
+                // 1. Fetch settings
+                const { data: settingsData } = await supabaseClient
+                    .from('wk_settings')
+                    .select('*')
+                    .eq('id', 1)
+                    .maybeSingle();
+
+                if (settingsData) {
+                    currentSettings.dailyLimit = settingsData.daily_limit;
+                    currentSettings.startHour = settingsData.start_hour;
+                    currentSettings.endHour = settingsData.end_hour;
+                    currentSettings.theme = settingsData.dark_mode ? 'dark' : 'light';
+                    applyTheme(currentSettings.theme);
+                    populateSettingsUI();
+                }
+
+                // 2. Fetch transactions
+                const { data: txsData, error: txsError } = await supabaseClient
+                    .from('wk_transactions')
+                    .select('*')
+                    .order('created_at', { ascending: false });
+
+                if (!txsError && txsData) {
+                    localTransactions = txsData.map(tx => ({
+                        code: tx.dormitory,
+                        timestamp: new Date(tx.created_at).getTime(),
+                        status: tx.status,
+                        operator: tx.operator,
+                        operatorDorm: tx.operator_dorm
+                    }));
+                    updateDashboard();
+                    renderHistory();
+                }
+
+                // 3. Fetch users if admin
+                const activeUser = getActiveSessionUser();
+                if (activeUser && activeUser.role === 'admin') {
+                    const { data: usersData, error: usersError } = await supabaseClient
+                        .from('wk_users')
+                        .select('*')
+                        .order('created_at', { ascending: false });
+
+                    if (!usersError && usersData) {
+                        localUsers = usersData.map(u => ({
+                            username: u.username,
+                            fullname: u.fullname,
+                            dormitory: u.dormitory,
+                            role: u.role,
+                            status: u.status,
+                            salt: u.salt,
+                            pinHash: u.pin_hash,
+                            createdAt: u.created_at ? new Date(u.created_at).getTime() : null,
+                            approvedAt: u.approved_at ? new Date(u.approved_at).getTime() : null,
+                            approvedBy: u.approved_by,
+                            blockedAt: u.blocked_at ? new Date(u.blocked_at).getTime() : null,
+                            archivedAt: u.archived_at ? new Date(u.archived_at).getTime() : null,
+                            lastLogin: u.last_login ? new Date(u.last_login).getTime() : null
+                        }));
+                        renderUserManagement();
+                    }
+                }
+            } catch (err) {
+                console.error('loadAppData failed:', err);
+            }
+        }
+
+        // Initialize Realtime Sync
+        function initRealtimeSync() {
+            if (!isSupabaseAvailable()) return;
+
+            if (txChannel) supabaseClient.removeChannel(txChannel);
+            if (settingsChannel) supabaseClient.removeChannel(settingsChannel);
+            if (usersChannel) supabaseClient.removeChannel(usersChannel);
+
+            txChannel = supabaseClient
+                .channel('public:wk_transactions')
+                .on('postgres_changes', { event: '*', schema: 'public', table: 'wk_transactions' }, async (payload) => {
+                    console.log('Realtime Transaction update:', payload);
+                    const { data: txsData, error: txsError } = await supabaseClient
+                        .from('wk_transactions')
+                        .select('*')
+                        .order('created_at', { ascending: false });
+
+                    if (!txsError && txsData) {
+                        localTransactions = txsData.map(tx => ({
+                            code: tx.dormitory,
+                            timestamp: new Date(tx.created_at).getTime(),
+                            status: tx.status,
+                            operator: tx.operator,
+                            operatorDorm: tx.operator_dorm
+                        }));
+                        updateDashboard();
+                        renderHistory();
+                    }
+                });
+            txChannel.subscribe();
+
+            settingsChannel = supabaseClient
+                .channel('public:wk_settings')
+                .on('postgres_changes', { event: 'UPDATE', schema: 'public', table: 'wk_settings' }, (payload) => {
+                    console.log('Realtime Settings update:', payload);
+                    const data = payload.new;
+                    if (data) {
+                        currentSettings.dailyLimit = data.daily_limit;
+                        currentSettings.startHour = data.start_hour;
+                        currentSettings.endHour = data.end_hour;
+                        currentSettings.theme = data.dark_mode ? 'dark' : 'light';
+                        applyTheme(currentSettings.theme);
+                        populateSettingsUI();
+                    }
+                });
+            settingsChannel.subscribe();
+
+            usersChannel = supabaseClient
+                .channel('public:wk_users')
+                .on('postgres_changes', { event: '*', schema: 'public', table: 'wk_users' }, async (payload) => {
+                    console.log('Realtime User update:', payload);
+
+                    const activeUser = getActiveSessionUser();
+                    if (activeUser && payload.new && payload.new.username === activeUser.username) {
+                        const newUserStatus = payload.new.status;
+                        if (newUserStatus !== 'active') {
+                            localStorage.removeItem('wk_session');
+                            const loginContainer = document.getElementById('login-container');
+                            const appLayout = document.getElementById('app-layout');
+                            showLoginForm();
+                            loginContainer.classList.remove('hidden');
+                            appLayout.classList.add('hidden');
+                            showToast('Akses Dinonaktifkan', 'Akun Anda telah dinonaktifkan oleh administrator.', 'error');
+                            return;
+                        }
+                    }
+
+                    if (activeUser && activeUser.role === 'admin') {
+                        const { data: usersData, error: usersError } = await supabaseClient
+                            .from('wk_users')
+                            .select('*')
+                            .order('created_at', { ascending: false });
+
+                        if (!usersError && usersData) {
+                            localUsers = usersData.map(u => ({
+                                username: u.username,
+                                fullname: u.fullname,
+                                dormitory: u.dormitory,
+                                role: u.role,
+                                status: u.status,
+                                salt: u.salt,
+                                pinHash: u.pin_hash,
+                                createdAt: u.created_at ? new Date(u.created_at).getTime() : null,
+                                approvedAt: u.approved_at ? new Date(u.approved_at).getTime() : null,
+                                approvedBy: u.approved_by,
+                                blockedAt: u.blocked_at ? new Date(u.blocked_at).getTime() : null,
+                                archivedAt: u.archived_at ? new Date(u.archived_at).getTime() : null,
+                                lastLogin: u.last_login ? new Date(u.last_login).getTime() : null
+                            }));
+                            renderUserManagement();
+                        }
+                    }
+                });
+            usersChannel.subscribe();
+        }
+
+        // Initialize Users list with seed admin
+        async function initUserDatabase() {
+            if (isSupabaseAvailable()) return;
             let users = localStorage.getItem(STORE_USERS);
             if (!users) {
                 const initialUsers = [
@@ -1282,12 +1772,26 @@
                     }
                 ];
                 localStorage.setItem(STORE_USERS, JSON.stringify(initialUsers));
-                logSecurityEvent('system', 'INITIALIZE_DB', 'Sistem login pertama kali dibuat dengan user admin.');
+                await logSecurityEvent('system', 'INITIALIZE_DB', 'Sistem login pertama kali dibuat dengan user admin.');
             }
         }
 
         // Write Security Logs
-        function logSecurityEvent(username, event, details = '') {
+        async function logSecurityEvent(username, event, details = '') {
+            const trimmedUsername = username.toLowerCase().trim();
+            if (isSupabaseAvailable()) {
+                try {
+                    await supabaseClient.from('wk_security_logs').insert([{
+                        username: trimmedUsername,
+                        event: event,
+                        details: details
+                    }]);
+                } catch (e) {
+                    console.error('Failed to log security event to Supabase:', e);
+                }
+                return;
+            }
+
             let logs = [];
             try {
                 logs = JSON.parse(localStorage.getItem(STORE_SECURITY_LOGS) || '[]');
@@ -1295,12 +1799,11 @@
                 logs = [];
             }
             logs.unshift({
-                username: username.toLowerCase().trim(),
+                username: trimmedUsername,
                 event: event,
                 details: details,
                 timestamp: Date.now()
             });
-            // Rotate keeping only the last 100 entries
             localStorage.setItem(STORE_SECURITY_LOGS, JSON.stringify(logs.slice(0, 100)));
         }
 
@@ -1397,6 +1900,10 @@
         // Registration form handler
         async function handleRegister(e) {
             e.preventDefault();
+            if (!window.crypto || !window.crypto.subtle) {
+                showToast('Browser tidak mendukung sistem keamanan modern.', 'error');
+                return;
+            }
             const fullname = document.getElementById('reg-fullname').value.trim();
             const rawUsername = document.getElementById('reg-username').value;
             const rawDorm = document.getElementById('reg-dormitory').value;
@@ -1421,6 +1928,59 @@
                 return;
             }
 
+            if (isSupabaseAvailable()) {
+                try {
+                    // Check existing user in Supabase
+                    const { data: existingUser, error: checkError } = await supabaseClient
+                        .from('wk_users')
+                        .select('id')
+                        .eq('username', username)
+                        .maybeSingle();
+
+                    if (existingUser) {
+                        showToast('Pendaftaran Gagal', 'Username sudah terdaftar.', 'error');
+                        return;
+                    }
+
+                    const salt = generateRandomSalt();
+                    const pinHash = await hashSHA256(pin + salt);
+
+                    const newUser = {
+                        username,
+                        fullname,
+                        dormitory,
+                        pin_hash: pinHash,
+                        salt,
+                        role: 'karyawan',
+                        status: 'pending',
+                        created_at: new Date().toISOString(),
+                        updated_at: new Date().toISOString()
+                    };
+
+                    const { error: insertError } = await supabaseClient
+                        .from('wk_users')
+                        .insert([newUser]);
+
+                    if (insertError) throw insertError;
+
+                    await logSecurityEvent(username, 'REGISTER_USER', `Karyawan baru mendaftar (Asrama: ${dormitory}).`);
+                    showToast('Pengajuan Akun', 'Akun Anda berhasil didaftarkan. Harap menunggu verifikasi pengurus.', 'success');
+
+                    // Clear fields
+                    document.getElementById('reg-fullname').value = '';
+                    document.getElementById('reg-username').value = '';
+                    document.getElementById('reg-dormitory').value = '';
+                    document.getElementById('reg-pin').value = '';
+                    document.getElementById('reg-pin-confirm').value = '';
+                    showLoginForm();
+                } catch (err) {
+                    console.error('Registration failed:', err);
+                    showToast('Pendaftaran Gagal', 'Terjadi kesalahan sistem database.', 'error');
+                }
+                return;
+            }
+
+            // Local storage fallback
             let users = [];
             try {
                 users = JSON.parse(localStorage.getItem(STORE_USERS) || '[]');
@@ -1443,17 +2003,17 @@
                 dormitory,
                 pinHash,
                 salt,
-                role: 'operator',
+                role: 'karyawan',
                 status: 'pending',
                 createdAt: Date.now()
             };
 
             users.push(newUser);
             localStorage.setItem(STORE_USERS, JSON.stringify(users));
-            logSecurityEvent(username, 'REGISTER_USER', `Operator baru mendaftar (Asrama: ${dormitory}).`);
+            await logSecurityEvent(username, 'REGISTER_USER', `Karyawan baru mendaftar (Asrama: ${dormitory}).`);
 
             showToast('Pengajuan Akun', 'Akun Anda berhasil didaftarkan. Harap menunggu verifikasi pengurus.', 'success');
-            
+
             // Clear input fields
             document.getElementById('reg-fullname').value = '';
             document.getElementById('reg-username').value = '';
@@ -1467,12 +2027,124 @@
         // Login Submit handler
         async function handleLogin(e) {
             e.preventDefault();
+
+            // Validate subtle crypto presence
+            if (!window.crypto || !window.crypto.subtle) {
+                showToast('Browser tidak mendukung sistem keamanan modern.', 'error');
+                return;
+            }
+
             if (checkLoginLockout()) return;
 
             const rawUser = document.getElementById('login-username').value;
-            const pin = document.getElementById('login-password').value;
+            const pin = document.getElementById('login-pin').value;
             const username = rawUser.toLowerCase().trim();
 
+            if (isSupabaseAvailable()) {
+                try {
+                    // Query user from Supabase
+                    const { data: user, error: fetchError } = await supabaseClient
+                        .from('wk_users')
+                        .select('*')
+                        .eq('username', username)
+                        .maybeSingle();
+
+                    if (!user || user.status === 'archived') {
+                        handleFailedAttempt(username);
+                        return;
+                    }
+
+                    const hashedPin = await hashSHA256(pin + user.salt);
+                    if (hashedPin !== user.pin_hash) {
+                        handleFailedAttempt(username);
+                        return;
+                    }
+
+                    if (user.status === 'pending') {
+                        showToast('Akun Ditangguhkan', 'Akun Anda sedang menunggu verifikasi pengurus.', 'error');
+                        AudioFX.error();
+                        return;
+                    }
+
+                    if (user.status === 'blocked') {
+                        showToast('Akun Dinonaktifkan', 'Akses akun Anda telah dinonaktifkan oleh administrator.', 'error');
+                        AudioFX.error();
+                        return;
+                    }
+
+                    // Success login
+                    localStorage.setItem('wk_login_attempts', '0');
+                    localStorage.setItem('wk_lockout_time', '0');
+
+                    const token = Math.random().toString(36).substring(2) + Math.random().toString(36).substring(2);
+                    const expiresAt = Date.now() + 7 * 24 * 60 * 60 * 1000;
+                    const payload = `${token}:${expiresAt}:${username}:${user.role}`;
+                    const signature = await hashSHA256(payload + getSessionSalt());
+
+                    const session = {
+                        token,
+                        username,
+                        role: user.role,
+                        expiresAt,
+                        signature,
+                        lastActivity: Date.now()
+                    };
+
+                    localStorage.setItem('wk_session', JSON.stringify(session));
+                    await logSecurityEvent(username, 'SUCCESS_LOGIN', `Login sukses sebagai ${user.role}.`);
+
+                    // Update user metadata in Supabase
+                    await supabaseClient
+                        .from('wk_users')
+                        .update({
+                            last_login: new Date().toISOString(),
+                            updated_at: new Date().toISOString()
+                        })
+                        .eq('username', username);
+
+                    // View Transition
+                    const loginContainer = document.getElementById('login-container');
+                    const appLayout = document.getElementById('app-layout');
+
+                    loginContainer.style.transition = 'opacity 0.4s ease, filter 0.4s ease';
+                    loginContainer.style.opacity = '0';
+                    loginContainer.style.filter = 'blur(12px)';
+                    loginContainer.style.pointerEvents = 'none';
+
+                    appLayout.classList.remove('hidden');
+                    appLayout.style.opacity = '0';
+
+                    applyRolePermissions(user.role);
+
+                    requestAnimationFrame(() => {
+                        appLayout.style.transition = 'opacity 0.4s ease';
+                        appLayout.style.opacity = '1';
+                    });
+
+                    setTimeout(() => {
+                        loginContainer.classList.add('hidden');
+                    }, 450);
+
+                    showToast('Login Berhasil', `Selamat datang kembali, ${user.fullname}.`, 'success');
+
+                    document.getElementById('login-username').value = '';
+                    document.getElementById('login-pin').value = '';
+
+                    // Load transaction data and settings on login success
+                    await loadAppData();
+
+                    // Initialize Realtime Subscriptions
+                    initRealtimeSync();
+
+                    initIdleTimer();
+                } catch (err) {
+                    console.error('Login failed:', err);
+                    showToast('Login Gagal', 'Terjadi kesalahan sistem database.', 'error');
+                }
+                return;
+            }
+
+            // Local fallback login
             let users = [];
             try {
                 users = JSON.parse(localStorage.getItem(STORE_USERS) || '[]');
@@ -1529,7 +2201,7 @@
             };
 
             localStorage.setItem('wk_session', JSON.stringify(session));
-            logSecurityEvent(username, 'SUCCESS_LOGIN', `Login sukses sebagai ${user.role}.`);
+            await logSecurityEvent(username, 'SUCCESS_LOGIN', `Login sukses sebagai ${user.role}.`);
 
             // Update user metadata
             user.lastLogin = Date.now();
@@ -1547,7 +2219,7 @@
 
             appLayout.classList.remove('hidden');
             appLayout.style.opacity = '0';
-            
+
             // Adjust Sidebar/Desktop navigation
             applyRolePermissions(user.role);
 
@@ -1561,9 +2233,9 @@
             }, 450);
 
             showToast('Login Berhasil', `Selamat datang kembali, ${user.fullname}.`, 'success');
-            
+
             document.getElementById('login-username').value = '';
-            document.getElementById('login-password').value = '';
+            document.getElementById('login-pin').value = '';
 
             // Init Inactivity session timer
             initIdleTimer();
@@ -1599,21 +2271,27 @@
 
         // Switch settings visibility based on role
         function applyRolePermissions(role) {
+            const histSettingsBtn = document.getElementById('history-settings-btn');
+            const histLogoutBtn = document.getElementById('history-logout-btn');
+            const sidebarSettingsBtn = document.getElementById('sidebar-settings-btn');
             const limitGroup = document.getElementById('group-settings-limit');
             const hoursGroup = document.getElementById('group-settings-hours');
             const resetGroup = document.getElementById('group-settings-reset');
             const usersGroup = document.getElementById('group-settings-users');
 
-            const settingsSidebarItem = document.querySelector('aside nav button[onclick="openSettingsPanel()"]');
-
             if (role === 'admin') {
+                if (histSettingsBtn) histSettingsBtn.classList.remove('hidden');
+                if (histLogoutBtn) histLogoutBtn.classList.add('hidden');
+                if (sidebarSettingsBtn) sidebarSettingsBtn.classList.remove('hidden');
                 if (limitGroup) limitGroup.classList.remove('hidden');
                 if (hoursGroup) hoursGroup.classList.remove('hidden');
                 if (resetGroup) resetGroup.classList.remove('hidden');
                 if (usersGroup) usersGroup.classList.remove('hidden');
-                if (settingsSidebarItem) settingsSidebarItem.classList.remove('hidden');
                 renderUserManagement();
             } else {
+                if (histSettingsBtn) histSettingsBtn.classList.add('hidden');
+                if (histLogoutBtn) histLogoutBtn.classList.remove('hidden');
+                if (sidebarSettingsBtn) sidebarSettingsBtn.classList.add('hidden');
                 if (limitGroup) limitGroup.classList.add('hidden');
                 if (hoursGroup) hoursGroup.classList.add('hidden');
                 if (resetGroup) resetGroup.classList.add('hidden');
@@ -1623,7 +2301,20 @@
 
         // Validate active session
         async function checkAuthSession() {
-            initUserDatabase();
+            if (isSupabaseAvailable()) {
+                await migrateLocalStorageToSupabase();
+            }
+
+            if (!checkSecureContext()) {
+                await initUserDatabase();
+                const loginContainer = document.getElementById('login-container');
+                const appLayout = document.getElementById('app-layout');
+                showLoginForm();
+                loginContainer.classList.remove('hidden');
+                appLayout.classList.add('hidden');
+                return;
+            }
+            await initUserDatabase();
             const sessionStr = localStorage.getItem('wk_session');
             const loginContainer = document.getElementById('login-container');
             const appLayout = document.getElementById('app-layout');
@@ -1637,7 +2328,7 @@
 
             try {
                 const session = JSON.parse(sessionStr);
-                
+
                 // Expiry verification
                 if (Date.now() > session.expiresAt) {
                     localStorage.removeItem('wk_session');
@@ -1651,7 +2342,7 @@
                 // Signature check
                 const payload = `${session.token}:${session.expiresAt}:${session.username}:${session.role}`;
                 const expectedSignature = await hashSHA256(payload + getSessionSalt());
-                
+
                 if (session.signature !== expectedSignature) {
                     localStorage.removeItem('wk_session');
                     showLoginForm();
@@ -1661,15 +2352,25 @@
                 }
 
                 // Live status check against DB
-                const users = JSON.parse(localStorage.getItem(STORE_USERS) || '[]');
-                const dbUser = users.find(u => u.username === session.username);
-                
+                let dbUser = null;
+                if (isSupabaseAvailable()) {
+                    const { data, error } = await supabaseClient
+                        .from('wk_users')
+                        .select('*')
+                        .eq('username', session.username)
+                        .maybeSingle();
+                    if (!error) dbUser = data;
+                } else {
+                    const users = JSON.parse(localStorage.getItem(STORE_USERS) || '[]');
+                    dbUser = users.find(u => u.username === session.username);
+                }
+
                 if (!dbUser || dbUser.status !== 'active') {
                     localStorage.removeItem('wk_session');
                     showLoginForm();
                     loginContainer.classList.remove('hidden');
                     appLayout.classList.add('hidden');
-                    logSecurityEvent(session.username, 'FORCE_LOGOUT', 'Sesi di-invalidasi karena user diblokir atau di-arsip.');
+                    await logSecurityEvent(session.username, 'FORCE_LOGOUT', 'Sesi di-invalidasi karena user diblokir atau di-arsip.');
                     showToast('Sesi Dinonaktifkan', 'Sesi Anda telah dinonaktifkan oleh administrator.', 'error');
                     return;
                 }
@@ -1678,8 +2379,15 @@
                 loginContainer.classList.add('hidden');
                 appLayout.classList.remove('hidden');
                 appLayout.style.opacity = '1';
-                
+
                 applyRolePermissions(session.role);
+
+                // Load data from Supabase in the background
+                await loadAppData();
+
+                // Initialize Realtime Subscriptions
+                initRealtimeSync();
+
                 initIdleTimer();
             } catch (err) {
                 localStorage.removeItem('wk_session');
@@ -1691,6 +2399,10 @@
 
         // Change PIN Handler
         async function handleChangePin() {
+            if (!window.crypto || !window.crypto.subtle) {
+                showToast('Browser tidak mendukung sistem keamanan modern.', 'error');
+                return;
+            }
             const oldPin = document.getElementById('change-pin-old').value;
             const newPin = document.getElementById('change-pin-new').value;
             const confirmPin = document.getElementById('change-pin-confirm').value;
@@ -1722,15 +2434,44 @@
                 return;
             }
 
-            // Update PIN
+            const newHash = await hashSHA256(newPin + activeUser.salt);
+
+            if (isSupabaseAvailable()) {
+                try {
+                    const { error } = await supabaseClient
+                        .from('wk_users')
+                        .update({
+                            pin_hash: newHash,
+                            updated_at: new Date().toISOString()
+                        })
+                        .eq('username', activeUser.username);
+
+                    if (error) throw error;
+
+                    activeUser.pinHash = newHash;
+                    if (activeUserCache) activeUserCache.pinHash = newHash;
+
+                    await logSecurityEvent(activeUser.username, 'PASSWORD_CHANGED', 'Mengubah PIN masuk.');
+                    showToast('Sukses', 'PIN baru berhasil disimpan.', 'success');
+
+                    document.getElementById('change-pin-old').value = '';
+                    document.getElementById('change-pin-new').value = '';
+                    document.getElementById('change-pin-confirm').value = '';
+                } catch (err) {
+                    console.error('Failed to change PIN in Supabase:', err);
+                    showToast('Gagal', 'Gagal memperbarui PIN di database.', 'error');
+                }
+                return;
+            }
+
+            // Local Update PIN fallback
             let users = JSON.parse(localStorage.getItem(STORE_USERS) || '[]');
             const userIndex = users.findIndex(u => u.username === activeUser.username);
             if (userIndex !== -1) {
-                const newHash = await hashSHA256(newPin + activeUser.salt);
                 users[userIndex].pinHash = newHash;
                 localStorage.setItem(STORE_USERS, JSON.stringify(users));
 
-                logSecurityEvent(activeUser.username, 'PASSWORD_CHANGED', 'Mengubah PIN masuk.');
+                await logSecurityEvent(activeUser.username, 'PASSWORD_CHANGED', 'Mengubah PIN masuk.');
 
                 document.getElementById('change-pin-old').value = '';
                 document.getElementById('change-pin-new').value = '';
@@ -1742,41 +2483,90 @@
 
         // Logout Session Handler
         function handleLogout() {
-            if (confirm("Apakah Anda yakin ingin keluar dari sistem?")) {
-                const sessionStr = localStorage.getItem('wk_session');
-                let username = 'unknown';
-                if (sessionStr) {
-                    try { username = JSON.parse(sessionStr).username; } catch (e) {}
-                }
-                
-                logSecurityEvent(username, 'SUCCESS_LOGOUT', 'User logout manual.');
-                localStorage.removeItem('wk_session');
-                
-                const loginContainer = document.getElementById('login-container');
-                const appLayout = document.getElementById('app-layout');
-                
-                closeSettingsPanel();
+            confirmKaryawanLogout();
+        }
 
-                appLayout.style.transition = 'opacity 0.4s ease';
-                appLayout.style.opacity = '0';
-
-                setTimeout(() => {
-                    appLayout.classList.add('hidden');
-                    loginContainer.classList.remove('hidden');
-                    loginContainer.style.opacity = '0';
-                    loginContainer.style.filter = 'blur(12px)';
-                    loginContainer.style.pointerEvents = 'auto';
-
-                    requestAnimationFrame(() => {
-                        loginContainer.style.transition = 'opacity 0.4s ease, filter 0.4s ease';
-                        loginContainer.style.opacity = '1';
-                        loginContainer.style.filter = 'none';
-                    });
-                }, 450);
-
-                showToast('Logout Berhasil', 'Sesi login telah diakhiri.', 'success');
+        function confirmKaryawanLogout() {
+            const modal = document.getElementById('logout-confirm-modal');
+            if (!modal) return;
+            modal.classList.remove('pointer-events-none');
+            modal.classList.add('opacity-100');
+            const innerCard = modal.querySelector('.glass-card');
+            if (innerCard) {
+                innerCard.classList.remove('scale-95');
+                innerCard.classList.add('scale-100');
+            }
+            if (window.lucide) {
+                window.lucide.createIcons();
             }
         }
+        window.confirmKaryawanLogout = confirmKaryawanLogout;
+
+        function closeLogoutConfirm() {
+            const modal = document.getElementById('logout-confirm-modal');
+            if (!modal) return;
+            modal.classList.add('pointer-events-none');
+            modal.classList.remove('opacity-100');
+            const innerCard = modal.querySelector('.glass-card');
+            if (innerCard) {
+                innerCard.classList.remove('scale-100');
+                innerCard.classList.add('scale-95');
+            }
+        }
+        window.closeLogoutConfirm = closeLogoutConfirm;
+
+        async function executeLogout() {
+            closeLogoutConfirm();
+
+            const sessionStr = localStorage.getItem('wk_session');
+            let username = 'unknown';
+            if (sessionStr) {
+                try { username = JSON.parse(sessionStr).username; } catch (e) { }
+            }
+
+            await logSecurityEvent(username, 'SUCCESS_LOGOUT', 'User logout manual.');
+            localStorage.removeItem('wk_session');
+
+            if (isSupabaseAvailable()) {
+                if (txChannel) { supabaseClient.removeChannel(txChannel); txChannel = null; }
+                if (settingsChannel) { supabaseClient.removeChannel(settingsChannel); settingsChannel = null; }
+                if (usersChannel) { supabaseClient.removeChannel(usersChannel); usersChannel = null; }
+                localTransactions = [];
+                localUsers = [];
+                activeUserCache = null;
+            }
+
+            // Stop idle timer if active
+            if (idleTimeoutInterval) {
+                clearInterval(idleTimeoutInterval);
+                idleTimeoutInterval = null;
+            }
+
+            const loginContainer = document.getElementById('login-container');
+            const appLayout = document.getElementById('app-layout');
+
+            closeSettingsPanel();
+
+            appLayout.style.transition = 'opacity 0.4s ease';
+            appLayout.style.opacity = '0';
+
+            setTimeout(() => {
+                appLayout.classList.add('hidden');
+                loginContainer.classList.remove('hidden');
+                loginContainer.style.opacity = '0';
+                loginContainer.style.filter = 'blur(12px)';
+                loginContainer.style.pointerEvents = 'auto';
+
+                requestAnimationFrame(() => {
+                    loginContainer.style.transition = 'opacity 0.4s ease, filter 0.4s ease';
+                    loginContainer.style.opacity = '1';
+                    loginContainer.style.filter = 'none';
+                });
+            }, 450);
+
+            showToast('Logout Berhasil', 'Sesi login telah diakhiri.', 'success');
+        }
+        window.executeLogout = executeLogout;
 
         // User Management Dashboard Renderer (Admin Only)
         function renderUserManagement() {
@@ -1784,17 +2574,21 @@
             if (!listEl) return;
 
             let users = [];
-            try {
-                users = JSON.parse(localStorage.getItem(STORE_USERS) || '[]');
-            } catch (err) {
-                users = [];
+            if (isSupabaseAvailable()) {
+                users = localUsers;
+            } else {
+                try {
+                    users = JSON.parse(localStorage.getItem(STORE_USERS) || '[]');
+                } catch (err) {
+                    users = [];
+                }
             }
 
             const session = JSON.parse(localStorage.getItem('wk_session') || '{}');
             const displayUsers = users.filter(u => u.username !== session.username && u.status !== 'archived');
 
             if (displayUsers.length === 0) {
-                listEl.innerHTML = '<div class="p-4 text-center text-apple-gray text-[11px]">Belum ada pendaftaran operator lain.</div>';
+                listEl.innerHTML = '<div class="p-4 text-center text-apple-gray text-[11px]">Belum ada pendaftaran karyawan lain.</div>';
                 return;
             }
 
@@ -1849,35 +2643,86 @@
         }
 
         // Admin User management Action Handlers
-        function handleUserAction(username, action) {
+        async function handleUserAction(username, action) {
             if (!confirm("Apakah Anda yakin?")) return;
 
+            const adminSession = JSON.parse(localStorage.getItem('wk_session') || '{}');
+
+            if (isSupabaseAvailable()) {
+                try {
+                    const updates = {
+                        updated_at: new Date().toISOString()
+                    };
+
+                    if (action === 'approve') {
+                        updates.status = 'active';
+                        updates.approved_at = new Date().toISOString();
+                        updates.approved_by = adminSession.username || 'admin';
+                    } else if (action === 'block') {
+                        updates.status = 'blocked';
+                        updates.blocked_at = new Date().toISOString();
+                    } else if (action === 'activate') {
+                        updates.status = 'active';
+                    } else if (action === 'archive') {
+                        updates.status = 'archived';
+                        updates.archived_at = new Date().toISOString();
+                    }
+
+                    const { error } = await supabaseClient
+                        .from('wk_users')
+                        .update(updates)
+                        .eq('username', username);
+
+                    if (error) throw error;
+
+                    if (action === 'approve') {
+                        await logSecurityEvent(username, 'APPROVED_USER', `Akun disetujui oleh admin ${adminSession.username}`);
+                        showToast('Pengguna Disetujui', `Karyawan ${username} kini dapat login ke sistem.`, 'success');
+                    } else if (action === 'block') {
+                        await logSecurityEvent(username, 'BLOCKED_USER', `Akun diblokir oleh admin ${adminSession.username}`);
+                        showToast('Pengguna Diblokir', `Karyawan ${username} dibekukan.`, 'success');
+                    } else if (action === 'activate') {
+                        await logSecurityEvent(username, 'ACTIVATE_USER', `Akun diaktifkan kembali oleh admin ${adminSession.username}`);
+                        showToast('Pengguna Aktif', `Karyawan ${username} telah diaktifkan kembali.`, 'success');
+                    } else if (action === 'archive') {
+                        await logSecurityEvent(username, 'ARCHIVED_USER', `Akun diarsip oleh admin ${adminSession.username}`);
+                        showToast('Pengguna Diarsip', `Karyawan ${username} telah diarsipkan (soft delete).`, 'success');
+                    }
+
+                    // Reload user data
+                    await loadAppData();
+                } catch (err) {
+                    console.error('Failed to execute user action in Supabase:', err);
+                    showToast('Gagal', 'Gagal memperbarui status user di database.', 'error');
+                }
+                return;
+            }
+
+            // Local fallback
             let users = JSON.parse(localStorage.getItem(STORE_USERS) || '[]');
             const userIndex = users.findIndex(u => u.username === username);
             if (userIndex === -1) return;
-
-            const adminSession = JSON.parse(localStorage.getItem('wk_session') || '{}');
 
             if (action === 'approve') {
                 users[userIndex].status = 'active';
                 users[userIndex].approvedAt = Date.now();
                 users[userIndex].approvedBy = adminSession.username;
-                logSecurityEvent(username, 'APPROVED_USER', `Akun disetujui oleh admin ${adminSession.username}`);
-                showToast('Pengguna Disetujui', `Operator ${username} kini dapat login ke sistem.`, 'success');
+                await logSecurityEvent(username, 'APPROVED_USER', `Akun disetujui oleh admin ${adminSession.username}`);
+                showToast('Pengguna Disetujui', `Karyawan ${username} kini dapat login ke sistem.`, 'success');
             } else if (action === 'block') {
                 users[userIndex].status = 'blocked';
                 users[userIndex].blockedAt = Date.now();
-                logSecurityEvent(username, 'BLOCKED_USER', `Akun diblokir oleh admin ${adminSession.username}`);
-                showToast('Pengguna Diblokir', `Operator ${username} dibekukan.`, 'success');
+                await logSecurityEvent(username, 'BLOCKED_USER', `Akun diblokir oleh admin ${adminSession.username}`);
+                showToast('Pengguna Diblokir', `Karyawan ${username} dibekukan.`, 'success');
             } else if (action === 'activate') {
                 users[userIndex].status = 'active';
-                logSecurityEvent(username, 'ACTIVATE_USER', `Akun diaktifkan kembali oleh admin ${adminSession.username}`);
-                showToast('Pengguna Aktif', `Operator ${username} telah diaktifkan kembali.`, 'success');
+                await logSecurityEvent(username, 'ACTIVATE_USER', `Akun diaktifkan kembali oleh admin ${adminSession.username}`);
+                showToast('Pengguna Aktif', `Karyawan ${username} telah diaktifkan kembali.`, 'success');
             } else if (action === 'archive') {
                 users[userIndex].status = 'archived';
                 users[userIndex].archivedAt = Date.now();
-                logSecurityEvent(username, 'ARCHIVED_USER', `Akun diarsip oleh admin ${adminSession.username}`);
-                showToast('Pengguna Diarsip', `Operator ${username} telah diarsipkan (soft delete).`, 'success');
+                await logSecurityEvent(username, 'ARCHIVED_USER', `Akun diarsip oleh admin ${adminSession.username}`);
+                showToast('Pengguna Diarsip', `Karyawan ${username} telah diarsipkan (soft delete).`, 'success');
             }
 
             localStorage.setItem(STORE_USERS, JSON.stringify(users));
@@ -1897,7 +2742,7 @@
                         const session = JSON.parse(sessionStr);
                         session.lastActivity = Date.now();
                         localStorage.setItem('wk_session', JSON.stringify(session));
-                    } catch (e) {}
+                    } catch (e) { }
                 }
             };
 
@@ -1919,7 +2764,7 @@
                                 window.location.reload();
                             }, 1000);
                         }
-                    } catch (e) {}
+                    } catch (e) { }
                 }
             }, 30000); // check every 30 seconds
         }
@@ -1941,6 +2786,11 @@
         let currentSettings = { ...defaultSettings };
 
         function openSettingsPanel() {
+            const activeUser = getActiveSessionUser();
+            if (!activeUser || activeUser.role !== 'admin') {
+                showToast('Akses Ditolak', 'Anda tidak memiliki akses ke pengaturan.', 'error');
+                return;
+            }
             populateSettingsUI();
             document.getElementById('settings-panel-overlay').classList.add('active');
             document.getElementById('settings-panel').classList.add('active');
@@ -1968,7 +2818,24 @@
             migrateDormsToMaster(); // Clean up duplicates and normalize on startup
         }
 
-        function saveSettings() {
+        async function saveSettings() {
+            if (isSupabaseAvailable()) {
+                try {
+                    await supabaseClient
+                        .from('wk_settings')
+                        .upsert({
+                            id: 1,
+                            daily_limit: currentSettings.dailyLimit,
+                            start_hour: currentSettings.startHour,
+                            end_hour: currentSettings.endHour,
+                            dark_mode: currentSettings.theme === 'dark',
+                            updated_at: new Date().toISOString()
+                        });
+                } catch (e) {
+                    console.error('Failed to save settings to Supabase:', e);
+                }
+                return;
+            }
             localStorage.setItem(STORE_SETTINGS, JSON.stringify(currentSettings));
         }
 
@@ -1999,7 +2866,7 @@
 
             const [startH, startM] = currentSettings.startHour.split(':').map(Number);
             const [endH, endM] = currentSettings.endHour.split(':').map(Number);
-            
+
             const startTimeMinutes = startH * 60 + startM;
             const endTimeMinutes = endH * 60 + endM;
 
@@ -2014,10 +2881,10 @@
             document.getElementById('setting-daily-limit').value = currentSettings.dailyLimit;
             document.getElementById('setting-start-hour').value = currentSettings.startHour;
             document.getElementById('setting-end-hour').value = currentSettings.endHour;
-            
+
             const isDark = currentSettings.theme === 'dark';
             document.getElementById('setting-theme-toggle').checked = isDark;
-            
+
             const themeIcon = document.getElementById('theme-setting-icon');
             if (themeIcon) {
                 themeIcon.setAttribute('data-lucide', isDark ? 'moon' : 'sun');
@@ -2030,14 +2897,14 @@
         function updateSystemInfoMetrics() {
             const dorms = Storage.getDorms();
             const txs = Storage.getTx();
-            
+
             const totalDormsEl = document.getElementById('info-total-dorms');
             const totalTxsEl = document.getElementById('info-total-txs');
             const storageUsageEl = document.getElementById('info-storage-usage');
 
             if (totalDormsEl) totalDormsEl.innerText = dorms.length;
             if (totalTxsEl) totalTxsEl.innerText = txs.length;
-            
+
             let totalBytes = 0;
             for (let i = 0; i < localStorage.length; i++) {
                 const key = localStorage.key(i);
@@ -2097,13 +2964,13 @@
             return dormsList.sort((a, b) => {
                 let aMatch = a.match(/^([A-Z]+)(\d+)$/);
                 let bMatch = b.match(/^([A-Z]+)(\d+)$/);
-                
+
                 if (aMatch && bMatch) {
                     let aLetters = aMatch[1];
                     let aNumbers = parseInt(aMatch[2], 10);
                     let bLetters = bMatch[1];
                     let bNumbers = parseInt(bMatch[2], 10);
-                    
+
                     if (aLetters !== bLetters) {
                         return aLetters.localeCompare(bLetters);
                     }
@@ -2118,7 +2985,7 @@
             const dorms = Storage.getDorms();
             const txs = Storage.getTx();
             let collected = new Set();
-            
+
             // Normalize existing dorms list and clean it up
             let cleanedDorms = [];
             dorms.forEach(d => {
@@ -2142,7 +3009,7 @@
                 return t;
             });
             localStorage.setItem(STORE_TX, JSON.stringify(cleanedTxs));
-            
+
             // Save master dorms list
             masters.forEach(m => {
                 const norm = normalizeDormCode(m);
@@ -2155,8 +3022,18 @@
         const STORE_MASTER_DORMS = 'wk_master_dorms';
 
         const Storage = {
-            getDorms: () => JSON.parse(localStorage.getItem(STORE_DORMS) || '[]'),
-            getMasterDorms: () => JSON.parse(localStorage.getItem(STORE_MASTER_DORMS) || '[]'),
+            getDorms: () => {
+                return JSON.parse(localStorage.getItem(STORE_DORMS) || '[]');
+            },
+            getMasterDorms: () => {
+                if (isSupabaseAvailable()) {
+                    const txDorms = localTransactions.map(t => t.code);
+                    const localMasters = JSON.parse(localStorage.getItem(STORE_MASTER_DORMS) || '[]');
+                    const combined = new Set([...txDorms, ...localMasters]);
+                    return Array.from(combined);
+                }
+                return JSON.parse(localStorage.getItem(STORE_MASTER_DORMS) || '[]');
+            },
             addMasterDorm: (dormCode) => {
                 const normalized = normalizeDormCode(dormCode);
                 if (!normalized) return;
@@ -2179,28 +3056,92 @@
                 }
                 return { token: existing.token, isNew: false, normalizedCode: normalized };
             },
-            getTx: () => JSON.parse(localStorage.getItem(STORE_TX) || '[]'),
-            addTx: (tx) => {
+            getTx: () => {
+                if (isSupabaseAvailable()) {
+                    return localTransactions;
+                }
+                return JSON.parse(localStorage.getItem(STORE_TX) || '[]');
+            },
+            addTx: async (tx) => {
                 tx.code = normalizeDormCode(tx.code);
-                Storage.addMasterDorm(tx.code); // Ensure present in master list on scan
+                Storage.addMasterDorm(tx.code);
 
                 // Transaction Audit Attribution
                 const activeUser = getActiveSessionUser();
+                let operatorName = 'system';
+                let operatorDormCode = '';
                 if (activeUser) {
-                    tx.operator = activeUser.username;
-                    tx.operatorDorm = activeUser.dormitory || '';
-                } else {
-                    tx.operator = 'system';
-                    tx.operatorDorm = '';
+                    operatorName = activeUser.username;
+                    operatorDormCode = activeUser.dormitory || '';
+                }
+
+                tx.operator = operatorName;
+                tx.operatorDorm = operatorDormCode;
+
+                if (isSupabaseAvailable()) {
+                    try {
+                        const date = new Date(tx.timestamp);
+                        const dateStr = date.toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' });
+                        const timeStr = date.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+
+                        const { error } = await supabaseClient
+                            .from('wk_transactions')
+                            .insert([{
+                                dormitory: tx.code,
+                                operator: operatorName,
+                                operator_dorm: operatorDormCode || null,
+                                status: tx.status,
+                                created_at: new Date(tx.timestamp).toISOString(),
+                                scan_date: dateStr,
+                                scan_time: timeStr
+                            }]);
+
+                        if (error) throw error;
+
+                        const exists = localTransactions.some(t => t.timestamp === tx.timestamp && t.code === tx.code);
+                        if (!exists) {
+                            localTransactions.unshift({
+                                code: tx.code,
+                                timestamp: tx.timestamp,
+                                status: tx.status,
+                                operator: operatorName,
+                                operatorDorm: operatorDormCode
+                            });
+                        }
+                        updateDashboard();
+                        renderHistory();
+                    } catch (err) {
+                        console.error('Failed to add transaction to Supabase:', err);
+                        showToast('Database Error', 'Gagal menyimpan transaksi ke server.', 'error');
+                    }
+                    return;
                 }
 
                 let txs = Storage.getTx();
-                txs.unshift(tx); // Add to beginning
+                txs.unshift(tx);
                 localStorage.setItem(STORE_TX, JSON.stringify(txs));
                 updateDashboard();
                 renderHistory();
             },
-            clearTx: () => {
+            clearTx: async () => {
+                if (isSupabaseAvailable()) {
+                    try {
+                        const { error } = await supabaseClient
+                            .from('wk_transactions')
+                            .delete()
+                            .neq('id', '00000000-0000-0000-0000-000000000000'); // Deletes all rows
+
+                        if (error) throw error;
+                        localTransactions = [];
+                        updateDashboard();
+                        renderHistory();
+                    } catch (err) {
+                        console.error('Failed to clear transactions from Supabase:', err);
+                        showToast('Database Error', 'Gagal menghapus transaksi dari server.', 'error');
+                    }
+                    return;
+                }
+
                 localStorage.setItem(STORE_TX, '[]');
                 updateDashboard();
                 renderHistory();
@@ -2413,13 +3354,13 @@
                     canvas.width = 1080;
                     canvas.height = 1620;
                     const ctx = canvas.getContext('2d');
-                    
+
                     ctx.imageSmoothingEnabled = true;
                     ctx.imageSmoothingQuality = 'high';
-                    
+
                     // 1. Draw template background
                     ctx.drawImage(qrTemplateImage, 0, 0, 1080, 1620);
-                    
+
                     // 2. Generate QR code inside a temporary div
                     const tempDiv = document.createElement('div');
                     new QRCode(tempDiv, {
@@ -2430,13 +3371,13 @@
                         colorLight: "#ffffff",
                         correctLevel: QRCode.CorrectLevel.H
                     });
-                    
+
                     // We wait a brief moment for qrcode.js to finish drawing synchronously
                     setTimeout(() => {
                         const qrCanvas = tempDiv.querySelector('canvas');
                         if (qrCanvas) {
                             ctx.imageSmoothingEnabled = false;
-                            
+
                             // Proportional sizing: centered exactly inside white frame
                             // Frame Center: X = 540, Y = 895. Size = 410.
                             const qrSize = 410;
@@ -2444,7 +3385,7 @@
                             const qrY = 895 - qrSize / 2;
                             ctx.drawImage(qrCanvas, qrX, qrY, qrSize, qrSize);
                         }
-                        
+
                         // 3. Render Asrama Text
                         ctx.imageSmoothingEnabled = true;
                         ctx.fillStyle = "#0c3b73"; // Waterking official blue color matching template design
@@ -2452,11 +3393,11 @@
                         ctx.textAlign = "center";
                         ctx.textBaseline = "middle";
                         ctx.fillText(`Asrama: ${dormCode}`, 540, 1200);
-                        
+
                         resolve(canvas.toDataURL("image/png"));
                     }, 50);
                 };
-                
+
                 if (qrTemplateImage.complete) {
                     render();
                 } else {
@@ -2651,14 +3592,14 @@
 
                 // Check Operator scan restriction
                 const activeUser = getActiveSessionUser();
-                if (activeUser && activeUser.role === 'operator') {
+                if (activeUser && activeUser.role === 'karyawan') {
                     const operatorDorm = normalizeDormCode(activeUser.dormitory);
                     const scannedDorm = normalizeDormCode(dormCode);
                     if (operatorDorm !== scannedDorm) {
                         AudioFX.error();
                         logSecurityEvent(activeUser.username, 'UNAUTHORIZED_SCAN', `Mencoba scan asrama ${scannedDorm} padahal terdaftar di ${operatorDorm}.`);
                         showToast('Akses Ditolak', 'Operator tidak berwenang untuk asrama ini.', 'error');
-                        
+
                         const viewport = document.querySelector('#reader');
                         viewport.style.boxShadow = 'inset 0 0 50px rgba(255, 69, 58, 0.5)';
                         setTimeout(() => viewport.style.boxShadow = 'none', 1000);
@@ -2675,7 +3616,7 @@
                         status: 'REJECTED'
                     });
                     showToast('Di luar jam operasional', `Transaksi ditolak. Jam operasional aktif: ${currentSettings.startHour} - ${currentSettings.endHour}`, 'error');
-                    
+
                     const viewport = document.querySelector('#reader');
                     viewport.style.boxShadow = 'inset 0 0 50px rgba(255, 69, 58, 0.5)';
                     setTimeout(() => viewport.style.boxShadow = 'none', 1000);
@@ -2732,10 +3673,10 @@
 
             html5QrcodeScanner = new Html5Qrcode("reader");
             const qrSize = Math.min(window.innerWidth * 0.72, 320);
-            const config = { 
-                fps: 10, 
-                qrbox: { width: qrSize, height: qrSize }, 
-                aspectRatio: 1.0 
+            const config = {
+                fps: 10,
+                qrbox: { width: qrSize, height: qrSize },
+                aspectRatio: 1.0
             };
 
             html5QrcodeScanner.start({ facingMode: "environment" }, config, onScanSuccess)
@@ -2817,7 +3758,7 @@
                         Semua
                     </button>
                 `;
-                
+
                 chipsHtml += masters.map(dorm => {
                     const isActive = selectedDormFilter === dorm;
                     return `
@@ -2827,21 +3768,21 @@
                         </button>
                     `;
                 }).join('');
-                
+
                 filterContainer.innerHTML = chipsHtml;
             }
 
             // 2. Filter transactions list
-            const filteredTxs = selectedDormFilter === 'ALL' 
-                ? txs 
+            const filteredTxs = selectedDormFilter === 'ALL'
+                ? txs
                 : txs.filter(tx => tx.code === selectedDormFilter);
 
             // 3. Render list or empty state
             if (filteredTxs.length === 0) {
                 tbody.innerHTML = '';
                 if (emptyTextEl) {
-                    emptyTextEl.innerText = selectedDormFilter === 'ALL' 
-                        ? 'Belum ada data transaksi.' 
+                    emptyTextEl.innerText = selectedDormFilter === 'ALL'
+                        ? 'Belum ada data transaksi.'
                         : `Belum ada histori untuk asrama ${selectedDormFilter}.`;
                 }
                 emptyState.classList.remove('hidden');
