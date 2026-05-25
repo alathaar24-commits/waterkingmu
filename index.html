@@ -3676,22 +3676,7 @@
 
                 if (!dormCode) throw new Error("Format tidak valid");
 
-                // Check Operator scan restriction
-                const activeUser = getActiveSessionUser();
-                if (activeUser && activeUser.role === 'karyawan') {
-                    const operatorDorm = normalizeDormCode(activeUser.dormitory);
-                    const scannedDorm = normalizeDormCode(dormCode);
-                    if (operatorDorm !== scannedDorm) {
-                        AudioFX.error();
-                        logSecurityEvent(activeUser.username, 'UNAUTHORIZED_SCAN', `Mencoba scan asrama ${scannedDorm} padahal terdaftar di ${operatorDorm}.`);
-                        showToast('Akses Ditolak', 'Operator tidak berwenang untuk asrama ini.', 'error');
 
-                        const viewport = document.querySelector('#reader');
-                        viewport.style.boxShadow = 'inset 0 0 50px rgba(255, 69, 58, 0.5)';
-                        setTimeout(() => viewport.style.boxShadow = 'none', 1000);
-                        return;
-                    }
-                }
 
                 // Check Operational Hours
                 if (!isWithinOperationalHours()) {
