@@ -215,6 +215,233 @@
             opacity: 0;
             animation: cardFadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
         }
+
+        /* Smooth Transition for Theme Switches */
+        body, .glass-card, input, textarea, button, svg, i, span, h1, h2, h3, h4, th, td, aside, nav, div {
+            transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        /* Light Theme Styles */
+        html.light body {
+            background-color: #f4f5f7;
+            background-image: radial-gradient(circle at top right, #e2e8f0 0%, #f4f5f7 40%),
+                radial-gradient(circle at bottom left, #cbd5e1 0%, #f4f5f7 40%);
+            color: #1c1c1e;
+        }
+
+        html.light .glass-card {
+            background: rgba(255, 255, 255, 0.65) !important;
+            border: 1px solid rgba(0, 0, 0, 0.08) !important;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.04) !important;
+            backdrop-filter: blur(20px) !important;
+            -webkit-backdrop-filter: blur(20px) !important;
+        }
+
+        html.light .text-white {
+            color: #1c1c1e !important;
+        }
+
+        html.light .text-apple-gray {
+            color: #555558 !important;
+        }
+
+        html.light input, 
+        html.light textarea,
+        html.light select {
+            background-color: rgba(0, 0, 0, 0.04) !important;
+            border: 1px solid rgba(0, 0, 0, 0.1) !important;
+            color: #1c1c1e !important;
+        }
+
+        html.light input:focus, 
+        html.light textarea:focus {
+            border-color: #0a84ff !important;
+            background-color: rgba(255, 255, 255, 0.9) !important;
+        }
+
+        html.light input::placeholder, 
+        html.light textarea::placeholder {
+            color: #8e8e93 !important;
+        }
+
+        html.light .divide-white\/5 > * + *,
+        html.light .border-white\/5,
+        html.light .border-white\/10,
+        html.light .border-white\/20,
+        html.light .divide-y.divide-white\/5 > * + * {
+            border-color: rgba(0, 0, 0, 0.08) !important;
+        }
+
+        html.light .bg-white\/5 {
+            background-color: rgba(0, 0, 0, 0.03) !important;
+        }
+
+        html.light .bg-white\/10 {
+            background-color: rgba(0, 0, 0, 0.06) !important;
+        }
+
+        html.light .bg-white\/20 {
+            background-color: rgba(0, 0, 0, 0.1) !important;
+        }
+
+        html.light .bg-black\/50 {
+            background-color: rgba(0, 0, 0, 0.04) !important;
+        }
+
+        /* Protect components from generic text color changes */
+        html.light .bg-apple-blue,
+        html.light .bg-apple-blue *,
+        html.light button.bg-apple-blue,
+        html.light button[type="submit"],
+        html.light button[type="submit"] *,
+        html.light button.shadow-blue-500\/25,
+        html.light button.shadow-blue-500\/25 *,
+        html.light .bg-red-500,
+        html.light .bg-red-500 *,
+        html.light .bg-green-500,
+        html.light .bg-green-500 *,
+        html.light .toast-enter *,
+        html.light .nav-item.active i,
+        html.light .nav-item.active svg,
+        html.light .nav-item.active span,
+        html.light .nav-btn-desktop.text-white i,
+        html.light .nav-btn-desktop.text-white span {
+            color: #ffffff !important;
+        }
+        
+        html.light .nav-item.active span {
+            color: #0a84ff !important;
+        }
+
+        html.light .nav-item {
+            color: #6e6e73;
+        }
+
+        html.light .nav-item svg, 
+        html.light .nav-item i {
+            color: #6e6e73;
+        }
+
+        html.light .nav-item.active {
+            color: #0a84ff !important;
+        }
+
+        html.light .nav-btn-desktop.text-white {
+            background-color: rgba(0, 0, 0, 0.05) !important;
+            color: #1c1c1e !important;
+        }
+
+        /* Settings Panel Slide Over */
+        .settings-panel-overlay {
+            position: fixed;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            z-index: 45;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s ease;
+        }
+
+        .settings-panel-overlay.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .settings-panel {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 100%;
+            max-width: 480px;
+            height: 100%;
+            z-index: 50;
+            transform: translateX(100%);
+            opacity: 0;
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: -10px 0 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .settings-panel.active {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        html.light .settings-panel-overlay {
+            background-color: rgba(255, 255, 255, 0.25);
+        }
+
+        /* Login Backdrop & Fluid Water Animations */
+        .water-bg {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 30% 20%, #051329 0%, #000000 70%),
+                        radial-gradient(circle at 80% 80%, #001f3f 0%, #000000 80%);
+            z-index: 1;
+        }
+
+        .water-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(85px);
+            opacity: 0.15;
+            will-change: transform, opacity;
+            z-index: 2;
+        }
+
+        .water-orb-1 {
+            width: 400px;
+            height: 400px;
+            background: #0077b6;
+            top: -100px;
+            left: -100px;
+            animation: floatOrb 25s ease-in-out infinite alternate;
+        }
+
+        .water-orb-2 {
+            width: 500px;
+            height: 500px;
+            background: #00b4d8;
+            bottom: -150px;
+            right: -150px;
+            animation: floatOrb 30s ease-in-out infinite alternate-reverse;
+        }
+
+        .water-orb-3 {
+            width: 300px;
+            height: 300px;
+            background: #0096c7;
+            top: 40%;
+            left: 50%;
+            animation: floatOrb 20s ease-in-out infinite alternate;
+        }
+
+        @keyframes floatOrb {
+            0% {
+                transform: translate(0, 0) scale(1);
+                opacity: 0.15;
+            }
+            50% {
+                transform: translate(45px, -45px) scale(1.1);
+                opacity: 0.22;
+            }
+            100% {
+                transform: translate(-30px, 45px) scale(0.9);
+                opacity: 0.15;
+            }
+        }
+
+        .shake-anim {
+            animation: shake 0.4s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-8px); }
+            40%, 80% { transform: translateX(8px); }
+        }
     </style>
 </head>
 
@@ -224,8 +451,143 @@
     <div id="toast-container"
         class="fixed top-4 left-0 right-0 z-50 flex flex-col items-center gap-2 pointer-events-none px-4"></div>
 
-    <!-- Mobile Bottom Navigation (Hidden on Desktop) -->
-    <nav
+    <!-- ================= LOGIN CONTAINER ================= -->
+    <div id="login-container" class="fixed inset-0 w-full h-full z-50 flex items-center justify-center overflow-hidden bg-black select-none transition-all duration-500">
+        <!-- Abstract Liquid Background -->
+        <div class="water-bg"></div>
+        <div class="water-orb water-orb-1"></div>
+        <div class="water-orb water-orb-2"></div>
+        <div class="water-orb water-orb-3"></div>
+
+        <!-- Login Card -->
+        <div class="relative z-10 w-full max-w-md px-6">
+            <div id="login-card" class="glass-card rounded-[32px] p-8 md:p-10 flex flex-col items-center shadow-2xl relative border border-white/10 overflow-hidden">
+                
+                <!-- Water Droplet Logo -->
+                <div class="w-16 h-16 bg-gradient-to-br from-blue-400 to-apple-blue rounded-2xl flex items-center justify-center mb-6 shadow-lg shadow-blue-500/30">
+                    <i data-lucide="droplet" class="text-white w-8 h-8 animate-pulse"></i>
+                </div>
+                
+                <!-- Title & Subtitle -->
+                <h1 class="text-2xl font-extrabold text-white tracking-wide text-center">WaterKing Access</h1>
+                <p class="text-apple-gray text-xs mt-1.5 text-center">Sistem Distribusi Air Pesantren</p>
+                
+                <!-- Login Form -->
+                <form id="form-login" onsubmit="handleLogin(event)" class="w-full mt-8 space-y-4">
+                    <!-- Username Input -->
+                    <div>
+                        <label class="block text-xs font-semibold text-apple-gray mb-2">Username</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-apple-gray">
+                                <i data-lucide="user" class="w-5 h-5"></i>
+                            </div>
+                            <input type="text" id="login-username" required placeholder="Masukkan username"
+                                class="w-full pl-11 pr-4 py-3 bg-black/40 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-apple-blue focus:ring-1 focus:ring-apple-blue transition-all text-sm">
+                        </div>
+                    </div>
+
+                    <!-- Password Input -->
+                    <div>
+                        <label class="block text-xs font-semibold text-apple-gray mb-2">Password / PIN</label>
+                        <div class="relative">
+                            <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-apple-gray">
+                                <i data-lucide="lock" class="w-5 h-5"></i>
+                            </div>
+                            <input type="password" id="login-password" required placeholder="••••••" maxlength="6" inputmode="numeric" pattern="[0-9]*"
+                                class="w-full pl-11 pr-12 py-3 bg-black/40 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-apple-blue focus:ring-1 focus:ring-apple-blue transition-all text-sm tracking-[0.2em]"
+                                oninput="validatePasswordInput(this)">
+                            
+                            <!-- Show/Hide Password Toggle -->
+                            <button type="button" onclick="toggleLoginPasswordVisible()"
+                                class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-apple-gray hover:text-white transition-colors cursor-pointer select-none">
+                                <i id="eye-icon" data-lucide="eye" class="w-5 h-5"></i>
+                            </button>
+                        </div>
+                        <p id="password-warning" class="text-apple-red text-[11px] mt-1.5 hidden">Password maksimal 6 karakter (angka saja).</p>
+                    </div>
+
+                    <!-- Login CTA Button -->
+                    <button type="submit"
+                        class="w-full mt-6 bg-gradient-to-r from-blue-500 to-apple-blue hover:from-blue-600 hover:to-blue-600 active:scale-[0.98] text-white font-bold py-3.5 rounded-xl transition-all flex justify-center items-center gap-2 shadow-lg shadow-blue-500/25 select-none cursor-pointer">
+                        Masuk
+                    </button>
+
+                    <!-- Links to switch form -->
+                    <div class="flex justify-between items-center text-xs mt-6 px-1">
+                        <button type="button" onclick="showRegisterForm()" class="text-apple-gray hover:text-white transition-colors cursor-pointer select-none bg-transparent border-none">Buat Akun</button>
+                        <button type="button" onclick="showForgotPIN()" class="text-apple-gray hover:text-white transition-colors cursor-pointer select-none bg-transparent border-none">Lupa PIN?</button>
+                    </div>
+                </form>
+
+                <!-- Register Form -->
+                <form id="form-register" onsubmit="handleRegister(event)" class="w-full mt-6 space-y-4 hidden">
+                    <h3 class="text-sm font-bold text-white text-center mb-1">Pendaftaran Akun Baru</h3>
+                    <p class="text-center text-[10px] text-apple-gray leading-tight">Pengajuan akun operator baru dengan status peninjauan.</p>
+                    
+                    <div>
+                        <label class="block text-[11px] font-semibold text-apple-gray mb-1">Nama Lengkap</label>
+                        <input type="text" id="reg-fullname" required placeholder="Masukkan nama lengkap"
+                            class="w-full px-3 py-2 bg-black/40 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-apple-blue focus:ring-1 focus:ring-apple-blue transition-all text-xs">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-[11px] font-semibold text-apple-gray mb-1">Username</label>
+                        <input type="text" id="reg-username" required placeholder="Masukkan username"
+                            class="w-full px-3 py-2 bg-black/40 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-apple-blue focus:ring-1 focus:ring-apple-blue transition-all text-xs">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-[11px] font-semibold text-apple-gray mb-1">Asrama</label>
+                        <input type="text" id="reg-dormitory" required placeholder="Contoh: A03 atau A3"
+                            class="w-full px-3 py-2 bg-black/40 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-apple-blue focus:ring-1 focus:ring-apple-blue transition-all text-xs uppercase">
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block text-[11px] font-semibold text-apple-gray mb-1">PIN (6 Angka)</label>
+                            <input type="password" id="reg-pin" required placeholder="••••••" maxlength="6" inputmode="numeric" pattern="[0-9]*"
+                                class="w-full px-3 py-2 bg-black/40 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-apple-blue focus:ring-1 focus:ring-apple-blue transition-all text-xs tracking-[0.2em]"
+                                oninput="validatePinInput(this)">
+                        </div>
+                        <div>
+                            <label class="block text-[11px] font-semibold text-apple-gray mb-1">Ulangi PIN</label>
+                            <input type="password" id="reg-pin-confirm" required placeholder="••••••" maxlength="6" inputmode="numeric" pattern="[0-9]*"
+                                class="w-full px-3 py-2 bg-black/40 border border-white/10 rounded-xl text-white placeholder-gray-500 focus:outline-none focus:border-apple-blue focus:ring-1 focus:ring-apple-blue transition-all text-xs tracking-[0.2em]"
+                                oninput="validatePinInput(this)">
+                        </div>
+                    </div>
+                    
+                    <button type="submit"
+                        class="w-full mt-4 bg-gradient-to-r from-blue-500 to-apple-blue hover:from-blue-600 hover:to-blue-600 active:scale-[0.98] text-white font-bold py-2.5 rounded-xl transition-all flex justify-center items-center gap-2 shadow-lg shadow-blue-500/25 select-none cursor-pointer text-xs">
+                        Kirim Pengajuan
+                    </button>
+                    
+                    <button type="button" onclick="showLoginForm()"
+                        class="w-full text-center text-xs text-apple-gray hover:text-white transition-colors cursor-pointer select-none py-1 mt-1 bg-transparent border-none">
+                        Kembali ke Login
+                    </button>
+                </form>
+
+                <!-- Forgot PIN dialog -->
+                <div id="forgot-container" class="w-full mt-6 space-y-4 hidden flex flex-col items-center">
+                    <h3 class="text-sm font-bold text-white text-center mb-1">Lupa PIN Akses</h3>
+                    <div class="bg-red-500/10 border border-red-500/20 rounded-2xl p-4 text-xs text-center text-apple-red leading-relaxed border-dashed">
+                        Reset PIN hanya dapat dilakukan oleh pengurus atau administrator resmi WaterKing melalui proses verifikasi pengguna.
+                    </div>
+                    <button type="button" onclick="showLoginForm()"
+                        class="w-full text-center text-xs text-apple-gray hover:text-white transition-colors cursor-pointer select-none py-2 mt-2 bg-transparent border-none">
+                        Kembali ke Login
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ================= MAIN APPLICATION LAYOUT ================= -->
+    <div id="app-layout" class="flex w-full h-full overflow-hidden hidden transition-opacity duration-500">
+
+        <!-- Mobile Bottom Navigation (Hidden on Desktop) -->
+        <nav
         class="md:hidden fixed bottom-6 left-4 right-4 glass-card rounded-3xl border border-white/10 z-40 shadow-2xl backdrop-blur-2xl bg-black/40 pb-0">
         <div class="flex justify-around items-center h-[70px] px-2 relative">
             <button onclick="switchTab('dashboard')"
@@ -299,6 +661,11 @@
                 data-target="history">
                 <i data-lucide="clock" class="w-5 h-5"></i>
                 <span class="font-medium">Histori</span>
+            </button>
+            <button onclick="openSettingsPanel()"
+                class="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-left text-apple-gray hover:bg-white/5 transition-all">
+                <i data-lucide="settings" class="w-5 h-5"></i>
+                <span class="font-medium">Pengaturan</span>
             </button>
         </nav>
 
@@ -602,17 +969,33 @@
         <!-- ================= HISTORY TAB ================= -->
         <section id="history" class="tab-content p-4 pb-32 md:p-8 max-w-6xl mx-auto w-full">
             <header class="mb-8 flex flex-col md:flex-row md:justify-between md:items-end gap-4">
-                <div>
-                    <h2 class="text-2xl md:text-3xl font-bold text-white mb-2">Histori Transaksi</h2>
-                    <p class="text-apple-gray">Catatan seluruh aktivitas scan galon.</p>
+                <div class="flex justify-between items-start w-full md:w-auto">
+                    <div>
+                        <h2 class="text-2xl md:text-3xl font-bold text-white mb-2">Histori Transaksi</h2>
+                        <p class="text-apple-gray">Catatan seluruh aktivitas scan galon.</p>
+                    </div>
+                    <!-- Mini settings button -->
+                    <button onclick="openSettingsPanel()" 
+                        class="glass-card p-2.5 rounded-full hover:bg-white/10 text-apple-gray hover:text-apple-blue hover:shadow-[0_0_15px_rgba(59,130,246,0.3)] transition-all flex items-center justify-center border border-white/10 select-none cursor-pointer self-start"
+                        title="Pengaturan">
+                        <i data-lucide="settings" class="w-5 h-5"></i>
+                    </button>
                 </div>
-                <div class="flex gap-2">
+                <div class="flex gap-2 w-full md:w-auto justify-end">
                     <button onclick="clearHistory()"
-                        class="bg-red-500/10 hover:bg-red-500/20 text-apple-red px-4 py-2 rounded-xl text-sm font-medium border border-red-500/20 transition-colors">
+                        class="w-full md:w-auto bg-red-500/10 hover:bg-red-500/20 text-apple-red px-4 py-2 rounded-xl text-sm font-medium border border-red-500/20 transition-colors">
                         Bersihkan Data
                     </button>
                 </div>
             </header>
+
+            <!-- Dorm Filter Chips -->
+            <div class="mb-6">
+                <p class="text-xs text-apple-gray font-medium mb-3">Filter Asrama:</p>
+                <div id="dorm-filter-container" class="flex gap-2 overflow-x-auto pb-2 scrollbar-none -mx-4 px-4 md:mx-0 md:px-0 scroll-smooth">
+                    <!-- Dynamic chips will be injected here via JS -->
+                </div>
+            </div>
 
             <div class="glass-card rounded-2xl overflow-hidden shadow-2xl">
                 <div class="overflow-x-auto">
@@ -633,12 +1016,211 @@
                 <!-- Pagination / Empty State -->
                 <div id="history-empty" class="hidden p-12 text-center flex flex-col items-center justify-center">
                     <i data-lucide="database" class="w-12 h-12 text-apple-gray opacity-30 mb-4"></i>
-                    <p class="text-apple-gray">Belum ada data transaksi.</p>
+                    <p id="history-empty-text" class="text-apple-gray">Belum ada data transaksi.</p>
                 </div>
-            </div>
         </section>
 
     </main>
+
+    <!-- Settings Panel Backdrop Overlay -->
+    <div id="settings-panel-overlay" class="settings-panel-overlay" onclick="closeSettingsPanel()"></div>
+
+    <!-- Settings Panel Container -->
+    <div id="settings-panel" class="settings-panel glass-card flex flex-col h-full bg-black/85 backdrop-blur-3xl border-l border-white/10">
+        <!-- Panel Header -->
+        <header class="p-6 border-b border-white/10 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <button onclick="closeSettingsPanel()" 
+                    class="p-2 -ml-2 rounded-xl text-apple-gray hover:text-white hover:bg-white/5 transition-colors"
+                    title="Kembali">
+                    <i data-lucide="arrow-left" class="w-6 h-6"></i>
+                </button>
+                <h2 class="text-xl font-bold text-white">Pengaturan</h2>
+            </div>
+            <button onclick="closeSettingsPanel()" 
+                class="p-2 rounded-xl text-apple-gray hover:text-white hover:bg-white/5 transition-colors"
+                title="Tutup">
+                <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+        </header>
+
+        <!-- Panel Scrollable Body -->
+        <div class="flex-1 overflow-y-auto p-6 space-y-6">
+            <!-- Group 1: Operational Limits -->
+            <div id="group-settings-limit" class="bg-white/2 border border-white/5 rounded-2xl p-5 space-y-4">
+                <div class="flex items-center gap-3">
+                    <div class="p-2 bg-blue-500/20 text-apple-blue rounded-xl">
+                        <i data-lucide="shield-alert" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-bold text-white">Batas & Limit Harian</h3>
+                        <p class="text-[11px] text-apple-gray">Batasi transaksi harian untuk setiap asrama.</p>
+                    </div>
+                </div>
+                <div class="pt-2">
+                    <label class="block text-xs font-medium text-apple-gray mb-2">Maksimal Scan per Hari</label>
+                    <input type="number" id="setting-daily-limit" min="1" max="20" required
+                        class="w-full px-4 py-2.5 bg-black/50 border border-white/10 rounded-xl text-white focus:outline-none focus:border-apple-blue focus:ring-1 focus:ring-apple-blue transition-all"
+                        onchange="saveSettingField('dailyLimit', parseInt(this.value))">
+                </div>
+            </div>
+
+            <!-- Group 2: Operational Hours -->
+            <div id="group-settings-hours" class="bg-white/2 border border-white/5 rounded-2xl p-5 space-y-4">
+                <div class="flex items-center gap-3">
+                    <div class="p-2 bg-green-500/20 text-apple-green rounded-xl">
+                        <i data-lucide="clock" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-bold text-white">Jam Operasional</h3>
+                        <p class="text-[11px] text-apple-gray">Tentukan rentang waktu aktif untuk melakukan scan QR.</p>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-4 pt-2">
+                    <div>
+                        <label class="block text-xs font-medium text-apple-gray mb-2">Jam Mulai</label>
+                        <input type="time" id="setting-start-hour" required
+                            class="w-full px-4 py-2 bg-black/50 border border-white/10 rounded-xl text-white focus:outline-none focus:border-apple-blue focus:ring-1 focus:ring-apple-blue transition-all text-sm"
+                            onchange="validateAndSaveTime('startHour', this.value)">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-medium text-apple-gray mb-2">Jam Selesai</label>
+                        <input type="time" id="setting-end-hour" required
+                            class="w-full px-4 py-2 bg-black/50 border border-white/10 rounded-xl text-white focus:outline-none focus:border-apple-blue focus:ring-1 focus:ring-apple-blue transition-all text-sm"
+                            onchange="validateAndSaveTime('endHour', this.value)">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Group 3: Interface Theme -->
+            <div class="bg-white/2 border border-white/5 rounded-2xl p-5 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="p-2 bg-yellow-500/20 text-yellow-400 rounded-xl">
+                        <i data-lucide="sun-moon" class="w-5 h-5" id="theme-setting-icon"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-bold text-white">Tema Aplikasi</h3>
+                        <p class="text-[11px] text-apple-gray">Pilih antara mode gelap dan terang.</p>
+                    </div>
+                </div>
+                <label class="relative inline-flex items-center cursor-pointer select-none">
+                    <input type="checkbox" id="setting-theme-toggle" class="sr-only peer" onchange="toggleAppTheme(this.checked)">
+                    <div class="w-12 h-7 bg-white/10 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full after:content-[''] after:absolute after:top-[4px] after:left-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-apple-blue"></div>
+                </label>
+            </div>
+
+            <!-- Group: Ganti PIN -->
+            <div class="bg-white/2 border border-white/5 rounded-2xl p-5 space-y-4">
+                <div class="flex items-center gap-3">
+                    <div class="p-2 bg-blue-500/20 text-apple-blue rounded-xl">
+                        <i data-lucide="key-round" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-bold text-white">Ganti PIN Akses</h3>
+                        <p class="text-[11px] text-apple-gray">Ubah PIN masuk Anda (tepat 6 angka).</p>
+                    </div>
+                </div>
+                <div class="space-y-3 pt-2">
+                    <div>
+                        <label class="block text-[11px] font-medium text-apple-gray mb-1">PIN Lama</label>
+                        <input type="password" id="change-pin-old" maxlength="6" inputmode="numeric" pattern="[0-9]*" placeholder="•••••" required
+                            class="w-full px-3 py-2 bg-black/50 border border-white/10 rounded-xl text-white focus:outline-none focus:border-apple-blue focus:ring-1 focus:ring-apple-blue transition-all text-xs tracking-[0.2em]">
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-medium text-apple-gray mb-1">PIN Baru</label>
+                        <input type="password" id="change-pin-new" maxlength="6" inputmode="numeric" pattern="[0-9]*" placeholder="•••••" required
+                            class="w-full px-3 py-2 bg-black/50 border border-white/10 rounded-xl text-white focus:outline-none focus:border-apple-blue focus:ring-1 focus:ring-apple-blue transition-all text-xs tracking-[0.2em]"
+                            oninput="validatePinInput(this)">
+                    </div>
+                    <div>
+                        <label class="block text-[11px] font-medium text-apple-gray mb-1">Konfirmasi PIN Baru</label>
+                        <input type="password" id="change-pin-confirm" maxlength="6" inputmode="numeric" pattern="[0-9]*" placeholder="•••••" required
+                            class="w-full px-3 py-2 bg-black/50 border border-white/10 rounded-xl text-white focus:outline-none focus:border-apple-blue focus:ring-1 focus:ring-apple-blue transition-all text-xs tracking-[0.2em]"
+                            oninput="validatePinInput(this)">
+                    </div>
+                    <button onclick="handleChangePin()"
+                        class="w-full bg-apple-blue hover:bg-blue-600 text-white font-medium py-2 rounded-xl transition-colors text-xs font-bold shadow-lg shadow-blue-500/25">
+                        Simpan PIN Baru
+                    </button>
+                </div>
+            </div>
+
+            <!-- Group: Manajemen Pengguna (Admin Only) -->
+            <div id="group-settings-users" class="bg-white/2 border border-white/5 rounded-2xl p-5 space-y-4">
+                <div class="flex items-center gap-3">
+                    <div class="p-2 bg-purple-500/20 text-purple-400 rounded-xl">
+                        <i data-lucide="users" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-bold text-white">Manajemen Pengguna</h3>
+                        <p class="text-[11px] text-apple-gray">Kelola pendaftaran dan status operator.</p>
+                    </div>
+                </div>
+                
+                <!-- User list container -->
+                <div class="mt-4 border border-white/5 rounded-xl overflow-hidden bg-black/30 divide-y divide-white/5 text-xs" id="user-mgmt-list">
+                    <!-- Dynamic rendering of users here -->
+                </div>
+            </div>
+
+            <!-- Group 4: Reset Sistem -->
+            <div id="group-settings-reset" class="bg-white/2 border border-white/5 rounded-2xl p-5 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="p-2 bg-red-500/20 text-apple-red rounded-xl">
+                        <i data-lucide="refresh-cw" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-bold text-white">Reset Sistem</h3>
+                        <p class="text-[11px] text-apple-gray">Atur ulang semua konfigurasi.</p>
+                    </div>
+                </div>
+                <button onclick="resetSettings()"
+                    class="bg-red-500/10 hover:bg-red-500/20 text-apple-red px-4 py-2 rounded-xl text-xs font-bold border border-red-500/20 transition-all">
+                    Reset
+                </button>
+            </div>
+
+            <!-- Group: Logout Session -->
+            <div class="bg-white/2 border border-white/5 rounded-2xl p-5 flex items-center justify-between">
+                <div class="flex items-center gap-3">
+                    <div class="p-2 bg-red-500/20 text-apple-red rounded-xl">
+                        <i data-lucide="log-out" class="w-5 h-5"></i>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-bold text-white">Keluar Akun</h3>
+                        <p class="text-[11px] text-apple-gray">Logout dan amankan akses aplikasi.</p>
+                    </div>
+                </div>
+                <button onclick="handleLogout()"
+                    class="bg-red-500/10 hover:bg-red-500/20 text-apple-red px-4 py-2 rounded-xl text-xs font-bold border border-red-500/20 transition-all">
+                    Logout
+                </button>
+            </div>
+
+            <!-- Group 5: System Info Card -->
+            <div class="bg-white/2 border border-white/5 rounded-2xl p-4 flex flex-col gap-3 text-xs text-apple-gray">
+                <div>
+                    <p class="font-semibold text-white">WaterKing QR System</p>
+                    <p class="text-[11px]">Versi: 1.1.0 • Platform: Mobile Web App</p>
+                </div>
+                <div class="grid grid-cols-3 gap-2 border-t border-white/5 pt-3">
+                    <div>
+                        <span class="block text-white font-bold text-sm" id="info-total-dorms">0</span>
+                        Total Asrama
+                    </div>
+                    <div>
+                        <span class="block text-white font-bold text-sm" id="info-total-txs">0</span>
+                        Transaksi
+                    </div>
+                    <div>
+                        <span class="block text-white font-bold text-sm" id="info-storage-usage">0 KB</span>
+                        Storage
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    </div>
 
     <!-- Modal Detail Pembelian / Notifikasi Tengah (Opsional) -->
 
@@ -649,25 +1231,969 @@
         qrTemplateImage.src = "https://hyuqcncezuflsoiqrsvf.supabase.co/storage/v1/object/public/waterkings/Tampalte%20Qr.jpg";
 
         // ==========================================
+        // 0. AUTHENTICATION, ROLES & AUDITING SYSTEM
+        // ==========================================
+        const SECURE_SALT_PREFIX = 'wk_salt_';
+        const DEFAULT_ADMIN_HASH = '3b8795d8abdc25b163dee5853fa28d0ebc27be2a2ddba91b072a766b8b3fe731'; // admin_salt_2026 + 123456
+        const STORE_USERS = 'wk_users';
+        const STORE_SECURITY_LOGS = 'wk_security_logs';
+
+        // Helper: Hash SHA-256
+        async function hashSHA256(message) {
+            const msgBuffer = new TextEncoder().encode(message);
+            const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+            const hashArray = Array.from(new Uint8Array(hashBuffer));
+            return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+        }
+
+        // Generate Random Salt (16+ chars)
+        function generateRandomSalt() {
+            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*()';
+            let salt = '';
+            for (let i = 0; i < 20; i++) {
+                salt += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            return salt;
+        }
+
+        // Get persistent session salt
+        function getSessionSalt() {
+            let salt = localStorage.getItem('wk_session_salt');
+            if (!salt) {
+                salt = generateRandomSalt();
+                localStorage.setItem('wk_session_salt', salt);
+            }
+            return salt;
+        }
+
+        // Initialize Users list with seed admin
+        function initUserDatabase() {
+            let users = localStorage.getItem(STORE_USERS);
+            if (!users) {
+                const initialUsers = [
+                    {
+                        username: 'admin',
+                        fullname: 'Administrator WaterKing',
+                        pinHash: DEFAULT_ADMIN_HASH,
+                        salt: 'admin_salt_2026',
+                        role: 'admin',
+                        status: 'active',
+                        createdAt: Date.now()
+                    }
+                ];
+                localStorage.setItem(STORE_USERS, JSON.stringify(initialUsers));
+                logSecurityEvent('system', 'INITIALIZE_DB', 'Sistem login pertama kali dibuat dengan user admin.');
+            }
+        }
+
+        // Write Security Logs
+        function logSecurityEvent(username, event, details = '') {
+            let logs = [];
+            try {
+                logs = JSON.parse(localStorage.getItem(STORE_SECURITY_LOGS) || '[]');
+            } catch (e) {
+                logs = [];
+            }
+            logs.unshift({
+                username: username.toLowerCase().trim(),
+                event: event,
+                details: details,
+                timestamp: Date.now()
+            });
+            // Rotate keeping only the last 100 entries
+            localStorage.setItem(STORE_SECURITY_LOGS, JSON.stringify(logs.slice(0, 100)));
+        }
+
+        // Toggle Login Panel forms
+        function showLoginForm() {
+            document.getElementById('form-login').classList.remove('hidden');
+            document.getElementById('form-register').classList.add('hidden');
+            document.getElementById('forgot-container').classList.add('hidden');
+        }
+
+        function showRegisterForm() {
+            document.getElementById('form-login').classList.add('hidden');
+            document.getElementById('form-register').classList.remove('hidden');
+            document.getElementById('forgot-container').classList.add('hidden');
+        }
+
+        function showForgotPIN() {
+            document.getElementById('form-login').classList.add('hidden');
+            document.getElementById('form-register').classList.add('hidden');
+            document.getElementById('forgot-container').classList.remove('hidden');
+        }
+
+        // PIN length real-time warnings
+        function validatePasswordInput(input) {
+            const warning = document.getElementById('password-warning');
+            const val = input.value;
+            const sanitized = val.replace(/[^0-9]/g, '');
+            if (sanitized !== val) {
+                input.value = sanitized;
+                warning.innerText = "PIN hanya boleh berupa angka.";
+                warning.classList.remove('hidden');
+            } else {
+                warning.classList.add('hidden');
+            }
+        }
+
+        // General PIN validation for text inputs
+        function validatePinInput(input) {
+            input.value = input.value.replace(/[^0-9]/g, '');
+        }
+
+        // Retrieve current active user session from memory or storage
+        function getActiveSessionUser() {
+            try {
+                const sessionStr = localStorage.getItem('wk_session');
+                if (!sessionStr) return null;
+                const session = JSON.parse(sessionStr);
+                const users = JSON.parse(localStorage.getItem(STORE_USERS) || '[]');
+                return users.find(u => u.username === session.username) || null;
+            } catch (e) {
+                return null;
+            }
+        }
+
+        // Brute-force Lockout checks
+        function checkLoginLockout() {
+            const attempts = parseInt(localStorage.getItem('wk_login_attempts') || '0', 10);
+            const lockoutTime = parseInt(localStorage.getItem('wk_lockout_time') || '0', 10);
+            if (lockoutTime > Date.now()) {
+                startLockoutCountdown(lockoutTime);
+                return true;
+            } else {
+                if (lockoutTime > 0) {
+                    localStorage.setItem('wk_login_attempts', '0');
+                    localStorage.setItem('wk_lockout_time', '0');
+                }
+                return false;
+            }
+        }
+
+        function startLockoutCountdown(lockoutTime) {
+            const btn = document.querySelector('#form-login button[type="submit"]');
+            const warning = document.getElementById('password-warning');
+            btn.disabled = true;
+            btn.classList.add('opacity-50', 'cursor-not-allowed');
+
+            function updateCountdown() {
+                const remaining = Math.ceil((lockoutTime - Date.now()) / 1000);
+                if (remaining > 0) {
+                    warning.innerText = `Terlalu banyak percobaan. Tunggu ${remaining} detik.`;
+                    warning.classList.remove('hidden');
+                    setTimeout(updateCountdown, 1000);
+                } else {
+                    btn.disabled = false;
+                    btn.classList.remove('opacity-50', 'cursor-not-allowed');
+                    warning.classList.add('hidden');
+                    localStorage.setItem('wk_login_attempts', '0');
+                    localStorage.setItem('wk_lockout_time', '0');
+                }
+            }
+            updateCountdown();
+        }
+
+        // Registration form handler
+        async function handleRegister(e) {
+            e.preventDefault();
+            const fullname = document.getElementById('reg-fullname').value.trim();
+            const rawUsername = document.getElementById('reg-username').value;
+            const rawDorm = document.getElementById('reg-dormitory').value;
+            const pin = document.getElementById('reg-pin').value;
+            const pinConfirm = document.getElementById('reg-pin-confirm').value;
+
+            const username = rawUsername.toLowerCase().trim();
+            const dormitory = normalizeDormCode(rawDorm.trim());
+
+            if (!fullname || !username || !dormitory || !pin || !pinConfirm) {
+                showToast('Pendaftaran Gagal', 'Harap isi semua kolom.', 'error');
+                return;
+            }
+
+            if (pin.length !== 6 || pinConfirm.length !== 6) {
+                showToast('Pendaftaran Gagal', 'PIN harus tepat 6 angka.', 'error');
+                return;
+            }
+
+            if (pin !== pinConfirm) {
+                showToast('Pendaftaran Gagal', 'PIN konfirmasi tidak cocok.', 'error');
+                return;
+            }
+
+            let users = [];
+            try {
+                users = JSON.parse(localStorage.getItem(STORE_USERS) || '[]');
+            } catch (err) {
+                users = [];
+            }
+
+            const existing = users.find(u => u.username === username);
+            if (existing) {
+                showToast('Pendaftaran Gagal', 'Username sudah terdaftar.', 'error');
+                return;
+            }
+
+            const salt = generateRandomSalt();
+            const pinHash = await hashSHA256(pin + salt);
+
+            const newUser = {
+                username,
+                fullname,
+                dormitory,
+                pinHash,
+                salt,
+                role: 'operator',
+                status: 'pending',
+                createdAt: Date.now()
+            };
+
+            users.push(newUser);
+            localStorage.setItem(STORE_USERS, JSON.stringify(users));
+            logSecurityEvent(username, 'REGISTER_USER', `Operator baru mendaftar (Asrama: ${dormitory}).`);
+
+            showToast('Pengajuan Akun', 'Akun Anda berhasil didaftarkan. Harap menunggu verifikasi pengurus.', 'success');
+            
+            // Clear input fields
+            document.getElementById('reg-fullname').value = '';
+            document.getElementById('reg-username').value = '';
+            document.getElementById('reg-dormitory').value = '';
+            document.getElementById('reg-pin').value = '';
+            document.getElementById('reg-pin-confirm').value = '';
+
+            showLoginForm();
+        }
+
+        // Login Submit handler
+        async function handleLogin(e) {
+            e.preventDefault();
+            if (checkLoginLockout()) return;
+
+            const rawUser = document.getElementById('login-username').value;
+            const pin = document.getElementById('login-password').value;
+            const username = rawUser.toLowerCase().trim();
+
+            let users = [];
+            try {
+                users = JSON.parse(localStorage.getItem(STORE_USERS) || '[]');
+            } catch (err) {
+                users = [];
+            }
+
+            const user = users.find(u => u.username === username);
+            if (!user) {
+                handleFailedAttempt(username);
+                return;
+            }
+
+            // Exclude archived users from logging in
+            if (user.status === 'archived') {
+                handleFailedAttempt(username);
+                return;
+            }
+
+            const hashedPin = await hashSHA256(pin + user.salt);
+            if (hashedPin !== user.pinHash) {
+                handleFailedAttempt(username);
+                return;
+            }
+
+            if (user.status === 'pending') {
+                showToast('Akun Ditangguhkan', 'Akun Anda sedang menunggu verifikasi pengurus.', 'error');
+                AudioFX.error();
+                return;
+            }
+
+            if (user.status === 'blocked') {
+                showToast('Akun Dinonaktifkan', 'Akses akun Anda telah dinonaktifkan oleh administrator.', 'error');
+                AudioFX.error();
+                return;
+            }
+
+            // Success
+            localStorage.setItem('wk_login_attempts', '0');
+            localStorage.setItem('wk_lockout_time', '0');
+
+            const token = Math.random().toString(36).substring(2) + Math.random().toString(36).substring(2);
+            const expiresAt = Date.now() + 7 * 24 * 60 * 60 * 1000; // 7 days expiration
+            const payload = `${token}:${expiresAt}:${username}:${user.role}`;
+            const signature = await hashSHA256(payload + getSessionSalt());
+
+            const session = {
+                token,
+                username,
+                role: user.role,
+                expiresAt,
+                signature,
+                lastActivity: Date.now()
+            };
+
+            localStorage.setItem('wk_session', JSON.stringify(session));
+            logSecurityEvent(username, 'SUCCESS_LOGIN', `Login sukses sebagai ${user.role}.`);
+
+            // Update user metadata
+            user.lastLogin = Date.now();
+            user.lastActivity = Date.now();
+            localStorage.setItem(STORE_USERS, JSON.stringify(users));
+
+            // View Transition
+            const loginContainer = document.getElementById('login-container');
+            const appLayout = document.getElementById('app-layout');
+
+            loginContainer.style.transition = 'opacity 0.4s ease, filter 0.4s ease';
+            loginContainer.style.opacity = '0';
+            loginContainer.style.filter = 'blur(12px)';
+            loginContainer.style.pointerEvents = 'none';
+
+            appLayout.classList.remove('hidden');
+            appLayout.style.opacity = '0';
+            
+            // Adjust Sidebar/Desktop navigation
+            applyRolePermissions(user.role);
+
+            requestAnimationFrame(() => {
+                appLayout.style.transition = 'opacity 0.4s ease';
+                appLayout.style.opacity = '1';
+            });
+
+            setTimeout(() => {
+                loginContainer.classList.add('hidden');
+            }, 450);
+
+            showToast('Login Berhasil', `Selamat datang kembali, ${user.fullname}.`, 'success');
+            
+            document.getElementById('login-username').value = '';
+            document.getElementById('login-password').value = '';
+
+            // Init Inactivity session timer
+            initIdleTimer();
+        }
+
+        // Handles failed login attempts counter
+        function handleFailedAttempt(username) {
+            AudioFX.error();
+            let attempts = parseInt(localStorage.getItem('wk_login_attempts') || '0', 10);
+            attempts++;
+            localStorage.setItem('wk_login_attempts', attempts.toString());
+
+            logSecurityEvent(username || 'unknown', 'FAILED_LOGIN', `Gagal login. Percobaan ke-${attempts}.`);
+
+            const card = document.getElementById('login-card');
+            card.classList.remove('shake-anim');
+            void card.offsetWidth;
+            card.classList.add('shake-anim');
+
+            setTimeout(() => {
+                card.classList.remove('shake-anim');
+            }, 400);
+
+            if (attempts >= 5) {
+                const lockoutTime = Date.now() + 30 * 1000;
+                localStorage.setItem('wk_lockout_time', lockoutTime.toString());
+                startLockoutCountdown(lockoutTime);
+                showToast('Login Terkunci', 'Terlalu banyak kegagalan. Form dikunci selama 30 detik.', 'error');
+            } else {
+                showToast('Login Gagal', 'PIN atau username tidak valid.', 'error');
+            }
+        }
+
+        // Switch settings visibility based on role
+        function applyRolePermissions(role) {
+            const limitGroup = document.getElementById('group-settings-limit');
+            const hoursGroup = document.getElementById('group-settings-hours');
+            const resetGroup = document.getElementById('group-settings-reset');
+            const usersGroup = document.getElementById('group-settings-users');
+
+            const settingsSidebarItem = document.querySelector('aside nav button[onclick="openSettingsPanel()"]');
+
+            if (role === 'admin') {
+                if (limitGroup) limitGroup.classList.remove('hidden');
+                if (hoursGroup) hoursGroup.classList.remove('hidden');
+                if (resetGroup) resetGroup.classList.remove('hidden');
+                if (usersGroup) usersGroup.classList.remove('hidden');
+                if (settingsSidebarItem) settingsSidebarItem.classList.remove('hidden');
+                renderUserManagement();
+            } else {
+                if (limitGroup) limitGroup.classList.add('hidden');
+                if (hoursGroup) hoursGroup.classList.add('hidden');
+                if (resetGroup) resetGroup.classList.add('hidden');
+                if (usersGroup) usersGroup.classList.add('hidden');
+            }
+        }
+
+        // Validate active session
+        async function checkAuthSession() {
+            initUserDatabase();
+            const sessionStr = localStorage.getItem('wk_session');
+            const loginContainer = document.getElementById('login-container');
+            const appLayout = document.getElementById('app-layout');
+
+            if (!sessionStr) {
+                showLoginForm();
+                loginContainer.classList.remove('hidden');
+                appLayout.classList.add('hidden');
+                return;
+            }
+
+            try {
+                const session = JSON.parse(sessionStr);
+                
+                // Expiry verification
+                if (Date.now() > session.expiresAt) {
+                    localStorage.removeItem('wk_session');
+                    showLoginForm();
+                    loginContainer.classList.remove('hidden');
+                    appLayout.classList.add('hidden');
+                    showToast('Sesi Berakhir', 'Sesi Anda telah berakhir, silakan login kembali.', 'error');
+                    return;
+                }
+
+                // Signature check
+                const payload = `${session.token}:${session.expiresAt}:${session.username}:${session.role}`;
+                const expectedSignature = await hashSHA256(payload + getSessionSalt());
+                
+                if (session.signature !== expectedSignature) {
+                    localStorage.removeItem('wk_session');
+                    showLoginForm();
+                    loginContainer.classList.remove('hidden');
+                    appLayout.classList.add('hidden');
+                    return;
+                }
+
+                // Live status check against DB
+                const users = JSON.parse(localStorage.getItem(STORE_USERS) || '[]');
+                const dbUser = users.find(u => u.username === session.username);
+                
+                if (!dbUser || dbUser.status !== 'active') {
+                    localStorage.removeItem('wk_session');
+                    showLoginForm();
+                    loginContainer.classList.remove('hidden');
+                    appLayout.classList.add('hidden');
+                    logSecurityEvent(session.username, 'FORCE_LOGOUT', 'Sesi di-invalidasi karena user diblokir atau di-arsip.');
+                    showToast('Sesi Dinonaktifkan', 'Sesi Anda telah dinonaktifkan oleh administrator.', 'error');
+                    return;
+                }
+
+                // Session remains active
+                loginContainer.classList.add('hidden');
+                appLayout.classList.remove('hidden');
+                appLayout.style.opacity = '1';
+                
+                applyRolePermissions(session.role);
+                initIdleTimer();
+            } catch (err) {
+                localStorage.removeItem('wk_session');
+                showLoginForm();
+                loginContainer.classList.remove('hidden');
+                appLayout.classList.add('hidden');
+            }
+        }
+
+        // Change PIN Handler
+        async function handleChangePin() {
+            const oldPin = document.getElementById('change-pin-old').value;
+            const newPin = document.getElementById('change-pin-new').value;
+            const confirmPin = document.getElementById('change-pin-confirm').value;
+
+            if (!oldPin || !newPin || !confirmPin) {
+                showToast('Validasi Gagal', 'Harap isi semua kolom PIN.', 'error');
+                return;
+            }
+
+            if (newPin.length !== 6 || confirmPin.length !== 6) {
+                showToast('Validasi Gagal', 'PIN baru harus tepat 6 angka.', 'error');
+                return;
+            }
+
+            if (newPin !== confirmPin) {
+                showToast('Validasi Gagal', 'Konfirmasi PIN baru tidak cocok.', 'error');
+                return;
+            }
+
+            const activeUser = getActiveSessionUser();
+            if (!activeUser) {
+                showToast('Sesi Tidak Valid', 'Gagal memverifikasi user aktif.', 'error');
+                return;
+            }
+
+            const hashedOld = await hashSHA256(oldPin + activeUser.salt);
+            if (hashedOld !== activeUser.pinHash) {
+                showToast('Gagal', 'PIN lama salah.', 'error');
+                return;
+            }
+
+            // Update PIN
+            let users = JSON.parse(localStorage.getItem(STORE_USERS) || '[]');
+            const userIndex = users.findIndex(u => u.username === activeUser.username);
+            if (userIndex !== -1) {
+                const newHash = await hashSHA256(newPin + activeUser.salt);
+                users[userIndex].pinHash = newHash;
+                localStorage.setItem(STORE_USERS, JSON.stringify(users));
+
+                logSecurityEvent(activeUser.username, 'PASSWORD_CHANGED', 'Mengubah PIN masuk.');
+
+                document.getElementById('change-pin-old').value = '';
+                document.getElementById('change-pin-new').value = '';
+                document.getElementById('change-pin-confirm').value = '';
+
+                showToast('Sukses', 'PIN masuk berhasil diperbarui.', 'success');
+            }
+        }
+
+        // Logout Session Handler
+        function handleLogout() {
+            if (confirm("Apakah Anda yakin ingin keluar dari sistem?")) {
+                const sessionStr = localStorage.getItem('wk_session');
+                let username = 'unknown';
+                if (sessionStr) {
+                    try { username = JSON.parse(sessionStr).username; } catch (e) {}
+                }
+                
+                logSecurityEvent(username, 'SUCCESS_LOGOUT', 'User logout manual.');
+                localStorage.removeItem('wk_session');
+                
+                const loginContainer = document.getElementById('login-container');
+                const appLayout = document.getElementById('app-layout');
+                
+                closeSettingsPanel();
+
+                appLayout.style.transition = 'opacity 0.4s ease';
+                appLayout.style.opacity = '0';
+
+                setTimeout(() => {
+                    appLayout.classList.add('hidden');
+                    loginContainer.classList.remove('hidden');
+                    loginContainer.style.opacity = '0';
+                    loginContainer.style.filter = 'blur(12px)';
+                    loginContainer.style.pointerEvents = 'auto';
+
+                    requestAnimationFrame(() => {
+                        loginContainer.style.transition = 'opacity 0.4s ease, filter 0.4s ease';
+                        loginContainer.style.opacity = '1';
+                        loginContainer.style.filter = 'none';
+                    });
+                }, 450);
+
+                showToast('Logout Berhasil', 'Sesi login telah diakhiri.', 'success');
+            }
+        }
+
+        // User Management Dashboard Renderer (Admin Only)
+        function renderUserManagement() {
+            const listEl = document.getElementById('user-mgmt-list');
+            if (!listEl) return;
+
+            let users = [];
+            try {
+                users = JSON.parse(localStorage.getItem(STORE_USERS) || '[]');
+            } catch (err) {
+                users = [];
+            }
+
+            const session = JSON.parse(localStorage.getItem('wk_session') || '{}');
+            const displayUsers = users.filter(u => u.username !== session.username && u.status !== 'archived');
+
+            if (displayUsers.length === 0) {
+                listEl.innerHTML = '<div class="p-4 text-center text-apple-gray text-[11px]">Belum ada pendaftaran operator lain.</div>';
+                return;
+            }
+
+            listEl.innerHTML = displayUsers.map(u => {
+                let badgeClass = '';
+                let statusLabel = '';
+                if (u.status === 'pending') {
+                    badgeClass = 'bg-yellow-500/10 text-yellow-400 border-yellow-500/20';
+                    statusLabel = 'Pending';
+                } else if (u.status === 'active') {
+                    badgeClass = 'bg-green-500/10 text-apple-green border-green-500/20';
+                    statusLabel = 'Aktif';
+                } else if (u.status === 'blocked') {
+                    badgeClass = 'bg-red-500/10 text-apple-red border-red-500/20';
+                    statusLabel = 'Diblokir';
+                }
+
+                let actionButtons = '';
+                if (u.status === 'pending') {
+                    actionButtons += `
+                        <button onclick="handleUserAction('${u.username}', 'approve')" class="px-2 py-1 bg-green-600 hover:bg-green-700 text-white rounded font-bold cursor-pointer">Setujui</button>
+                    `;
+                } else if (u.status === 'active') {
+                    actionButtons += `
+                        <button onclick="handleUserAction('${u.username}', 'block')" class="px-2 py-1 bg-yellow-600 hover:bg-yellow-700 text-white rounded font-bold cursor-pointer">Blokir</button>
+                    `;
+                } else if (u.status === 'blocked') {
+                    actionButtons += `
+                        <button onclick="handleUserAction('${u.username}', 'activate')" class="px-2 py-1 bg-green-600 hover:bg-green-700 text-white rounded font-bold cursor-pointer">Aktifkan</button>
+                    `;
+                }
+
+                actionButtons += `
+                    <button onclick="handleUserAction('${u.username}', 'archive')" class="px-2 py-1 bg-red-600 hover:bg-red-700 text-white rounded font-bold cursor-pointer">Arsip</button>
+                `;
+
+                return `
+                    <div class="p-3.5 flex flex-col gap-2 relative">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <h4 class="font-bold text-white uppercase text-xs">${u.fullname} (${u.username})</h4>
+                                <p class="text-[10px] text-apple-gray mt-0.5">Asrama: <span class="text-white">${u.dormitory}</span></p>
+                            </div>
+                            <span class="px-2 py-0.5 rounded-full border text-[9px] font-semibold ${badgeClass}">${statusLabel}</span>
+                        </div>
+                        <div class="flex gap-1.5 justify-end mt-1.5 text-[10px]">
+                            ${actionButtons}
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Admin User management Action Handlers
+        function handleUserAction(username, action) {
+            if (!confirm("Apakah Anda yakin?")) return;
+
+            let users = JSON.parse(localStorage.getItem(STORE_USERS) || '[]');
+            const userIndex = users.findIndex(u => u.username === username);
+            if (userIndex === -1) return;
+
+            const adminSession = JSON.parse(localStorage.getItem('wk_session') || '{}');
+
+            if (action === 'approve') {
+                users[userIndex].status = 'active';
+                users[userIndex].approvedAt = Date.now();
+                users[userIndex].approvedBy = adminSession.username;
+                logSecurityEvent(username, 'APPROVED_USER', `Akun disetujui oleh admin ${adminSession.username}`);
+                showToast('Pengguna Disetujui', `Operator ${username} kini dapat login ke sistem.`, 'success');
+            } else if (action === 'block') {
+                users[userIndex].status = 'blocked';
+                users[userIndex].blockedAt = Date.now();
+                logSecurityEvent(username, 'BLOCKED_USER', `Akun diblokir oleh admin ${adminSession.username}`);
+                showToast('Pengguna Diblokir', `Operator ${username} dibekukan.`, 'success');
+            } else if (action === 'activate') {
+                users[userIndex].status = 'active';
+                logSecurityEvent(username, 'ACTIVATE_USER', `Akun diaktifkan kembali oleh admin ${adminSession.username}`);
+                showToast('Pengguna Aktif', `Operator ${username} telah diaktifkan kembali.`, 'success');
+            } else if (action === 'archive') {
+                users[userIndex].status = 'archived';
+                users[userIndex].archivedAt = Date.now();
+                logSecurityEvent(username, 'ARCHIVED_USER', `Akun diarsip oleh admin ${adminSession.username}`);
+                showToast('Pengguna Diarsip', `Operator ${username} telah diarsipkan (soft delete).`, 'success');
+            }
+
+            localStorage.setItem(STORE_USERS, JSON.stringify(users));
+            renderUserManagement();
+        }
+
+        // Idle detection
+        let idleTimeoutInterval = null;
+
+        function initIdleTimer() {
+            if (idleTimeoutInterval) clearInterval(idleTimeoutInterval);
+
+            const resetIdle = () => {
+                const sessionStr = localStorage.getItem('wk_session');
+                if (sessionStr) {
+                    try {
+                        const session = JSON.parse(sessionStr);
+                        session.lastActivity = Date.now();
+                        localStorage.setItem('wk_session', JSON.stringify(session));
+                    } catch (e) {}
+                }
+            };
+
+            const events = ['click', 'keypress', 'touchstart', 'mousemove', 'scroll'];
+            events.forEach(evt => window.addEventListener(evt, resetIdle, { passive: true }));
+
+            idleTimeoutInterval = setInterval(() => {
+                const sessionStr = localStorage.getItem('wk_session');
+                if (sessionStr) {
+                    try {
+                        const session = JSON.parse(sessionStr);
+                        const lastActive = session.lastActivity || (Date.now() - 60000);
+                        if (Date.now() - lastActive > 15 * 60 * 1000) {
+                            logSecurityEvent(session.username, 'AUTO_LOGOUT', 'Sesi berakhir karena idle (tidak aktif).');
+                            localStorage.removeItem('wk_session');
+                            clearInterval(idleTimeoutInterval);
+                            showToast('Sesi Berakhir', 'Sesi berakhir karena tidak ada aktivitas.', 'error');
+                            setTimeout(() => {
+                                window.location.reload();
+                            }, 1000);
+                        }
+                    } catch (e) {}
+                }
+            }, 30000); // check every 30 seconds
+        }
+
+        // ==========================================
         // 1. STATE & STORAGE MANAGEMENT
         // ==========================================
         const STORE_DORMS = 'wk_dorms';
         const STORE_TX = 'wk_tx';
+        const STORE_SETTINGS = 'wk_settings';
+
+        const defaultSettings = {
+            dailyLimit: 2,
+            startHour: "00:00",
+            endHour: "23:59",
+            theme: "dark"
+        };
+
+        let currentSettings = { ...defaultSettings };
+
+        function openSettingsPanel() {
+            populateSettingsUI();
+            document.getElementById('settings-panel-overlay').classList.add('active');
+            document.getElementById('settings-panel').classList.add('active');
+        }
+
+        function closeSettingsPanel() {
+            document.getElementById('settings-panel-overlay').classList.remove('active');
+            document.getElementById('settings-panel').classList.remove('active');
+        }
+
+        function loadSettings() {
+            try {
+                const stored = localStorage.getItem(STORE_SETTINGS);
+                if (stored) {
+                    currentSettings = { ...defaultSettings, ...JSON.parse(stored) };
+                } else {
+                    currentSettings = { ...defaultSettings };
+                    localStorage.setItem(STORE_SETTINGS, JSON.stringify(currentSettings));
+                }
+            } catch (e) {
+                console.error("Error loading settings, using default", e);
+                currentSettings = { ...defaultSettings };
+            }
+            applyTheme(currentSettings.theme);
+            migrateDormsToMaster(); // Clean up duplicates and normalize on startup
+        }
+
+        function saveSettings() {
+            localStorage.setItem(STORE_SETTINGS, JSON.stringify(currentSettings));
+        }
+
+        function applyTheme(theme) {
+            if (theme === 'dark') {
+                document.documentElement.classList.add('dark');
+                document.documentElement.classList.remove('light');
+            } else {
+                document.documentElement.classList.add('light');
+                document.documentElement.classList.remove('dark');
+            }
+        }
+
+        function toggleAppTheme(isDark) {
+            const newTheme = isDark ? 'dark' : 'light';
+            currentSettings.theme = newTheme;
+            saveSettings();
+            applyTheme(newTheme);
+            populateSettingsUI();
+            showToast('Tema Diperbarui', `Tema diubah ke Mode ${isDark ? 'Gelap' : 'Terang'}.`, 'success');
+        }
+
+        function isWithinOperationalHours() {
+            const now = new Date();
+            const currentHour = now.getHours();
+            const currentMin = now.getMinutes();
+            const currentTimeMinutes = currentHour * 60 + currentMin;
+
+            const [startH, startM] = currentSettings.startHour.split(':').map(Number);
+            const [endH, endM] = currentSettings.endHour.split(':').map(Number);
+            
+            const startTimeMinutes = startH * 60 + startM;
+            const endTimeMinutes = endH * 60 + endM;
+
+            if (startTimeMinutes <= endTimeMinutes) {
+                return currentTimeMinutes >= startTimeMinutes && currentTimeMinutes <= endTimeMinutes;
+            } else {
+                return currentTimeMinutes >= startTimeMinutes || currentTimeMinutes <= endTimeMinutes;
+            }
+        }
+
+        function populateSettingsUI() {
+            document.getElementById('setting-daily-limit').value = currentSettings.dailyLimit;
+            document.getElementById('setting-start-hour').value = currentSettings.startHour;
+            document.getElementById('setting-end-hour').value = currentSettings.endHour;
+            
+            const isDark = currentSettings.theme === 'dark';
+            document.getElementById('setting-theme-toggle').checked = isDark;
+            
+            const themeIcon = document.getElementById('theme-setting-icon');
+            if (themeIcon) {
+                themeIcon.setAttribute('data-lucide', isDark ? 'moon' : 'sun');
+                lucide.createIcons();
+            }
+
+            updateSystemInfoMetrics();
+        }
+
+        function updateSystemInfoMetrics() {
+            const dorms = Storage.getDorms();
+            const txs = Storage.getTx();
+            
+            const totalDormsEl = document.getElementById('info-total-dorms');
+            const totalTxsEl = document.getElementById('info-total-txs');
+            const storageUsageEl = document.getElementById('info-storage-usage');
+
+            if (totalDormsEl) totalDormsEl.innerText = dorms.length;
+            if (totalTxsEl) totalTxsEl.innerText = txs.length;
+            
+            let totalBytes = 0;
+            for (let i = 0; i < localStorage.length; i++) {
+                const key = localStorage.key(i);
+                const val = localStorage.getItem(key);
+                totalBytes += (key.length + val.length) * 2;
+            }
+            const kbUsed = (totalBytes / 1024).toFixed(2);
+            if (storageUsageEl) storageUsageEl.innerText = `${kbUsed} KB`;
+        }
+
+        function saveSettingField(key, value) {
+            currentSettings[key] = value;
+            saveSettings();
+            showToast('Pengaturan Disimpan', 'Konfigurasi parameter limit berhasil diperbarui.', 'success');
+        }
+
+        function validateAndSaveTime(key, value) {
+            const startVal = key === 'startHour' ? value : currentSettings.startHour;
+            const endVal = key === 'endHour' ? value : currentSettings.endHour;
+
+            if (startVal === endVal) {
+                showToast('Peringatan Jam', 'Jam mulai dan jam selesai tidak boleh sama.', 'error');
+                populateSettingsUI();
+                return;
+            }
+
+            currentSettings[key] = value;
+            saveSettings();
+            showToast('Jam Operasional Disimpan', `Jam operasional diset ke ${currentSettings.startHour} - ${currentSettings.endHour}`, 'success');
+        }
+
+        function resetSettings() {
+            if (confirm("Apakah Anda yakin ingin mengatur ulang semua konfigurasi ke bawaan?")) {
+                currentSettings = { ...defaultSettings };
+                saveSettings();
+                applyTheme(currentSettings.theme);
+                populateSettingsUI();
+                showToast('Reset Berhasil', 'Pengaturan sistem telah dikembalikan ke bawaan.', 'success');
+            }
+        }
+
+        function normalizeDormCode(input) {
+            if (!input) return "";
+            // Remove all spaces and uppercase
+            let cleaned = input.replace(/\s+/g, "").toUpperCase();
+            // Separate alphabet and numbers to strip leading zeros on number part
+            let match = cleaned.match(/^([A-Z]+)(\d+)$/);
+            if (match) {
+                let letters = match[1];
+                let numbers = parseInt(match[2], 10);
+                return letters + numbers;
+            }
+            return cleaned;
+        }
+
+        function sortDorms(dormsList) {
+            return dormsList.sort((a, b) => {
+                let aMatch = a.match(/^([A-Z]+)(\d+)$/);
+                let bMatch = b.match(/^([A-Z]+)(\d+)$/);
+                
+                if (aMatch && bMatch) {
+                    let aLetters = aMatch[1];
+                    let aNumbers = parseInt(aMatch[2], 10);
+                    let bLetters = bMatch[1];
+                    let bNumbers = parseInt(bMatch[2], 10);
+                    
+                    if (aLetters !== bLetters) {
+                        return aLetters.localeCompare(bLetters);
+                    }
+                    return aNumbers - bNumbers;
+                }
+                return a.localeCompare(b);
+            });
+        }
+
+        function migrateDormsToMaster() {
+            let masters = Storage.getMasterDorms();
+            const dorms = Storage.getDorms();
+            const txs = Storage.getTx();
+            let collected = new Set();
+            
+            // Normalize existing dorms list and clean it up
+            let cleanedDorms = [];
+            dorms.forEach(d => {
+                const norm = normalizeDormCode(d.code);
+                if (norm) {
+                    collected.add(norm);
+                    if (!cleanedDorms.find(cd => cd.code === norm)) {
+                        cleanedDorms.push({ code: norm, token: d.token, created_at: d.created_at });
+                    }
+                }
+            });
+            localStorage.setItem(STORE_DORMS, JSON.stringify(cleanedDorms));
+
+            // Normalize existing transactions list and clean it up
+            let cleanedTxs = txs.map(t => {
+                const norm = normalizeDormCode(t.code);
+                if (norm) {
+                    collected.add(norm);
+                    t.code = norm;
+                }
+                return t;
+            });
+            localStorage.setItem(STORE_TX, JSON.stringify(cleanedTxs));
+            
+            // Save master dorms list
+            masters.forEach(m => {
+                const norm = normalizeDormCode(m);
+                if (norm) collected.add(norm);
+            });
+
+            localStorage.setItem(STORE_MASTER_DORMS, JSON.stringify(Array.from(collected)));
+        }
+
+        const STORE_MASTER_DORMS = 'wk_master_dorms';
 
         const Storage = {
             getDorms: () => JSON.parse(localStorage.getItem(STORE_DORMS) || '[]'),
-            addDorm: (dormCode, token) => {
-                let dorms = Storage.getDorms();
-                let existing = dorms.find(d => d.code === dormCode);
-                if (!existing) {
-                    dorms.push({ code: dormCode, token: token, created_at: Date.now() });
-                    localStorage.setItem(STORE_DORMS, JSON.stringify(dorms));
-                    return { token, isNew: true };
+            getMasterDorms: () => JSON.parse(localStorage.getItem(STORE_MASTER_DORMS) || '[]'),
+            addMasterDorm: (dormCode) => {
+                const normalized = normalizeDormCode(dormCode);
+                if (!normalized) return;
+                let masters = Storage.getMasterDorms();
+                if (!masters.includes(normalized)) {
+                    masters.push(normalized);
+                    localStorage.setItem(STORE_MASTER_DORMS, JSON.stringify(masters));
                 }
-                return { token: existing.token, isNew: false };
+            },
+            addDorm: (dormCode, token) => {
+                const normalized = normalizeDormCode(dormCode);
+                Storage.addMasterDorm(normalized); // Auto master dorm
+
+                let dorms = Storage.getDorms();
+                let existing = dorms.find(d => normalizeDormCode(d.code) === normalized);
+                if (!existing) {
+                    dorms.push({ code: normalized, token: token, created_at: Date.now() });
+                    localStorage.setItem(STORE_DORMS, JSON.stringify(dorms));
+                    return { token, isNew: true, normalizedCode: normalized };
+                }
+                return { token: existing.token, isNew: false, normalizedCode: normalized };
             },
             getTx: () => JSON.parse(localStorage.getItem(STORE_TX) || '[]'),
             addTx: (tx) => {
+                tx.code = normalizeDormCode(tx.code);
+                Storage.addMasterDorm(tx.code); // Ensure present in master list on scan
+
+                // Transaction Audit Attribution
+                const activeUser = getActiveSessionUser();
+                if (activeUser) {
+                    tx.operator = activeUser.username;
+                    tx.operatorDorm = activeUser.dormitory || '';
+                } else {
+                    tx.operator = 'system';
+                    tx.operatorDorm = '';
+                }
+
                 let txs = Storage.getTx();
                 txs.unshift(tx); // Add to beginning
                 localStorage.setItem(STORE_TX, JSON.stringify(txs));
@@ -749,6 +2275,11 @@
                     el.classList.add('text-apple-gray', 'hover:bg-white/5');
                 }
             });
+
+            // Populate Settings if switching to it
+            if (tabId === 'settings') {
+                populateSettingsUI();
+            }
 
             // Camera logic: stop if not in scan tab
             if (tabId !== 'scan') {
@@ -992,19 +2523,20 @@
         function handleGenerateQR(e) {
             e.preventDefault();
             const codeInput = document.getElementById('dorm-code-input');
-            let dormCode = codeInput.value.trim().toUpperCase();
+            let rawDormCode = codeInput.value.trim();
 
-            if (!dormCode) return;
+            if (!rawDormCode) return;
 
             const tempToken = Math.random().toString(36).substr(2, 9);
-            const result = Storage.addDorm(dormCode, tempToken);
+            const result = Storage.addDorm(rawDormCode, tempToken);
+            const normalizedCode = result.normalizedCode;
 
             const container = prepareQRContainer();
-            createCardDOM(container, dormCode, result.token, result.isNew);
+            createCardDOM(container, normalizedCode, result.token, result.isNew);
 
             updateDashboard();
             codeInput.value = '';
-            showToast('QR Dibuat', `Kartu asrama ${dormCode} siap dicetak.`, 'success');
+            showToast('QR Dibuat', `Kartu asrama ${normalizedCode} siap dicetak.`, 'success');
         }
 
         // Bulk Generate (Lazy Load Rendering)
@@ -1012,7 +2544,7 @@
             e.preventDefault();
             const textInput = document.getElementById('bulk-code-input');
             const lines = textInput.value.split('\n');
-            const codes = [...new Set(lines.map(l => l.trim().toUpperCase()).filter(l => l !== ''))];
+            const codes = [...new Set(lines.map(l => normalizeDormCode(l.trim())).filter(l => l !== ''))];
 
             if (codes.length === 0) return;
 
@@ -1028,11 +2560,12 @@
                     const dormCode = codes[index];
                     const tempToken = Math.random().toString(36).substr(2, 9);
                     const result = Storage.addDorm(dormCode, tempToken);
+                    const normalizedCode = result.normalizedCode;
 
                     if (result.isNew) newCount++;
                     else dupCount++;
 
-                    createCardDOM(container, dormCode, result.token, result.isNew);
+                    createCardDOM(container, normalizedCode, result.token, result.isNew);
                 }
 
                 if (index < codes.length) {
@@ -1116,9 +2649,42 @@
 
                 if (!dormCode) throw new Error("Format tidak valid");
 
+                // Check Operator scan restriction
+                const activeUser = getActiveSessionUser();
+                if (activeUser && activeUser.role === 'operator') {
+                    const operatorDorm = normalizeDormCode(activeUser.dormitory);
+                    const scannedDorm = normalizeDormCode(dormCode);
+                    if (operatorDorm !== scannedDorm) {
+                        AudioFX.error();
+                        logSecurityEvent(activeUser.username, 'UNAUTHORIZED_SCAN', `Mencoba scan asrama ${scannedDorm} padahal terdaftar di ${operatorDorm}.`);
+                        showToast('Akses Ditolak', 'Operator tidak berwenang untuk asrama ini.', 'error');
+                        
+                        const viewport = document.querySelector('#reader');
+                        viewport.style.boxShadow = 'inset 0 0 50px rgba(255, 69, 58, 0.5)';
+                        setTimeout(() => viewport.style.boxShadow = 'none', 1000);
+                        return;
+                    }
+                }
+
+                // Check Operational Hours
+                if (!isWithinOperationalHours()) {
+                    AudioFX.error();
+                    Storage.addTx({
+                        code: dormCode,
+                        timestamp: Date.now(),
+                        status: 'REJECTED'
+                    });
+                    showToast('Di luar jam operasional', `Transaksi ditolak. Jam operasional aktif: ${currentSettings.startHour} - ${currentSettings.endHour}`, 'error');
+                    
+                    const viewport = document.querySelector('#reader');
+                    viewport.style.boxShadow = 'inset 0 0 50px rgba(255, 69, 58, 0.5)';
+                    setTimeout(() => viewport.style.boxShadow = 'none', 1000);
+                    return;
+                }
+
                 // Check limits
                 const currentUsage = check24HLimit(dormCode);
-                const limit = 2;
+                const limit = currentSettings.dailyLimit;
 
                 if (currentUsage < limit) {
                     // SUCCESS
@@ -1143,7 +2709,7 @@
                         timestamp: Date.now(),
                         status: 'REJECTED'
                     });
-                    showToast('Limit Harian Tercapai!', `Asrama ${dormCode} sudah mengambil 2x dalam 24 jam terakhir.`, 'error');
+                    showToast('Limit Harian Tercapai!', `Asrama ${dormCode} sudah mengambil ${limit}x dalam 24 jam terakhir.`, 'error');
 
                     const viewport = document.querySelector('#reader');
                     viewport.style.boxShadow = 'inset 0 0 50px rgba(255, 69, 58, 0.5)';
@@ -1233,20 +2799,58 @@
         // ==========================================
         // 7. HISTORY RENDERING
         // ==========================================
+        let selectedDormFilter = 'ALL';
+
         function renderHistory() {
             const txs = Storage.getTx();
+            const masters = sortDorms(Storage.getMasterDorms());
             const tbody = document.getElementById('history-table-body');
             const emptyState = document.getElementById('history-empty');
+            const emptyTextEl = document.getElementById('history-empty-text');
+            const filterContainer = document.getElementById('dorm-filter-container');
 
-            if (txs.length === 0) {
+            // 1. Render filter chips
+            if (filterContainer) {
+                let chipsHtml = `
+                    <button onclick="setHistoryFilter('ALL')" 
+                        class="px-4 py-1.5 rounded-full text-xs font-semibold border transition-all whitespace-nowrap select-none cursor-pointer ${selectedDormFilter === 'ALL' ? 'bg-apple-blue text-white border-apple-blue shadow-lg shadow-blue-500/25' : 'bg-white/5 border-white/10 text-apple-gray hover:bg-white/10 hover:text-white'}">
+                        Semua
+                    </button>
+                `;
+                
+                chipsHtml += masters.map(dorm => {
+                    const isActive = selectedDormFilter === dorm;
+                    return `
+                        <button onclick="setHistoryFilter('${dorm}')" 
+                            class="px-4 py-1.5 rounded-full text-xs font-semibold border transition-all whitespace-nowrap select-none cursor-pointer ${isActive ? 'bg-apple-blue text-white border-apple-blue shadow-lg shadow-blue-500/25' : 'bg-white/5 border-white/10 text-apple-gray hover:bg-white/10 hover:text-white'}">
+                            ${dorm}
+                        </button>
+                    `;
+                }).join('');
+                
+                filterContainer.innerHTML = chipsHtml;
+            }
+
+            // 2. Filter transactions list
+            const filteredTxs = selectedDormFilter === 'ALL' 
+                ? txs 
+                : txs.filter(tx => tx.code === selectedDormFilter);
+
+            // 3. Render list or empty state
+            if (filteredTxs.length === 0) {
                 tbody.innerHTML = '';
+                if (emptyTextEl) {
+                    emptyTextEl.innerText = selectedDormFilter === 'ALL' 
+                        ? 'Belum ada data transaksi.' 
+                        : `Belum ada histori untuk asrama ${selectedDormFilter}.`;
+                }
                 emptyState.classList.remove('hidden');
                 return;
             }
 
             emptyState.classList.add('hidden');
 
-            tbody.innerHTML = txs.map(tx => {
+            tbody.innerHTML = filteredTxs.map(tx => {
                 const date = new Date(tx.timestamp);
                 const dateStr = date.toLocaleDateString('id-ID', { day: '2-digit', month: 'short', year: 'numeric' });
                 const timeStr = date.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
@@ -1275,6 +2879,11 @@
             }).join('');
         }
 
+        function setHistoryFilter(dormCode) {
+            selectedDormFilter = dormCode;
+            renderHistory();
+        }
+
         function clearHistory() {
             if (confirm("Apakah Anda yakin ingin menghapus seluruh data histori?")) {
                 Storage.clearTx();
@@ -1286,6 +2895,12 @@
         // 8. INITIALIZATION
         // ==========================================
         window.onload = () => {
+            // Check session security
+            checkAuthSession();
+
+            // Load settings configurations
+            loadSettings();
+
             // Initialize Lucide Icons
             lucide.createIcons();
 
